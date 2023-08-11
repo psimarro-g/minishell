@@ -49,3 +49,22 @@ PSEUDOCODIGO
             -Diferenciaria ejecución simple o pipex
             -Llama a pipex si hace falta -> funcion pipex()
             -Single command
+
+<h2 align="center">
+	<b><i>Contributors</i></b><br>
+</h2>
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table align="center">
+  <tbody>
+	<td align="center" valign="top" width="14.28%"><a href="https://github.com/psimarro-g"><img src="https://avatars.githubusercontent.com/u/94054765?v=4" width="100px;" alt="Pablo Simarro"/><br /><sub><b>psimarro-g</b></sub></a><br /></td>
+	<td align="center" valign="top" width="14.28%"><a href="https://github.com/damontoro"><img src="https://avatars.githubusercontent.com/u/57947618?v=4" width="100px;" alt="David Montoro"/><br /><sub><b>damontoro</b></sub></a><br /></td>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
