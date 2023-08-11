@@ -1,0 +1,2 @@
+# minishell
+Writing a shell
