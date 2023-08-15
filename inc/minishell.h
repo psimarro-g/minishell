@@ -23,8 +23,13 @@ typedef struct s_cmdlist
 typedef struct s_mshell
 {
 	t_cmdlist	*cmds;
-	int			pipex;	//un solo comando o pipex
-	int			env; 	//variable de entorno $?
+	int			pipex;			//un solo comando o pipex
+	int			env; 			//variable de entorno $?
+	int			built_in;		//built_in funcion
+	int			input;			// <
+	int			output;			// >
+	int			here_doc;		// <<
+	int			append_output;	// >>
 }	t_mshell;
 
 #endif
