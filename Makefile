@@ -6,7 +6,7 @@
 #    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/16 07:04:39 by dmontoro         ###   ########.fr        #
+#    Updated: 2023/08/16 10:34:14 by dmontoro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ NAME	= minishell
 CC 		= gcc
 
 CFLAGS	= -Wall -Wextra -Werror
-LDFLAGS = Libft/libft.a
+LDFLAGS = libft/libft.a
 LIBS 	= -lreadline
 RM		= rm -f
 
@@ -40,11 +40,12 @@ HEADER	= inc/minishell.h
 
 SRC_DIR				=	src/
 SRC =	main.c		\
-		parser.c
+		parser.c parse_functions.c  parse_env.c parse_utils.c parse_utils2.c\
+		echo.c
 
 OBJ_DIR				=	obj/
 OBJ					= 	$(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
-VPATH 				= 	src/
+VPATH 				= 	src/:src/parser/:src/built_ins/
 
 # **************************************************************************** #
 #                                    RULES                                     #
