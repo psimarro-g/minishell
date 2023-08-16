@@ -62,6 +62,13 @@ typedef struct s_mshell
 
 }	t_mshell;
 
+/* MAIN.C */
+void	rl_replace_line(char *s, int a);
+void	rl_redisplay(void);
+void	rl_on_new_line(void);
+void	ft_add_history(char *read);
+void	ft_read_history(void);
+
 /* BUILT_INS/ECHO.C */
 void			echo(char **args);
 

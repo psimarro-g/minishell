@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 12:54:02 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:54:47 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	executing = 0;
 void	handler(int signo)
 {
 	//Debug
-	printf("Signal %d received\n", signo);
+	//printf("Signal %d received\n", signo);
+	rl_on_new_line();
+	printf("\n");
+	rl_redisplay();
 }
 
 void	change_signals(void)
@@ -60,13 +63,13 @@ int	main (int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	mshell.parse_list[0] = &parse_here_doc;
-	//ini_shell(&mshell, envp);
+	ini_shell(&mshell, envp);
 	fancy_logo();
 	status = 0;
 	while (1)
 	{
 		line = readline(GREEN"minishell $> "RESET);
-		printf("line: %s\n", line);
+		//printf("line: %s\n", line);
 		args = parse_line(line, envp, mshell.parse_list);
 		//status = execute(args);
 		free(line);
