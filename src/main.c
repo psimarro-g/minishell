@@ -6,13 +6,23 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 11:46:22 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/16 12:54:02 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 int	executing = 0;
+
+// const static	int (*parse_list[FUN_SIZE])(struct s_parsemshell *, char *, char *, int *) = {
+// 	&parse_env,
+// 	&parse_command,
+// 	&parse_input,
+// 	&parse_output,
+// 	&parse_append_output,
+// 	&parse_here_doc
+// };
+
 
 void	handler(int signo)
 {
@@ -42,14 +52,14 @@ void	ini_shell(t_mshell *mshell, char **envp)
 
 int	main (int argc, char **argv, char **envp)
 {
-	//t_mshell		mshell;
+	t_mshell		mshell;
 	t_parsemshell	args;
 	char			*line;
 	int				status;
 
 	(void) argc;
 	(void) argv;
-	args.parse_list[0] = &parse_command;
+	mshell.parse_list[0] = &parse_here_doc;
 	//ini_shell(&mshell, envp);
 	fancy_logo();
 	status = 0;
@@ -57,7 +67,7 @@ int	main (int argc, char **argv, char **envp)
 	{
 		line = readline(GREEN"minishell $> "RESET);
 		printf("line: %s\n", line);
-		args = parse_line(line, envp);
+		args = parse_line(line, envp, mshell.parse_list);
 		//status = execute(args);
 		free(line);
 		//free(args);
