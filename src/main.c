@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 12:00:03 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/16 12:08:43 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ int	main (int argc, char **argv, char **envp)
 	status = 0;
 	while (1)
 	{
-		//line = readline(GREEN"minishell $> "RESET);
-		line = "echo hola cosas";
+		line = readline(GREEN"minishell $> "RESET);
 		printf("line: %s\n", line);
 		args = parse_line(line, envp, mshell.parse_list);
 		//status = execute(args);

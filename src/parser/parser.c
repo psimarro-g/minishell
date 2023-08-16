@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 11:59:29 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/16 12:08:08 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void process_token(char *line, t_parsemshell *args, int *i);
 
-t_parsemshell	parse_line(char *line, char **envp, int (*parse_list)(t_parsemshell *, char *, char *, int *))
+t_parsemshell	parse_line(char *line, char **envp, int (*parse_list[FUN_SIZE])(t_parsemshell *, char *, char *, int *))
 {
 	int				i; //indice de donde estamos en line
 	t_parsemshell	args;
@@ -22,7 +22,7 @@ t_parsemshell	parse_line(char *line, char **envp, int (*parse_list)(t_parsemshel
 	i = 0;
 	ft_bzero(&args, sizeof(t_parsemshell));
 	args.envp = envp;
-	args.parse_list = &parse_list;
+	args.parse_list = parse_list;
 	while(line[i])
 	{
 		while(ft_isspace(line[i]))
