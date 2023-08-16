@@ -6,7 +6,7 @@
 #    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/16 10:34:14 by dmontoro         ###   ########.fr        #
+#    Updated: 2023/08/16 12:02:01 by dmontoro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ HEADER	= inc/minishell.h
 # **************************************************************************** #
 
 SRC_DIR				=	src/
-SRC =	main.c		\
+SRC =	main.c	fancy_logo.c\
 		parser.c parse_functions.c  parse_env.c parse_utils.c parse_utils2.c\
 		echo.c
 
