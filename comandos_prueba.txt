@@ -1,0 +1,12 @@
+a args| b | c | d > outfile < infile
+
+a arg1 arg2 > outfile < infile
+
+
+Orden de cosas, primero siempre heredoc
+
+luego comprueba si el comando del heredoc existe
+
+
+
+$aaaa $aaaa
