@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 12:47:05 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/16 13:35:19 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main (int argc, char **argv, char **envp)
 	status = 0;
 	while (1)
 	{
+		
 		line = readline(GREEN"minishell $> "RESET);
 		printf("line: %s\n", line);
 		args = parse_line(line, envp, mshell.parse_list);
