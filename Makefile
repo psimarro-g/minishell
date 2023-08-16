@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
+#    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/16 11:39:26 by dmontoro         ###   ########.fr        #
+#    Updated: 2023/08/16 12:48:46 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ NAME	= minishell
 
 CC 		= gcc
 
-CFLAGS	= -Wall -Wextra -Werror -g3
+CFLAGS	= #-Wall -Wextra -Werror -g3
 LDFLAGS = libft/libft.a
 LIBS 	= -lreadline
 RM		= rm -f
@@ -41,6 +41,7 @@ HEADER	= inc/minishell.h
 SRC_DIR				=	src/
 SRC =	main.c		\
 		parser.c parse_functions.c  parse_env.c parse_utils.c parse_utils2.c\
+		parse_here_doc.c \
 		echo.c
 
 OBJ_DIR				=	obj/

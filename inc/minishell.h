@@ -71,7 +71,7 @@ char			**expand_args(char **args, char **envp);
 int				parse_command(t_parsemshell *args, char *token, char *line, int *i);
 char			**split_args(char const *s, char c);
 
-int				parse_here_doc(t_parsemshell args, char *token, char *line, int *i);
+int				parse_here_doc(t_parsemshell *args, char *token, char *line, int *i);
 
 int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s, char c);
