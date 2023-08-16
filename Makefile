@@ -6,7 +6,7 @@
 #    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/16 14:10:41 by psimarro         ###   ########.fr        #
+#    Updated: 2023/08/16 14:55:07 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC 		= gcc
 
 CFLAGS	= #-Wall -Wextra -Werror -g3
 LDFLAGS = libft/libft.a
-LIBS 	= -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
+LIBS 	= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 RM		= rm -f
 
 # **************************************************************************** #
@@ -52,7 +52,7 @@ VPATH 				= 	src/:src/parser/:src/built_ins/
 #                                    RULES                                     #
 # **************************************************************************** #
 
-all: $(NAME)
+all: libft $(NAME)
 
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ 
@@ -62,20 +62,20 @@ $(OBJ): | $(OBJ_DIR)
 $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
-$(NAME): libft $(OBJ)
+$(NAME): $(OBJ)
 	$(CC) -o $(NAME) $(LIBS) $(OBJ) $(LDFLAGS)
 	@echo "\n\033[32mCompiled! ᕦ(\033[31m♥\033[32m_\033[31m♥\033[32m)ᕤ\n"
 
 libft:
-	@$(MAKE) -C Libft
+	@$(MAKE) -C libft
 
 clean:
 	@$(RM) -rf $(OBJ_DIR)
-	@$(MAKE) -C Libft clean
+	@$(MAKE) -C libft clean
 
 fclean:				clean
 	@$(RM) $(NAME)
-	@$(MAKE) -C Libft fclean
+	@$(MAKE) -C libft fclean
 	@echo "\n\033[31mDeleting EVERYTHING! ⌐(ಠ۾ಠ)¬\033[37m\n"
 
 re:			fclean all
