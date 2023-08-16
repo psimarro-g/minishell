@@ -60,18 +60,26 @@ typedef struct s_mshell
 
 }	t_mshell;
 
+/* BUILT_INS/ECHO.C */
 void			echo(char **args);
 
+/* FANCY_LOGO.C */
+void			fancy_logo(void);
+
+/* PARSER/PARSER.C */
 t_parsemshell	parse_line(char *line, char **envp);
 char			*get_token(const char *line, int *i);
-int				parse_env(t_parsemshell *args, char *token, char *line, int *i);
-char			**expand_args(char **args, char **envp);
-int				parse_command(t_parsemshell *args, char *token, char *line, int *i);
-char			**split_args(char const *s, char c);
 
+/* PARSER/PARSE_ENV.C */
+char			**expand_args(char **args, char **envp);
+
+/* PARSER/PARSE_HEREDOC.C */
 int				parse_here_doc(t_parsemshell args, char *token, char *line, int *i);
 
 int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s, char c);
+int				parse_env(t_parsemshell *args, char *token, char *line, int *i);
+int				parse_command(t_parsemshell *args, char *token, char *line, int *i);
+char			**split_args(char const *s, char c);
 
 #endif
