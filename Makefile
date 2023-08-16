@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/15 10:41:31 by psimarro         ###   ########.fr        #
+#    Updated: 2023/08/16 07:04:39 by dmontoro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ CC 		= gcc
 
 CFLAGS	= -Wall -Wextra -Werror
 LDFLAGS = Libft/libft.a
-
+LIBS 	= -lreadline
 RM		= rm -f
 
 # **************************************************************************** #
@@ -40,6 +40,7 @@ HEADER	= inc/minishell.h
 
 SRC_DIR				=	src/
 SRC =	main.c		\
+		parser.c
 
 OBJ_DIR				=	obj/
 OBJ					= 	$(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
@@ -60,7 +61,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME): libft $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS)
+	$(CC) -o $(NAME) $(LIBS) $(OBJ) $(LDFLAGS)
 	@echo "\n\033[32mCompiled! ᕦ(\033[31m♥\033[32m_\033[31m♥\033[32m)ᕤ\n"
 
 libft:
