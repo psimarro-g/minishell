@@ -12,7 +12,7 @@
 
 #include "../../inc/minishell.h"
 
-int is_token(char *s, int i)
+int is_token(const char *s, int i)
 {
 	if (s[i] == '<' || s[i] == '>' || s[i] == '|' || \
 			ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<", 2) == 0)
@@ -78,7 +78,7 @@ int	count_words(char const *s)
 			++i;
 		}
 		jump_spaces(s, &i, &found);
-		if (s[i] && is_token((char *)s, i))
+		if (s[i] && is_token(s, i))
 			return (count);
 	}
 	return (count);

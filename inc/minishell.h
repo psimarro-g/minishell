@@ -38,6 +38,10 @@
 
 # define FUN_SIZE			6
 
+# ifndef PATH_MAX
+#  define PATH_MAX			4096
+# endif
+
 typedef struct s_mshell
 {
 	t_cmdlist	*cmds;
@@ -49,7 +53,7 @@ typedef struct s_mshell
 }	t_mshell;
 
 /* MAIN.C */
-#ifdef __linux__
+#ifdef _WIN32
 void			rl_replace_line(char *s, int a);
 void			rl_redisplay(void);
 int				rl_on_new_line(void);
@@ -84,7 +88,7 @@ int				parse_here_doc(t_mshell *args, char *token, char *line, int *i);
 /* PARSER/PARSE_UTILS2.C */
 int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s);
-int				is_token(char *s, int i);
+int				is_token(const char *s, int i);
 void			ft_error(char *s, t_mshell *mshell, int exit_code);
 
 /* PARSER/PARSE_UTILS.C*/
