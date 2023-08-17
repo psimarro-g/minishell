@@ -6,12 +6,15 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:36:00 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:21:02 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:32:04 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MS_LST_H
 # define MS_LST_H
+
+# include <stdlib.h>
+# include <unistd.h>
 
 typedef struct s_cmdlist
 {
@@ -27,7 +30,7 @@ typedef struct s_cmdlist
 
 void		ms_lstadd_back(t_cmdlist **lst, t_cmdlist *new);
 t_cmdlist	*ms_lstlast(t_cmdlist *lst);
-
+t_cmdlist	*ms_lstnew(char *cmd, char *path, char **args);
 
 
 # endif
