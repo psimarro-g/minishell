@@ -14,9 +14,10 @@
 
 int is_token(const char *s, int i)
 {
-	if (s[i] == '<' || s[i] == '>' || s[i] == '|' || \
-			ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<", 2) == 0)
+	if (s[i] == '<' || s[i] == '>' || s[i] == '|')
 		return (1);
+	else if (ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<", 2) == 0)
+		return (2);
 	return (0);
 }
 

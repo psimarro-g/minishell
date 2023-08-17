@@ -18,7 +18,7 @@ static void	parent_process_hd(int fd[2], t_mshell *args)
 
 	last = ms_lstlast(args->cmds);
 	close(fd[1]);
-	dup2(fd[0], last->input);
+	last->input = fd[0];
 	wait(NULL);
 }
 
@@ -58,21 +58,21 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 	j = 0;
 	if (ft_strncmp(token, "<<", 2))
 		return (-1);
-	*i += 2;
 	while (ft_isspace(line[*i]))
 		(*i)++;
 	while (!ft_isspace(line[*i + j]) && !is_token(line, *i + j) && line[*i + j] != '\0')
 		j++;
-	eof = ft_substr(line, *i, j + 1);
-	*i += j;
-	printf("eof: %s\n", eof);
-	if (is_token(eof, 0))
+	if (is_token(line, *i))
 	{
+		eof = ft_substr(line, *i, is_token(line, *i));
 		printf("minishell: syntax error near unexpected token `%s'\n", eof);
 		ft_error(NULL, args, 1);
 		free(eof);
 		return (0);
 	}
+	eof = ft_substr(line, *i, j);
+	printf("eof: .%s.\n", eof);
 	pipe_heredoc(args, eof);
+	*i += j;
 	return (0);
 }
