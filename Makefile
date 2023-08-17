@@ -25,6 +25,7 @@ CC 		= gcc
 CFLAGS	= -g3 -O0 #-Wall -Wextra -Werror -g3
 LDFLAGS = libft/libft.a
 LIBS 	= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
+LIBS_LINUX = -lreadline -L /usr/include/readline -I /usr/include/readline
 RM		= rm -f
 
 # **************************************************************************** #
@@ -55,6 +56,10 @@ VPATH 				= 	src/:src/parser/:src/built_ins/:src/lst_utils
 
 all: libft $(NAME)
 
+linux : libft $(OBJ)
+	$(CC) -o $(NAME) $(OBJ) $(LDFLAGS) $(LIBS_LINUX)  
+	@echo "\n\033[32mCompiled! ᕦ(\033[31m♥\033[32m_\033[31m♥\033[32m)ᕤ\n"
+
 $(OBJ_DIR)%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@ 
 
@@ -64,7 +69,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(LIBS) $(OBJ) $(LDFLAGS)
+	$(CC) -o $(NAME) $(OBJ) $(LIBS) $(LDFLAGS)
 	@echo "\n\033[32mCompiled! ᕦ(\033[31m♥\033[32m_\033[31m♥\033[32m)ᕤ\n"
 
 libft:

@@ -49,12 +49,13 @@ typedef struct s_mshell
 }	t_mshell;
 
 /* MAIN.C */
-int				rl_replace_line(char *s, int a);
+#ifdef __linux__
+void			rl_replace_line(char *s, int a);
 void			rl_redisplay(void);
 int				rl_on_new_line(void);
 void			ft_add_history(char *read);
 void			ft_read_history(void);
-
+#endif
 /* INIT_FUNCTIONS.C*/
 void	handler(int signo);
 void	change_signals(void);
