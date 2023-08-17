@@ -10,3 +10,4 @@ libft/obj
 *.a
 .vscode
 minishell
+*.txt
