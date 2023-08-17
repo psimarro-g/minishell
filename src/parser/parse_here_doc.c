@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:13:10 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 11:18:20 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 
 	if (ft_strncmp(token, "<<", 2))
 		return (-1);
+
+	args->exit_status = 1;
 	return (0);
 		
 	//hacer el parseo
