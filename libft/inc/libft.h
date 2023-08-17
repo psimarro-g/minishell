@@ -18,6 +18,10 @@
 # include <stdarg.h>
 # include <unistd.h>
 
+# ifndef OPEN_MAX
+#  define OPEN_MAX 1024
+# endif
+
 # define BUFFER_SIZE 100
 # define FSPECS		"%cdisxXpu"
 # define STD_OUT	1
