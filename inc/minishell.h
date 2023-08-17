@@ -80,15 +80,20 @@ t_parsemshell	parse_line(char *line, char **envp, int (*parse_list[FUN_SIZE])(t_
 char			*get_token(const char *line, int *i);
 
 /* PARSER/PARSE_ENV.C */
-char			**expand_args(char **args, char **envp);
+char			*expand_var(char *var, char **envp);
+int				parse_env(t_parsemshell *args, char *token, char *line, int *i);
+
 
 /* PARSER/PARSE_HEREDOC.C */
 int				parse_here_doc(t_parsemshell *args, char *token, char *line, int *i);
 
+/* PARSER/PARSE_UTILS2.C */
 int				check_comillas(char c, const char *s, int i);
-int				count_words(char const *s, char c);
-int				parse_env(t_parsemshell *args, char *token, char *line, int *i);
+int				count_words(char const *s);
+
+/* PARSER/PARSE_UTILS.C*/
+char			**split_and_expand(char const *s, int *i, char **envp);
 int				parse_command(t_parsemshell *args, char *token, char *line, int *i);
-char			**split_args(char const *s, char c);
+char			**split_args(char const *s);
 
 #endif

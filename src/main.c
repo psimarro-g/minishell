@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 14:00:02 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/17 08:23:25 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,16 @@ int	main (int argc, char **argv, char **envp)
 	(void) argc;
 	(void) argv;
 	mshell.parse_list[0] = &parse_here_doc;
+	mshell.parse_list[1] = &parse_env;
+	mshell.parse_list[2] = &parse_command;
 	ini_shell(&mshell, envp);
 	fancy_logo();
 	status = 0;
 	while (1)
 	{
-		
 		line = readline(GREEN"minishell $> "RESET);
+		if (!line) //esto es para poder salir facilmente con ctrl + D
+			exit(0);
 		//printf("line: %s\n", line);
 		args = parse_line(line, envp, mshell.parse_list);
 		//status = execute(args);

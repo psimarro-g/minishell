@@ -6,11 +6,22 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:46:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 11:04:38 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 08:24:33 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+
+int	parse_env(t_parsemshell *args, char *token, char *line, int *i)
+{
+	if (token[0] != '$')
+		return (-1);
+	(void) args;
+	(void) line;
+	(void) i;
+	return (0);
+}
 
 //Var has already the = at the end
 char	*ft_getenv(char **envp, char* var)
@@ -42,23 +53,4 @@ char	*expand_var(char *var, char **envp)
 	free(var_name);
 	free(var_equals);
 	return (translation);
-}
-
-char	**expand_args(char **args, char **envp)
-{
-	int		i;
-	char	*translation;
-
-	i = 0;
-	while (args[i] != NULL)
-	{
-		if (args[i][0] == '$')
-		{
-			translation = expand_var(args[i], envp);
-			free(args[i]);
-			args[i] = translation;
-		}
-		i++;
-	}
-	return (args);
 }

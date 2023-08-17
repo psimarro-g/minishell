@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 10:31:39 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 07:57:37 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,14 @@ static void	jump_quotes(char const *s, int *i, int *count)
 	}
 }
 
-int	count_words(char const *s, char c)
+void	jump_spaces(char const *s, int *i, int *found)
+{
+	while (s[*i] && ft_isspace(s[*i]))
+		(*i)++;
+	*found = 0;
+}
+
+int	count_words(char const *s)
 {
 	int	count;
 	int	found;
@@ -56,17 +63,16 @@ int	count_words(char const *s, char c)
 	while (s[i])
 	{
 		jump_quotes(s, &i, &count);
-		while (s[i] != c && s[i])
+		while (s[i] && !ft_isspace(s[i]))
 		{
-			if (!found)
-			{
-				count++;
-				found = 1;
-			}
+			count += !found;
+			found = 1;
 			++i;
 		}
-		while (s[i] == c && s[i++])
-			found = 0;
+		jump_spaces(s, &i, &found);
+		if (s[i] && (s[i] == '<' || s[i] == '>' || s[i] == '|' || \
+			ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<", 2) == 0))
+			return (count);
 	}
 	return (count);
 }
