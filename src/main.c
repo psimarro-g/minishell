@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 10:23:16 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:53:30 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int	main (int argc, char **argv, char **envp)
 			exit(0);
 		//printf("line: %s\n", line);
 		parse_line(line, &mshell);
+		if(mshell.exit_status == 0)
 		//status = execute(args);
 		show_cmds(mshell.cmds);
 		free(line);

@@ -6,15 +6,15 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:36:14 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:38:48 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/17 11:00:25 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-static void	blue(void)
+static void	green(void)
 {
-	printf("\033[0;34m");
+	printf("\x1b[32m");
 }
 
 static void	reset(void)
@@ -24,7 +24,7 @@ static void	reset(void)
 
 void	fancy_logo(void)
 {
-	blue();
+	green();
 	printf("   __  __   _____   _   _   _____    _____"
 		"   _    _   ______   _        _\n"
 		"  |  \\/  | |_   _| | \\ | | |_   _|  / ____| "
