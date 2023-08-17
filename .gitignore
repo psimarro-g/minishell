@@ -7,3 +7,6 @@ libft/obj
 
 # Ignora todos los archivos de texto
 *.o
+*.a
+.vscode
+minishell
