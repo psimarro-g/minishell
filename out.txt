@@ -1,0 +1,19 @@
+#    Makefile                                           :+:      :+:    :+:    #
+#    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
+#    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
+#    Updated: 2023/08/17 08:53:16 by psimarro         ###   ########.fr        #
+CFLAGS	= -g3 -O0 #-Wall -Wextra -Werror -g3
+LDFLAGS = libft/libft.a
+LIBS 	= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
+SRC =	main.c	fancy_logo.c\
+		parser.c parse_functions.c  parse_env.c parse_utils.c parse_utils2.c\
+		parse_here_doc.c \
+OBJ					= 	$(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
+VPATH 				= 	src/:src/parser/:src/built_ins/
+all: libft $(NAME)
+clean:
+	@$(MAKE) -C libft clean
+fclean:				clean
+	@$(MAKE) -C libft fclean
+re:			fclean all
+.PHONY:		all libft clean fclean re bonus

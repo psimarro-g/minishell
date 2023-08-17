@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fancy_logo.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 11:36:14 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/16 12:02:30 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:38:48 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <stdio.h>
+#include <stdio.h>
 
 static void	blue(void)
 {

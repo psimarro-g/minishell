@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:17:33 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:43:48 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int	main (int argc, char **argv, char **envp)
 	mshell.parse_list[0] = &parse_here_doc;
 	mshell.parse_list[1] = &parse_env;
 	mshell.parse_list[2] = &parse_command;
+	mshell.parse_list[3] = &parse_here_doc;
 	ini_shell(&mshell, envp);
 	fancy_logo();
 	status = 0;

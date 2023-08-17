@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 07:57:37 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:16:32 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+int is_token(char *s, int i)
+{
+	if (s[i] == '<' || s[i] == '>' || s[i] == '|' || \
+			ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<", 2) == 0)
+		return (1);
+	return (0);
+}
 
 int	check_comillas(char c, const char *s, int i)
 {
@@ -70,8 +78,7 @@ int	count_words(char const *s)
 			++i;
 		}
 		jump_spaces(s, &i, &found);
-		if (s[i] && (s[i] == '<' || s[i] == '>' || s[i] == '|' || \
-			ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<", 2) == 0))
+		if (s[i] && is_token(s, i))
 			return (count);
 	}
 	return (count);

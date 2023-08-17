@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
+/*   Updated: 2023/08/17 10:17:34 by psimarro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -34,16 +46,14 @@ typedef struct s_mshell
 	int			num_commands;	//un solo comando o pipex
 	int			exit_status;
 	int (*parse_list[FUN_SIZE])(struct s_mshell *, char *, char *, int *);
-
-
 }	t_mshell;
 
 /* MAIN.C */
-int		rl_replace_line(char *s, int a);
-void	rl_redisplay(void);
-int		rl_on_new_line(void);
-void	ft_add_history(char *read);
-void	ft_read_history(void);
+int				rl_replace_line(char *s, int a);
+void			rl_redisplay(void);
+int				rl_on_new_line(void);
+void			ft_add_history(char *read);
+void			ft_read_history(void);
 
 /* BUILT_INS/ECHO.C */
 void			echo(char **args);
@@ -66,6 +76,7 @@ int				parse_here_doc(t_mshell *args, char *token, char *line, int *i);
 /* PARSER/PARSE_UTILS2.C */
 int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s);
+int				is_token(char *s, int i);
 
 /* PARSER/PARSE_UTILS.C*/
 char			**split_and_expand(char const *s, int *i, char **envp);
