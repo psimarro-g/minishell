@@ -11,6 +11,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include "../libft/inc/libft.h"
+# include "ms_lst.h"
 
 # define RESET				"\x1b[0m"
 # define WHITE				"\x1b[1m"
@@ -25,39 +26,14 @@
 
 # define FUN_SIZE			6
 
-typedef struct s_cmdlist
-{
-	struct s_cmdlist    *next;
-	struct s_cmdlist	*pre;
-	char                *cmd;
-	char				*path;
-    char                **flags; //args y flags? realmente las flags son args no?
-    char                **args;
-}	t_cmdlist;
-
-//Se podria optimizar usando un int para cada tipo de token y así guardar todas las flags en un entero
-typedef struct s_parsemshell
+typedef struct s_mshell
 {
 	t_cmdlist	*cmds;
 	char		**envp;
-	int			num_commands;	//un solo comando o pipex
-	int			env; 			//variable de entorno $?
-	int			built_in;		//built_in funcion
-	int			input;			// <
-	int			output;			// >
-	int			here_doc;		// <<
-	int			append_output;	// >>
-	int (**parse_list)(struct s_parsemshell *, char *, char *, int *);
-
-
-}	t_parsemshell;
-
-typedef struct s_mshell
-{
-	char		**envp;
 	char		*cwd;
+	int			num_commands;	//un solo comando o pipex
 	int			exit_status;
-	int (*parse_list[FUN_SIZE])(struct s_parsemshell *, char *, char *, int *);
+	int (*parse_list[FUN_SIZE])(struct s_mshell *, char *, char *, int *);
 
 
 }	t_mshell;
@@ -76,16 +52,16 @@ void			echo(char **args);
 void			fancy_logo(void);
 
 /* PARSER/PARSER.C */
-t_parsemshell	parse_line(char *line, char **envp, int (*parse_list[FUN_SIZE])(t_parsemshell *, char *, char *, int *));
+void			parse_line(char *line, t_mshell *mshell);
 char			*get_token(const char *line, int *i);
 
 /* PARSER/PARSE_ENV.C */
 char			*expand_var(char *var, char **envp);
-int				parse_env(t_parsemshell *args, char *token, char *line, int *i);
+int				parse_env(t_mshell *args, char *token, char *line, int *i);
 
 
 /* PARSER/PARSE_HEREDOC.C */
-int				parse_here_doc(t_parsemshell *args, char *token, char *line, int *i);
+int				parse_here_doc(t_mshell *args, char *token, char *line, int *i);
 
 /* PARSER/PARSE_UTILS2.C */
 int				check_comillas(char c, const char *s, int i);
@@ -93,7 +69,7 @@ int				count_words(char const *s);
 
 /* PARSER/PARSE_UTILS.C*/
 char			**split_and_expand(char const *s, int *i, char **envp);
-int				parse_command(t_parsemshell *args, char *token, char *line, int *i);
+int				parse_command(t_mshell *args, char *token, char *line, int *i);
 char			**split_args(char const *s);
 
 #endif

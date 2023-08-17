@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 14:13:19 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:13:10 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	parent_process_hd(int fd[2])
 }
 
 
-int	parse_here_doc(t_parsemshell *args, char *token, char *line, int *i)
+int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 {
 	// pid_t	id;
 	// int		fd[2];

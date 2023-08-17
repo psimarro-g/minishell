@@ -6,14 +6,14 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:46:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 08:24:33 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:13:10 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 
-int	parse_env(t_parsemshell *args, char *token, char *line, int *i)
+int	parse_env(t_mshell *args, char *token, char *line, int *i)
 {
 	if (token[0] != '$')
 		return (-1);

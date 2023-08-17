@@ -6,30 +6,25 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/16 12:08:08 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:18:06 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void process_token(char *line, t_parsemshell *args, int *i);
+void process_token(char *line, t_mshell *args, int *i);
 
-t_parsemshell	parse_line(char *line, char **envp, int (*parse_list[FUN_SIZE])(t_parsemshell *, char *, char *, int *))
+void	parse_line(char *line, t_mshell *mshell)
 {
 	int				i; //indice de donde estamos en line
-	t_parsemshell	args;
 	
 	i = 0;
-	ft_bzero(&args, sizeof(t_parsemshell));
-	args.envp = envp;
-	args.parse_list = parse_list;
 	while(line[i])
 	{
 		while(ft_isspace(line[i]))
 			i++;
-		process_token(line, &args, &i);
+		process_token(line, mshell, &i);
 	}
-	return (args);
 }
 
 char	*get_token(const char *line, int *i)
@@ -50,7 +45,7 @@ char	*get_token(const char *line, int *i)
 	return (ft_substr(line, start, end - start));
 }
 
-void add_token(t_parsemshell *args, char *token, char *line, int *i)
+void add_token(t_mshell *args, char *token, char *line, int *i)
 {
 	int	code;
 	int	j;
@@ -64,7 +59,7 @@ void add_token(t_parsemshell *args, char *token, char *line, int *i)
 	}
 }
 
-void	process_token(char *line, t_parsemshell *args, int *i)
+void	process_token(char *line, t_mshell *args, int *i)
 {
 	char	*token;
 

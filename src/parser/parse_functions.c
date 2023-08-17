@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 08:23:16 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:15:36 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,19 @@
 
 static char	*find_path(char **envp, char *command);
 
-
-int	parse_command(t_parsemshell *args, char *token, char *line, int *i)
+//Cambiar
+int	parse_command(t_mshell *args, char *token, char *line, int *i)
 {
 	t_cmdlist	*new;
 	char		*aux;
 
-	if (ft_strncmp(token, "|", 1) == 0)
-	{
-		(*i)++;
-		return (1);
-	}
 	if (ft_strncmp(token, "./", 2) == 0)
 		token = ft_substr(token, 2, ft_strlen(token) - 2);
 	new = malloc(sizeof(t_cmdlist));
 	new->cmd = token;
 	aux = ft_strjoin("/", token);
-	//Poner que si path es null, de error 
 	new->path = find_path(args->envp, aux);
 	new->args = split_and_expand(line + (*i) - ft_strlen(token), i, args->envp);
-	
 	printf("cmd: %s\n", new->cmd);
 	printf("path: %s\n", new->path);
 	printf("args: ");
@@ -46,7 +39,7 @@ int	parse_command(t_parsemshell *args, char *token, char *line, int *i)
 	printf("\n");
 
 	//Añadir a la lista de comandos
-	//ft_lstadd_back(&args.cmds, ft_lstnew(new));
+	ms_lstadd_back(&args->cmds, new);
 	return (0);
 }
 

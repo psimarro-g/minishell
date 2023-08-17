@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 08:23:25 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:17:33 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ void	ini_shell(t_mshell *mshell, char **envp)
 int	main (int argc, char **argv, char **envp)
 {
 	t_mshell		mshell;
-	t_parsemshell	args;
 	char			*line;
 	int				status;
 
@@ -74,7 +73,7 @@ int	main (int argc, char **argv, char **envp)
 		if (!line) //esto es para poder salir facilmente con ctrl + D
 			exit(0);
 		//printf("line: %s\n", line);
-		args = parse_line(line, envp, mshell.parse_list);
+		parse_line(line, &mshell);
 		//status = execute(args);
 		free(line);
 		//free(args);
