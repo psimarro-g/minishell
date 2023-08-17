@@ -6,11 +6,19 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 10:40:17 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:46:18 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	ft_error(char *s, t_mshell *mshell, int exit_code)
+{
+	if (mshell)
+		mshell->exit_status = exit_code;
+	if (s)
+		ft_putstr_fd(s, 1);
+}
 
 static int	word_size(const char *s)
 {

@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/17 10:17:34 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/17 12:43:42 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ int				parse_here_doc(t_mshell *args, char *token, char *line, int *i);
 int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s);
 int				is_token(char *s, int i);
+void			ft_error(char *s, t_mshell *mshell, int exit_code);
 
 /* PARSER/PARSE_UTILS.C*/
 char			**split_and_expand(char const *s, int *i, char **envp);

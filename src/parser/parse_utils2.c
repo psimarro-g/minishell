@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 10:16:32 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/17 13:42:03 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	count_words(char const *s)
 			++i;
 		}
 		jump_spaces(s, &i, &found);
-		if (s[i] && is_token(s, i))
+		if (s[i] && is_token((char *)s, i))
 			return (count);
 	}
 	return (count);
