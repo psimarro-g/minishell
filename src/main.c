@@ -35,6 +35,8 @@ void	show_cmds(t_cmdlist *cmds)
 	t_cmdlist	*act;
 	int			i;
 
+	if (!cmds->cmd)
+		return ;
 	act = cmds;
 	while (act)
 	{
@@ -60,9 +62,6 @@ int	main (int argc, char **argv, char **envp)
 
 	(void) argc;
 	(void) argv;
-	mshell.parse_list[0] = &parse_here_doc;
-	mshell.parse_list[1] = &parse_env;
-	mshell.parse_list[2] = &parse_command;
 	ini_shell(&mshell, envp);
 	fancy_logo();
 	show_ini_data(&mshell);

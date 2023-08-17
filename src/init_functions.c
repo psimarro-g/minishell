@@ -45,9 +45,14 @@ char	*ft_getcwd()
 
 void	ini_shell(t_mshell *mshell, char **envp)
 {
+	ft_bzero(mshell, sizeof(t_mshell));
 	mshell->envp = envp;
 	mshell->cwd = ft_getcwd();
 	mshell->exit_status = 0;
 	mshell->cmds = ms_lstnew(NULL, NULL, NULL);
+	mshell->parse_list[0] = &parse_here_doc;
+	mshell->parse_list[1] = &parse_env;
+	mshell->parse_list[2] = &parse_pipe;
+	mshell->parse_list[3] = &parse_command;
 	change_signals();
 }
