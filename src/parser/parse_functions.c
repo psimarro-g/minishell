@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:15:36 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:59:40 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,18 @@ static char	*find_path(char **envp, char *command);
 //Cambiar
 int	parse_command(t_mshell *args, char *token, char *line, int *i)
 {
-	t_cmdlist	*new;
+	t_cmdlist	*act;
 	char		*aux;
 
 	if (ft_strncmp(token, "./", 2) == 0)
 		token = ft_substr(token, 2, ft_strlen(token) - 2);
-	new = malloc(sizeof(t_cmdlist));
-	new->cmd = token;
+	act = ms_lstlast(args->cmds);
+	act->cmd = ft_strdup(token);
 	aux = ft_strjoin("/", token);
-	new->path = find_path(args->envp, aux);
-	new->args = split_and_expand(line + (*i) - ft_strlen(token), i, args->envp);
-	printf("cmd: %s\n", new->cmd);
-	printf("path: %s\n", new->path);
-	printf("args: ");
-	int j = 0;
-	while (new->args[j] != NULL)
-	{
-		printf("%s ", new->args[j]);
-		j++;
-	}
-	printf("\n");
-
-	//Añadir a la lista de comandos
-	ms_lstadd_back(&args->cmds, new);
+	act->path = find_path(args->envp, aux);
+	act->args = split_and_expand(line + (*i) - ft_strlen(token), i, args->envp);
+	(*i) -= ft_strlen(token);
+	
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:43:48 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/17 10:23:16 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,30 @@ void	ini_shell(t_mshell *mshell, char **envp)
 	//Tenemos que saber la longuitud del dir para llamar a getcwd, pero no podemos mirarlo bien, habrá que hacer chapuza
 	//mshell->cwd = getcwd();
 	mshell->exit_status = 0;
+	mshell->cmds = ms_lstnew(NULL, NULL, NULL);
 	change_signals();
+}
+
+void	show_cmds(t_cmdlist *cmds)
+{
+	t_cmdlist	*act;
+	int			i;
+
+	act = cmds;
+	while (act)
+	{
+		printf("cmd: %s ", act->cmd);
+		printf("path: %s ", act->path);
+		printf("args: ");
+		i = 0;
+		while (act->args[i] != NULL)
+		{
+			printf("%s ", act->args[i]);
+			i++;
+		}
+		printf("\n");
+		act = act->next;
+	}
 }
 
 int	main (int argc, char **argv, char **envp)
@@ -64,7 +87,6 @@ int	main (int argc, char **argv, char **envp)
 	mshell.parse_list[0] = &parse_here_doc;
 	mshell.parse_list[1] = &parse_env;
 	mshell.parse_list[2] = &parse_command;
-	mshell.parse_list[3] = &parse_here_doc;
 	ini_shell(&mshell, envp);
 	fancy_logo();
 	status = 0;
@@ -76,6 +98,7 @@ int	main (int argc, char **argv, char **envp)
 		//printf("line: %s\n", line);
 		parse_line(line, &mshell);
 		//status = execute(args);
+		show_cmds(mshell.cmds);
 		free(line);
 		//free(args);
 	}
