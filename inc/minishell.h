@@ -59,6 +59,8 @@ char			*get_token(const char *line, int *i);
 char			*expand_var(char *var, char **envp);
 int				parse_env(t_mshell *args, char *token, char *line, int *i);
 
+/* PARSER/PARSE_PIPE.C*/
+int				parse_pipe(t_mshell *args, char *token, char *line, int *i);
 
 /* PARSER/PARSE_HEREDOC.C */
 int				parse_here_doc(t_mshell *args, char *token, char *line, int *i);

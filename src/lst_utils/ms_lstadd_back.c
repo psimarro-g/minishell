@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:35:01 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:20:13 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/17 09:41:52 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	ms_lstadd_back(t_cmdlist **lst, t_cmdlist *new)
 	{
 		last = ms_lstlast(*lst);
 		last->next = new;
+		new->pre = last;
 	}
 }
