@@ -55,6 +55,11 @@ int				rl_on_new_line(void);
 void			ft_add_history(char *read);
 void			ft_read_history(void);
 
+/* INIT_FUNCTIONS.C*/
+void	handler(int signo);
+void	change_signals(void);
+void	ini_shell(t_mshell *mshell, char **envp);
+
 /* BUILT_INS/ECHO.C */
 void			echo(char **args);
 
