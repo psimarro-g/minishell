@@ -6,14 +6,14 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 11:39:02 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/22 12:37:45 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
 
-void	handler(int signo)
+static void	interrupt_handler(int signo)
 {
 	//Debug
 	//printf("Signal %d received\n", signo);
@@ -22,15 +22,12 @@ void	handler(int signo)
 	rl_redisplay();
 }
 
+//Queremos que reciba el handler porque cuando no hay nada en ejecución minishell tiene que printear
+//Pero cuando haces sigquit minishell nunca tiene que hacer nada.
 void	change_signals(void)
 {
-	struct sigaction	sig;
-
-	sig.sa_handler = &handler;
-	sig.sa_flags = SA_RESTART;
-	sigfillset(&sig.sa_mask);
-	
-	sigaction(SIGINT, &sig, NULL);
+	signal(SIGINT, &interrupt_handler);
+	signal(SIGQUIT, SIG_IGN);
 }
 
 char	*ft_getcwd()
