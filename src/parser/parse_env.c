@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:46:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:13:10 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:33:40 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ char	*expand_var(char *var, char **envp)
 	var_name = ft_substr(var, 1, ft_strlen(var));
 	var_equals = ft_strjoin(var_name, "=");
 	translation = ft_getenv(envp, var_equals);
+	if (translation && translation[0] == '$')
+		translation = expand_var(translation, envp);
 	free(var_name);
 	free(var_equals);
 	return (translation);
