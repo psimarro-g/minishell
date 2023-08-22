@@ -6,7 +6,7 @@
 #    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/17 11:25:31 by dmontoro         ###   ########.fr        #
+#    Updated: 2023/08/22 14:27:59 by dmontoro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,14 +41,14 @@ HEADER	= inc/minishell.h
 
 SRC_DIR				=	src/
 SRC =	main.c	fancy_logo.c init_functions.c\
-		ms_lstadd_back.c ms_lstlast.c ms_lstnew.c\
+		ms_lstadd_back.c ms_lstlast.c ms_lstnew.c ms_lstdelone.c ms_lstclear.c\
 		parser.c parse_functions.c  parse_env.c parse_utils.c parse_utils2.c\
 		parse_here_doc.c parse_pipe.c\
-		echo.c
+		echo.c \
 
 OBJ_DIR				=	obj/
 OBJ					= 	$(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
-VPATH 				= 	src/:src/parser/:src/built_ins/:src/lst_utils
+VPATH 				= 	src/:src/parser/:src/built_ins/:src/lst_utils/:
 
 # **************************************************************************** #
 #                                    RULES                                     #

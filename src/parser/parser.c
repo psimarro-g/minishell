@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/22 11:46:26 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:37:08 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void	process_token(char *line, t_mshell *args, int *i)
 	token = get_token(line, i);
 	printf("token: %s dir: %p\n", token, &token); //DEBUG
 	add_token(args, token, line, i);
-	printf("newtoken: %s dir: %p\n", token, &token); //DEBUG
 	free(token);
 }
 

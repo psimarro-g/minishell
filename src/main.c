@@ -3,25 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 11:43:46 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:42:03 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-int	executing = 0;
-
-// const static	int (*parse_list[FUN_SIZE])(struct s_parsemshell *, char *, char *, int *) = {
-// 	&parse_env,
-// 	&parse_command,
-// 	&parse_input,
-// 	&parse_output,
-// 	&parse_append_output,
-// 	&parse_here_doc
-// };
+int	g_executing = 0;
 
 void	show_ini_data(t_mshell *mshell)
 {
@@ -54,22 +45,29 @@ void	show_cmds(t_cmdlist *cmds)
 	}
 }
 
-int	main (int argc, char **argv, char **envp)
+void	free_commands(t_cmdlist **cmds)
+{
+	ms_lstclear(cmds);
+	*cmds = ms_lstnew(NULL, NULL, NULL);
+}
+//while : ; do leaks minishell | grep leak; done  -> probar leaks
+int	main(int argc, char **argv, char **envp)
 {
 	t_mshell		mshell;
 	char			*line;
 	int				status;
-
-	(void) argc;
-	(void) argv;
+	
+	if (argc != 1 || argv[1] || !envp)
+		return (0);
 	ini_shell(&mshell, envp);
 	fancy_logo();
 	show_ini_data(&mshell);
 	status = 0;
-	while (1)
+	while(1)
 	{
 		line = readline(GREEN"minishell $> "RESET);
-		if (!line) //esto es para poder salir facilmente con ctrl + D
+		//line = "echo | esto  | kk";
+		if (!line)
 			exit(0);
 		parse_line(line, &mshell);
 		if (mshell.exit_status == 0)
@@ -77,8 +75,9 @@ int	main (int argc, char **argv, char **envp)
 			//status = execute(args);
 			show_cmds(mshell.cmds);
 		}
+		free_commands(&mshell.cmds);
 		free(line);
-		//free(args);
 	}
+	free(mshell.cwd);
 	return (0);
 }
