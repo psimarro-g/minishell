@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/22 11:47:50 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:52:48 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	parse_command(t_mshell *args, char *token, char *line, int *i)
 	char		*aux;
 	char		*translation;
 
-	if (ft_strncmp(token, "./", 2) == 0)
-		token = ft_substr(token, 2, ft_strlen(token) - 2);
 	act = ms_lstlast(args->cmds);
 	translation = expand_var(token, args->envp);
 	if (translation == NULL)
@@ -32,7 +30,6 @@ int	parse_command(t_mshell *args, char *token, char *line, int *i)
 	act->path = find_path(args->envp, aux);
 	act->args = split_and_expand(line + (*i) - ft_strlen(token), i, args->envp);
 	(*i) -= ft_strlen(token);
-	free(token);
 	free(translation);
 	free(aux);
 	return (0);
