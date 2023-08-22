@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:59:40 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:47:50 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,27 @@
 
 static char	*find_path(char **envp, char *command);
 
-//Cambiar
+//Coge el token, lo expande, clona el comando, busca el path y coge sus argumentos y los expande si es necesario
 int	parse_command(t_mshell *args, char *token, char *line, int *i)
 {
 	t_cmdlist	*act;
 	char		*aux;
+	char		*translation;
 
 	if (ft_strncmp(token, "./", 2) == 0)
 		token = ft_substr(token, 2, ft_strlen(token) - 2);
 	act = ms_lstlast(args->cmds);
-	act->cmd = ft_strdup(token);
+	translation = expand_var(token, args->envp);
+	if (translation == NULL)
+		translation = ft_strdup(token);
+	act->cmd = ft_strdup(translation);
 	aux = ft_strjoin("/", token);
 	act->path = find_path(args->envp, aux);
 	act->args = split_and_expand(line + (*i) - ft_strlen(token), i, args->envp);
 	(*i) -= ft_strlen(token);
-	
+	free(token);
+	free(translation);
+	free(aux);
 	return (0);
 }
 

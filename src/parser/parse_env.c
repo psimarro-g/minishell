@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:46:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/22 11:33:40 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:44:12 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ int	parse_env(t_mshell *args, char *token, char *line, int *i)
 {
 	if (token[0] != '$')
 		return (-1);
-	(void) args;
-	(void) line;
-	(void) i;
-	return (0);
+
+	return (parse_command(args, token, line, i));
 }
 
 //Var has already the = at the end
@@ -41,11 +39,15 @@ char	*ft_getenv(char **envp, char* var)
 	return (ret);
 }
 
+//returns null if var doesnt start with $
 char	*expand_var(char *var, char **envp)
 {
 	char	*var_name;
 	char	*var_equals;
 	char	*translation;
+
+	if (var[0] != '$')
+		return (NULL);
 
 	var_name = ft_substr(var, 1, ft_strlen(var));
 	var_equals = ft_strjoin(var_name, "=");
