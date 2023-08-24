@@ -2,6 +2,6 @@
 
 void	ft_exit()
 {
-	printf("exit\n");
+	printf("DEBUG: ft_exit: exiting\n");
 	exit(0);
 }

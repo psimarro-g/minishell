@@ -68,7 +68,7 @@ void	process_token(char *line, t_mshell *args, int *i)
 	if (!line[*i])
 		return ;
 	token = get_token(line, i);
-	printf("token: %s dir: %p\n", token, &token); //DEBUG
+	printf("DEBUG: process_token: token: %s\n", token); //DEBUG
 	add_token(args, token, line, i);
 	free(token);
 }

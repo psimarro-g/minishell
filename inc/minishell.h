@@ -75,6 +75,9 @@ void			cd(char *path, char **cwd, char **envp);
 /* BUILT_INS/PWD.C */
 void			pwd(char *cwd);
 
+/* BUILT_INS/ENV.C */
+void			env(char **envp);
+
 /* BUILT_INS/EXIT.C */
 void			ft_exit();
 

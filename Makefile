@@ -44,7 +44,7 @@ SRC =	main.c fancy_logo.c init_functions.c envp_utils.c\
 		ms_lstadd_back.c ms_lstlast.c ms_lstnew.c ms_lstdelone.c ms_lstclear.c\
 		parser.c parse_functions.c parse_env.c parse_utils.c parse_utils2.c\
 		parse_here_doc.c parse_pipe.c\
-		echo.c cd.c exit.c pwd.c\
+		echo.c cd.c exit.c pwd.c env.c\
 
 OBJ_DIR				=	obj/
 OBJ					= 	$(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))

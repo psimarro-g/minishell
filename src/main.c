@@ -51,6 +51,37 @@ void	free_commands(t_cmdlist **cmds)
 	*cmds = ms_lstnew(NULL, NULL, NULL);
 }
 
+int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
+{
+	if (strcmp(args->cmd, "cd") == 0)
+	{
+		cd(args->args[1], &mshell->cwd,mshell->envp);
+		return (1);
+	}
+	if (strcmp(args->cmd, "env") == 0)
+	{
+		env(mshell->envp);
+		return (1);
+	}
+	if (strcmp(args->cmd, "exit") == 0)
+	{
+		ft_exit();
+		return (1);
+	}
+	if (strcmp(args->cmd, "pwd") == 0)
+	{
+		pwd(mshell->cwd);
+		return (1);
+	}
+	if (strcmp(args->cmd, "echo") == 0)
+	{
+		echo(args->args);
+		return (1);
+	}
+
+	return (0);
+}
+
 //while : ; do leaks minishell | grep leak; done  -> probar leaks
 int	main(int argc, char **argv, char **envp)
 {
@@ -72,14 +103,11 @@ int	main(int argc, char **argv, char **envp)
 		if (!line)
 			exit(0);
 
-		cd(line, &mshell.cwd, mshell.envp);
-		pwd(mshell.cwd);
-		continue ;
-
 		parse_line(line, &mshell);
 		if (mshell.exit_status == 0)
 		{
 			//status = execute(args);
+			probar_comandos(mshell.cmds, &mshell);
 			show_cmds(mshell.cmds);
 		}
 		free_commands(&mshell.cmds);
