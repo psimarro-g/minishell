@@ -67,12 +67,12 @@ int	main(int argc, char **argv, char **envp)
 
 	while(1)
 	{
-		//line = readline(GREEN"minishell $> "RESET);
-		line = "..";
+		line = readline(GREEN"minishell $> "RESET);
+		//line = "..";
 		if (!line)
 			exit(0);
 
-		cd(line, mshell.cwd, mshell.envp);
+		cd(line, &mshell.cwd, mshell.envp);
 		pwd(mshell.cwd);
 		continue ;
 

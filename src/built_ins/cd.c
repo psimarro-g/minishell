@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void	cd(char *path, char *cwd, char **envp)
+void	cd(char *path, char **cwd, char **envp)
 {
 	char	*tmp;
 
@@ -12,8 +12,10 @@ void	cd(char *path, char *cwd, char **envp)
 	tmp = ft_getcwd();
 	if (tmp)
 	{
-		free(cwd);
-		cwd = tmp;
+		set_env("OLDPWD", *cwd, &envp);
+		free(*cwd);
+		*cwd = tmp;
 	}
-	set_env("PWD", cwd, &envp);
+	printf("DEBUG: Function cd: Coger pwd actual: %s\n", *cwd);
+	set_env("PWD", *cwd, &envp);
 }

@@ -12,14 +12,16 @@ void	set_env(char *env, char *value, char ***envp)
 	var_equals = ft_strjoin(env, "=");
 	while ((*envp)[i] != NULL && ft_strncmp((*envp)[i], var_equals, ft_strlen(var_equals)) != 0)
 		i++;
-	if ((*envp) == NULL)
+	if ((*envp)[i] == NULL)
 	{
+		printf("DEBUG: %s doesnt exist, creating it\n", env);
 		new_env = ft_strjoin(var_equals, value);
 		(*envp) = add_new_var(*envp, new_env);
 		free(new_env); 
 	}
 	else
 	{
+		printf("DEBUG: Function set_env: %s exists, changing it\n", env);
 		free((*envp)[i]);
 		(*envp)[i] = ft_strjoin(var_equals, value);
 	}

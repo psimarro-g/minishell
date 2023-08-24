@@ -70,7 +70,7 @@ char	*ft_getcwd();
 void			echo(char **args);
 
 /* BUILT_INS/CD.C */
-void			cd(char *path, char *cwd, char **envp);
+void			cd(char *path, char **cwd, char **envp);
 
 /* BUILT_INS/PWD.C */
 void			pwd(char *cwd);
