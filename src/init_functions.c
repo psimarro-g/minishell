@@ -43,7 +43,7 @@ char	*ft_getcwd()
 void	ini_shell(t_mshell *mshell, char **envp)
 {
 	ft_bzero(mshell, sizeof(t_mshell));
-	mshell->envp = envp;
+	mshell->envp = clone_envp(envp);
 	mshell->cwd = ft_getcwd();
 	mshell->exit_status = 0;
 	mshell->cmds = ms_lstnew(NULL, NULL, NULL);

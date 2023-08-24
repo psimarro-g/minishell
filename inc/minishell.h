@@ -64,12 +64,27 @@ void			ft_read_history(void);
 void	handler(int signo);
 void	change_signals(void);
 void	ini_shell(t_mshell *mshell, char **envp);
+char	*ft_getcwd();
 
 /* BUILT_INS/ECHO.C */
 void			echo(char **args);
 
+/* BUILT_INS/CD.C */
+void			cd(char *path, char *cwd, char **envp);
+
+/* BUILT_INS/PWD.C */
+void			pwd(char *cwd);
+
+/* BUILT_INS/EXIT.C */
+void			ft_exit();
+
 /* FANCY_LOGO.C */
 void			fancy_logo(void);
+
+/* ENVP_UTILS.C */
+void	set_env(char *env, char *value, char ***envp);
+char	**add_new_var(char **envp, char *new_var);
+char	**clone_envp(char **envp);
 
 /* PARSER/PARSER.C */
 void			parse_line(char *line, t_mshell *mshell);

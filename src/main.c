@@ -50,6 +50,7 @@ void	free_commands(t_cmdlist **cmds)
 	ms_lstclear(cmds);
 	*cmds = ms_lstnew(NULL, NULL, NULL);
 }
+
 //while : ; do leaks minishell | grep leak; done  -> probar leaks
 int	main(int argc, char **argv, char **envp)
 {
@@ -63,12 +64,18 @@ int	main(int argc, char **argv, char **envp)
 	fancy_logo();
 	show_ini_data(&mshell);
 	status = 0;
+
 	while(1)
 	{
-		line = readline(GREEN"minishell $> "RESET);
-		//line = "echo | esto  | kk";
+		//line = readline(GREEN"minishell $> "RESET);
+		line = "..";
 		if (!line)
 			exit(0);
+
+		cd(line, mshell.cwd, mshell.envp);
+		pwd(mshell.cwd);
+		continue ;
+
 		parse_line(line, &mshell);
 		if (mshell.exit_status == 0)
 		{
