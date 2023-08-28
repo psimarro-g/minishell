@@ -16,6 +16,6 @@ void	cd(char *path, char **cwd, char **envp)
 		free(*cwd);
 		*cwd = tmp;
 	}
-	printf("DEBUG: Function cd: Coger pwd actual: %s\n", *cwd);
+	printf("DEBUG: Function cd: PWD Despues del cambio: %s\n", *cwd);
 	set_env("PWD", *cwd, &envp);
 }
