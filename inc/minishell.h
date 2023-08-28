@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/17 12:43:42 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/27 09:26:27 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ void			ft_add_history(char *read);
 void			ft_read_history(void);
 #endif
 /* INIT_FUNCTIONS.C*/
-void	handler(int signo);
-void	change_signals(void);
-void	ini_shell(t_mshell *mshell, char **envp);
-char	*ft_getcwd();
+void			handler(int signo);
+void			change_signals(void);
+void			ini_shell(t_mshell *mshell, char **envp);
+char			*ft_getcwd();
 
 /* BUILT_INS/ECHO.C */
 void			echo(char **args);
@@ -85,9 +85,9 @@ void			ft_exit();
 void			fancy_logo(void);
 
 /* ENVP_UTILS.C */
-void	set_env(char *env, char *value, char ***envp);
-char	**add_new_var(char **envp, char *new_var);
-char	**clone_envp(char **envp);
+void			set_env(char *env, char *value, char ***envp);
+char			**add_new_var(char **envp, char *new_var);
+char			**clone_envp(char **envp);
 
 /* PARSER/PARSER.C */
 void			parse_line(char *line, t_mshell *mshell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/22 14:42:03 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/28 11:16:01 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,10 @@ int	main(int argc, char **argv, char **envp)
 	show_ini_data(&mshell);
 	status = 0;
 
+	//line = ft_strdup("cd ..");
 	while(1)
 	{
 		line = readline(GREEN"minishell $> "RESET);
-		//line = "..";
 		if (!line)
 			exit(0);
 
@@ -112,6 +112,7 @@ int	main(int argc, char **argv, char **envp)
 		}
 		free_commands(&mshell.cmds);
 		free(line);
+		//line = strdup("pwd");
 	}
 	free(mshell.cwd);
 	return (0);

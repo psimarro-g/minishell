@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
+#    By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/22 14:27:59 by dmontoro         ###   ########.fr        #
+#    Updated: 2023/08/28 13:25:10 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,41 +14,41 @@
 #                                   PROGRAM                                    #
 # **************************************************************************** #
 
-NAME	= minishell
+NAME		= minishell
 
 # **************************************************************************** #
 #                                   COMPILER                                   #
 # **************************************************************************** #
 
-CC 		= gcc
+CC 			= gcc
 
-CFLAGS	= -g3 -O3 #-Wall -Wextra -Werror -g3
-LDFLAGS = libft/libft.a
-LIBS 	= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
-LIBS_LINUX = -lreadline -L /usr/include/readline -I /usr/include/readline
-RM		= rm -f
+CFLAGS		= -g3 -ggdb#-Wall -Wextra -Werror -g3
+LDFLAGS 	= libft/libft.a
+LIBS 		= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
+LIBS_LINUX	= -l readline -L /usr/include/readline -I /usr/include/readline
+RM			= rm -f
 
 # **************************************************************************** #
 #                                    PATHS                                     #
 # **************************************************************************** #
 
-INC_DIR	= inc/
-HEADER	= inc/minishell.h
+INC_DIR		= inc/
+HEADER		= inc/minishell.h
 
 # **************************************************************************** #
 #                                   SOURCES                                    #
 # **************************************************************************** #
 
-SRC_DIR				=	src/
-SRC =	main.c fancy_logo.c init_functions.c envp_utils.c\
-		ms_lstadd_back.c ms_lstlast.c ms_lstnew.c ms_lstdelone.c ms_lstclear.c\
-		parser.c parse_functions.c parse_env.c parse_utils.c parse_utils2.c\
-		parse_here_doc.c parse_pipe.c\
-		echo.c cd.c exit.c pwd.c env.c\
+SRC_DIR		=	src/
+SRC 		=	main.c fancy_logo.c init_functions.c envp_utils.c\
+				ms_lstadd_back.c ms_lstlast.c ms_lstnew.c ms_lstdelone.c ms_lstclear.c\
+				parser.c parse_functions.c parse_env.c parse_utils.c parse_utils2.c\
+				parse_here_doc.c parse_pipe.c\
+				echo.c cd.c exit.c pwd.c env.c\
 
-OBJ_DIR				=	obj/
-OBJ					= 	$(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
-VPATH 				= 	src/:src/parser/:src/built_ins/:src/lst_utils/:
+OBJ_DIR		=	obj/
+OBJ			= 	$(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))
+VPATH 		= 	src/:src/parser/:src/built_ins/:src/lst_utils/:
 
 # **************************************************************************** #
 #                                    RULES                                     #
