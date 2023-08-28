@@ -6,7 +6,7 @@
 #    By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/28 13:25:10 by psimarro         ###   ########.fr        #
+#    Updated: 2023/08/28 13:53:37 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,10 @@ NAME		= minishell
 
 CC 			= gcc
 
-CFLAGS		= -g3 -ggdb#-Wall -Wextra -Werror -g3
+CFLAGS		= -fsanitize=address#-Wall -Wextra -Werror -g3
 LDFLAGS 	= libft/libft.a
-LIBS 		= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
-LIBS_LINUX	= -l readline -L /usr/include/readline -I /usr/include/readline
+LIBS 		= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
+LIBS_LINUX	= -l readline -L /usr/include/readline -I /usr/include/readline -fsanitize=address
 RM			= rm -f
 
 # **************************************************************************** #

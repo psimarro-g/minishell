@@ -6,14 +6,14 @@
 #    By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 17:45:18 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/27 12:31:20 by psimarro         ###   ########.fr        #
+#    Updated: 2023/08/28 13:50:54 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 CC = gcc 
-CFLAGS	= #-Wall -Wextra -Werror
+CFLAGS	= -fsanitize=address#-Wall -Wextra -Werror
 
 RM = rm -f
 
