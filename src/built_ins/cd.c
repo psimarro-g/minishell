@@ -1,6 +1,6 @@
 #include "../../inc/minishell.h"
 
-void	cd(char *path, char **cwd, char **envp)
+void	cd(char *path, char **cwd, char ***envp)
 {
 	char	*tmp;
 
@@ -12,10 +12,10 @@ void	cd(char *path, char **cwd, char **envp)
 	tmp = ft_getcwd();
 	if (tmp)
 	{
-		set_env("OLDPWD", *cwd, &envp);
+		set_env("OLDPWD", *cwd, envp);
 		free(*cwd);
 		*cwd = tmp;
 	}
 	printf("DEBUG: Function cd: PWD Despues del cambio: %s\n", *cwd);
-	set_env("PWD", *cwd, &envp);
+	set_env("PWD", *cwd, envp);
 }

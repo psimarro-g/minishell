@@ -13,7 +13,7 @@
 NAME = libft.a
 
 CC = gcc 
-CFLAGS	= -fsanitize=address#-Wall -Wextra -Werror
+CFLAGS	= -fsanitize=address -g3 -O3#-Wall -Wextra -Werror
 
 RM = rm -f
 

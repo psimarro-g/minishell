@@ -55,7 +55,7 @@ int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 {
 	if (strcmp(args->cmd, "cd") == 0)
 	{
-		cd(args->args[1], &mshell->cwd,mshell->envp);
+		cd(args->args[1], &mshell->cwd, &mshell->envp);
 		return (1);
 	}
 	if (strcmp(args->cmd, "env") == 0)

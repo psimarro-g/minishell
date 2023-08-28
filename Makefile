@@ -22,7 +22,7 @@ NAME		= minishell
 
 CC 			= gcc
 
-CFLAGS		= -fsanitize=address#-Wall -Wextra -Werror -g3
+CFLAGS		= -g3 -O3 -fsanitize=address #-Wall -Wextra -Werror
 LDFLAGS 	= libft/libft.a
 LIBS 		= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include -fsanitize=address
 LIBS_LINUX	= -l readline -L /usr/include/readline -I /usr/include/readline -fsanitize=address
