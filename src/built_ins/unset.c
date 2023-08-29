@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/29 07:25:55 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 08:44:37 by dmontoro         ###   ########.fr       */
+/*   Created: 2023/08/29 08:36:42 by dmontoro          #+#    #+#             */
+/*   Updated: 2023/08/29 08:42:56 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-//In bash if it doesnt find the var, it doesnt create it
-void	cd(char *path, char **cwd, char ***envp)
+//Erases the variable from the environment
+int	unset(char **args, char ***envp)
 {
-	char	*tmp;
+	int	i;
 
-	if (chdir(path) == -1)
+	i = 1;
+	while (args[i])
 	{
-		printf("cd: no such file or directory: %s\n", path);
-		return ;
+		delete_var(*envp, args[i]);
+		i++;
 	}
-	tmp = ft_getcwd();
-	if (tmp)
-	{
-		set_env("OLDPWD", *cwd, envp);
-		free(*cwd);
-		*cwd = tmp;
-	}
-	printf("DEBUG: Function cd: PWD Despues del cambio: %s\n", *cwd);
-	set_env("PWD", *cwd, envp);
+	return (0);
 }

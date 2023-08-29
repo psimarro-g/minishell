@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/29 08:23:48 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 08:45:03 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,12 @@ void			pwd(char *cwd);
 
 /* BUILT_INS/ENV.C */
 void			env(char **envp);
+
+/* BUILT_INS/EXPORT.C */
+void			export(char **args, char ***envp);
+
+/* BUILT_INS/UNSET.C */
+int				unset(char **args, char ***envp);
 
 /* BUILT_INS/EXIT.C */
 int				ft_exit();

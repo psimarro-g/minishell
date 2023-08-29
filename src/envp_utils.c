@@ -27,6 +27,7 @@ void	set_env(char *env, char *value, char ***envp)
 	}
 	free(var_equals);
 }
+
 //This doesnt free envp because it puts the old envps in the new array
 char	**add_new_var(char **envp, char *new_var)
 {
@@ -49,6 +50,29 @@ char	**add_new_var(char **envp, char *new_var)
 	new_envp[i + 1] = NULL;
 	free(envp);
 	return (new_envp);
+}
+
+//We could re-create the list, but moving it is more efficient (on time)
+//Obviously if we delete a lot of vars the usage of space is not optimal
+//Since we have space alocated for the deleted vars
+char	**delete_var(char **envp, char *key)
+{
+	int		i;
+
+	i = 0;
+	while (envp[i] != NULL && ft_strncmp(envp[i], key, ft_strlen(key)) != 0)
+		i++;
+
+	if (envp[i] == NULL)
+		return (envp);
+
+	while (envp[i] != NULL)
+	{
+		envp[i] = envp[i + 1];
+		i++;
+	}
+	envp[i- 1] = NULL;
+	return (envp);
 }
 
 char	**clone_envp(char **envp)
