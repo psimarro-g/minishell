@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:13:39 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 08:30:01 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 09:59:41 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ void	echo(char **args)
 			n++;
 		if (args[i][n] != '\0')
 			n = 0;
+		
 	}
+	i += n > 0;
 	while (args[i])
 	{
 		printf("%s", args[i]);

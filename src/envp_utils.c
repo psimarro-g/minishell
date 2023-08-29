@@ -66,6 +66,7 @@ char	**delete_var(char **envp, char *key)
 	if (envp[i] == NULL)
 		return (envp);
 
+	free(envp[i]);
 	while (envp[i] != NULL)
 	{
 		envp[i] = envp[i + 1];

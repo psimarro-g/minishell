@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:26:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 09:18:13 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 09:39:24 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_exit(char **args, int status)
 	i = 1;
 	while (args && args[i] != NULL)
 		i++;
-	printf("Exit\n");
+	printf("exit\n");
 	printf("DEBUG: Function ft_exit: exiting\n");
 	if (i > 2)
 	{

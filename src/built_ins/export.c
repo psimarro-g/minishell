@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:49 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 08:48:06 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 10:11:52 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static char	*get_key(char *str)
 	char	*key;
 
 	i = 0;
-	while (str[i] != '=')
+	while (str[i] && str[i] != '=')
 		i++;
 	key = ft_substr(str, 0, i);
 	return (key);
@@ -97,7 +97,7 @@ static char	*get_value(char *str)
 	char	*value;
 
 	i = 0;
-	while (str[i] != '=')
+	while (str[i] && str[i] != '=')
 		i++;
 	value = ft_substr(str, i + 1, ft_strlen(str) - i);
 	return (value);
