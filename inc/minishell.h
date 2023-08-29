@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/27 09:26:27 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/29 08:23:48 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			pwd(char *cwd);
 void			env(char **envp);
 
 /* BUILT_INS/EXIT.C */
-void			ft_exit();
+int				ft_exit();
 
 /* FANCY_LOGO.C */
 void			fancy_logo(void);
