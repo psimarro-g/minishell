@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/22 14:13:57 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 09:03:55 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*ft_getcwd()
 
 void	ini_shell(t_mshell *mshell, char **envp)
 {
+	char	*value;
 	ft_bzero(mshell, sizeof(t_mshell));
 	mshell->envp = clone_envp(envp);
 	mshell->cwd = ft_getcwd();
@@ -52,4 +53,14 @@ void	ini_shell(t_mshell *mshell, char **envp)
 	mshell->parse_list[2] = &parse_pipe;
 	mshell->parse_list[3] = &parse_command;
 	change_signals();
+	
+	value = expand_var("$SHLVL", mshell->envp);
+	if (value)
+	{
+		int lvl = ft_atoi(value);
+		free(value);
+		value = ft_itoa(lvl + 1);
+		set_env("SHLVL", value, &mshell->envp);
+		free(value);
+	}
 }
