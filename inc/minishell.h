@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/29 11:14:00 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:49:47 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void			parse_line(char *line, t_mshell *mshell);
 char			*get_token(const char *line, int *i);
 
 /* PARSER/PARSE_ENV.C */
-char			*expand_var(char *var, char **envp);
+char			*expand_var(char *var, char **envp, int exit_status);
 int				parse_env(t_mshell *args, char *token, char *line, int *i);
 
 /* PARSER/PARSE_PIPE.C*/
@@ -118,7 +118,7 @@ int				is_token(const char *s, int i);
 void			ft_error(char *s, t_mshell *mshell, int exit_code);
 
 /* PARSER/PARSE_UTILS.C*/
-char			**split_and_expand(char const *s, int *i, char **envp);
+char			**split_and_expand(char const *s, int *i, t_mshell *mshell);
 int				parse_command(t_mshell *args, char *token, char *line, int *i);
 char			**split_args(char const *s);
 

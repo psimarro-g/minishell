@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 12:46:18 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:49:34 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	skip_char(char const *s)
 	return (i);
 }
 
-void static	copy_word(char **ret, const char *s, int *indexes, char **envp)
+void static	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
 {
 	int		comillas;
 	char	*translation;
@@ -70,7 +70,7 @@ void static	copy_word(char **ret, const char *s, int *indexes, char **envp)
 		return ;
 	if (ret[indexes[0]][0] == '$')
 	{
-		translation = expand_var(ret[indexes[0]], envp);
+		translation = expand_var(ret[indexes[0]], mshell->envp, mshell->exit_status);
 		free(ret[indexes[0]]);
 		ret[indexes[0]] = translation;
 	}
@@ -81,7 +81,7 @@ void static	copy_word(char **ret, const char *s, int *indexes, char **envp)
 }
 
 //Indexes 0 = index de la palabra a escribir en ret y 1 = index de la linea
-char	**split_and_expand(char const *s, int *i, char **envp)
+char	**split_and_expand(char const *s, int *i, t_mshell *mshell)
 {
 	int		num_words;
 	char	**ret;
@@ -97,7 +97,7 @@ char	**split_and_expand(char const *s, int *i, char **envp)
 		return (NULL);
 	while (--num_words > 0)
 	{
-		copy_word(ret, s, &indexes[0], envp);
+		copy_word(ret, s, &indexes[0], mshell);
 		if (!ret[indexes[0] - 1])
 			return (NULL);
 	}

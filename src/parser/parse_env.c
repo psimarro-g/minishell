@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:46:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/22 11:44:12 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:46:15 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_getenv(char **envp, char* var)
 }
 
 //returns null if var doesnt start with $
-char	*expand_var(char *var, char **envp)
+char	*expand_var(char *var, char **envp, int ret_code)
 {
 	char	*var_name;
 	char	*var_equals;
@@ -50,10 +50,15 @@ char	*expand_var(char *var, char **envp)
 		return (NULL);
 
 	var_name = ft_substr(var, 1, ft_strlen(var));
+	if (ft_strncmp(var_name, "?", 1) == 0)
+	{
+		free(var_name);
+		return (ft_itoa(ret_code));
+	}
 	var_equals = ft_strjoin(var_name, "=");
 	translation = ft_getenv(envp, var_equals);
 	if (translation && translation[0] == '$')
-		translation = expand_var(translation, envp);
+		translation = expand_var(translation, envp, ret_code);
 	free(var_name);
 	free(var_equals);
 	return (translation);

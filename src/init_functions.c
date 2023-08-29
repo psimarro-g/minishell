@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 09:25:39 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:46:55 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ini_shell(t_mshell *mshell, char **envp)
 	remove_print_controlc();
 	change_signals();
 	
-	value = expand_var("$SHLVL", mshell->envp);
+	value = expand_var("$SHLVL", mshell->envp, mshell->exit_status);
 	if (value)
 	{
 		int lvl = ft_atoi(value);
