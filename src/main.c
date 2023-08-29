@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/28 13:57:26 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/29 08:50:24 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,16 @@ int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 	if (strcmp(args->cmd, "echo") == 0)
 	{
 		echo(args->args);
+		return (1);
+	}
+	if (strcmp(args->cmd, "export") == 0)
+	{
+		export(args->args, &mshell->envp);
+		return (1);
+	}
+	if (strcmp(args->cmd, "unset") == 0)
+	{
+		unset(args->args, &mshell->envp);
 		return (1);
 	}
 

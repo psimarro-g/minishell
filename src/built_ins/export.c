@@ -6,11 +6,48 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:49 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 08:19:11 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 08:48:06 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static void print_export(char **envp);
+static int	check_var(char *str);
+static char	*get_key(char *str);
+static char	*get_value(char *str);
+
+//Takes a pointer to the addres of envp and 
+//the string with all the args of the command
+//If value not given, it assigns the null string to value
+int	export(char **args, char ***envp)
+{
+	char	*key;
+	char	*value;
+	int		i;
+
+	i = 1;
+	if (!args[i])
+	{
+		print_export(*envp);
+		return (0);
+	}
+	while (args[i])
+	{
+		if (!check_var(args[i]))
+		{
+			printf("export: '%s': not a valid identifier\n", args[i]);
+			return (1);
+		}
+		key = get_key(args[i]);
+		value = get_value(args[i]);
+		set_env(key, value, envp);
+		free(key);
+		free(value);
+		i++;
+	}
+	return (0);
+}
 
 static void	print_export(char **envp)
 {
@@ -66,34 +103,3 @@ static char	*get_value(char *str)
 	return (value);
 }
 
-//Takes a pointer to the addres of envp and 
-//the string with all the args of the command
-//If value not given, it assigns the null string to value
-int	export(char ***envp, char **args)
-{
-	char	*key;
-	char	*value;
-	int		i;
-
-	i = 1;
-	if (!args[i])
-	{
-		print_export(*envp);
-		return (0);
-	}
-	while (args[i])
-	{
-		if (!check_var(args[i]))
-		{
-			printf("export: '%s': not a valid identifier\n", args[i]);
-			return (1);
-		}
-		key = get_key(args[i]);
-		value = get_value(args[i]);
-		set_env(key, value, envp);
-		free(key);
-		free(value);
-		i++;
-	}
-	return (0);
-}

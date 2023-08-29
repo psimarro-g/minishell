@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/29 08:45:03 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 08:48:34 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			pwd(char *cwd);
 void			env(char **envp);
 
 /* BUILT_INS/EXPORT.C */
-void			export(char **args, char ***envp);
+int			export(char **args, char ***envp);
 
 /* BUILT_INS/UNSET.C */
 int				unset(char **args, char ***envp);
@@ -93,6 +93,7 @@ void			fancy_logo(void);
 /* ENVP_UTILS.C */
 void			set_env(char *env, char *value, char ***envp);
 char			**add_new_var(char **envp, char *new_var);
+char			**delete_var(char **envp, char *key);
 char			**clone_envp(char **envp);
 
 /* PARSER/PARSER.C */
