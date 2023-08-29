@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 09:03:55 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 09:25:39 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ char	*ft_getcwd()
 	return (NULL);
 }
 
+//Takes the attributes of the terminal
+//removes the flag that prints ^char when you press a signal
+//and sets the attributes of the terminal to the new ones
+void	remove_print_controlc(void)
+{
+	struct termios	t;
+
+	tcgetattr(0, &t);
+	t.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &t);
+}
+
 void	ini_shell(t_mshell *mshell, char **envp)
 {
 	char	*value;
@@ -52,6 +64,7 @@ void	ini_shell(t_mshell *mshell, char **envp)
 	mshell->parse_list[1] = &parse_env;
 	mshell->parse_list[2] = &parse_pipe;
 	mshell->parse_list[3] = &parse_command;
+	remove_print_controlc();
 	change_signals();
 	
 	value = expand_var("$SHLVL", mshell->envp);

@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 08:50:24 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 09:17:47 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 	}
 	if (strcmp(args->cmd, "exit") == 0)
 	{
-		ft_exit();
+		ft_exit(args->args, mshell->exit_status);
 		return (1);
 	}
 	if (strcmp(args->cmd, "pwd") == 0)
@@ -107,12 +107,13 @@ int	main(int argc, char **argv, char **envp)
 	status = 0;
 
 	//line = ft_strdup("cd ..");
+	rl_clear_history();
 	while(1)
 	{
 		line = readline(GREEN"minishell $> "RESET);
 		if (!line)
-			exit(0);
-
+			ft_exit(NULL, mshell.exit_status);
+		add_history(line);
 		parse_line(line, &mshell);
 		if (mshell.exit_status == 0)
 		{

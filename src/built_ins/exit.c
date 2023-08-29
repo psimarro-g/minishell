@@ -6,26 +6,28 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:26:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 08:23:32 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 09:18:13 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int	ft_exit(char **args)
+int	ft_exit(char **args, int status)
 {
 	int	i;
 
 	i = 1;
-	while (args[i] != NULL)
+	while (args && args[i] != NULL)
 		i++;
-	printf("Exit");
+	printf("Exit\n");
 	printf("DEBUG: Function ft_exit: exiting\n");
 	if (i > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
 		return 1;
 	}
+	if (i == 1)
+		exit(0);
 	if (ft_atoi(args[1]) == -1)
 	{
 		printf("minishell: exit: %s: numeric argument required\n", args[1]);

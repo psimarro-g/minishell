@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/29 09:00:05 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 09:21:55 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <signal.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <termios.h>
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -53,13 +54,12 @@ typedef struct s_mshell
 }	t_mshell;
 
 /* MAIN.C */
-#ifdef _WIN32
 void			rl_replace_line(char *s, int a);
 void			rl_redisplay(void);
 int				rl_on_new_line(void);
-void			ft_add_history(char *read);
-void			ft_read_history(void);
-#endif
+int				add_history(const char *read);
+void			rl_clear_history(void);
+
 /* INIT_FUNCTIONS.C*/
 void			handler(int signo);
 void			change_signals(void);
@@ -85,7 +85,7 @@ int				export(char **args, char ***envp);
 int				unset(char **args, char ***envp);
 
 /* BUILT_INS/EXIT.C */
-int				ft_exit();
+int				ft_exit(char **args, int exit_status);
 
 /* FANCY_LOGO.C */
 void			fancy_logo(void);
