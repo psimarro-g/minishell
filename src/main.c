@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 11:05:41 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:33:08 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,31 +102,31 @@ int	execute(t_mshell *mshell)
 	int			pid;
 
 	//restauramos los fds
+	//clonar fds correspondientes
+	//hacer fork
+	//execute cada comando normal
+
 	act = mshell->cmds;
-	while (act)
+	if (mshell->num_commands == 1)
 	{
-		//clonar fds correspondientes
-		//hacer fork
-		//execute cada comando normal
-		pid = fork();
-		if (pid == 0)
-		{
-			act = act->next;
-			continue ;
-		}
-		if (probar_comandos(act, mshell) != 0)
+		if(probar_comandos(mshell->cmds, mshell) != 0)
 			return (0);
-		
-		if (act->path == NULL)
+		pid = fork();
+		mshell->last_pid = pid;
+		if(pid == 0)
 		{
-			printf("minishell: %s: command not found\n", act->cmd);
-			mshell->exit_status = 127;
-		}
-		else
-		{
-			printf("DEBUG: Function execute: executing %s\n", act->cmd);
-			g_executing = 1;
-			execve(act->path, act->args, mshell->envp);
+			if (act->path == NULL)
+			{
+				printf("minishell: %s: command not found\n", act->cmd);
+				mshell->exit_status = 127;
+				exit(127);
+			}
+			else
+			{
+				printf("DEBUG: Function execute: executing %s\n", act->cmd);
+				g_executing = 1;
+				execve(act->path, act->args, mshell->envp);
+			}
 		}
 	}
 	return (0);
@@ -150,6 +150,7 @@ int	main(int argc, char **argv, char **envp)
 	while(1)
 	{
 		line = readline(GREEN"minishell $> "RESET);
+		//line = ft_strdup("ls");
 		if (!line)
 			ft_exit(NULL, mshell.exit_status);
 		add_history(line);
@@ -158,6 +159,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			mshell.exit_status = execute(&mshell);
 			//probar_comandos(mshell.cmds, &mshell);
+			waitpid(mshell.last_pid, &mshell.exit_status, 0);
 			show_cmds(mshell.cmds);
 		}
 		free_commands(&mshell);

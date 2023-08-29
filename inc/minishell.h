@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/29 09:21:55 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:14:00 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_mshell
 	char		**envp;
 	char		*cwd;
 	int			num_commands;	//un solo comando o pipex
+	int			last_pid;
 	int			exit_status;
 	int (*parse_list[FUN_SIZE])(struct s_mshell *, char *, char *, int *);
 }	t_mshell;

@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/22 13:37:08 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:15:48 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	parse_line(char *line, t_mshell *mshell)
 {
 	int				i; //indice de donde estamos en line
 	
+	mshell->exit_status = 0;
 	i = 0;
 	while(line[i])
 	{
