@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:28:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 09:31:49 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 10:28:27 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_cmdlist	*ms_lstnew(char *cmd, char *path, char **args)
 	new->cmd = cmd;
 	new->path = path;
 	new->args = args;
-	new->input = STDIN_FILENO;
-	new->output = STDOUT_FILENO;
+	new->input = dup(STDIN_FILENO);
+	new->output = dup(STDOUT_FILENO);
 	new->next = NULL;
 	new->pre = NULL;
 	return (new);

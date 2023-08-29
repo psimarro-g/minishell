@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 10:12:28 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 11:05:41 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ void	show_cmds(t_cmdlist *cmds)
 	}
 }
 
-void	free_commands(t_cmdlist **cmds)
+void	free_commands(t_mshell *mshell)
 {
-	ms_lstclear(cmds);
-	*cmds = ms_lstnew(NULL, NULL, NULL);
+	ms_lstclear(&mshell->cmds);
+	mshell->cmds = ms_lstnew(NULL, NULL, NULL);
+	mshell->num_commands = 0;
+	g_executing = 0;
 }
 
 int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
@@ -92,19 +94,56 @@ int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 	return (0);
 }
 
+//If it gets to execute, it has to have at least 1 good command
+int	execute(t_mshell *mshell)
+{
+	t_cmdlist	*act;
+	int			i;
+	int			pid;
+
+	//restauramos los fds
+	act = mshell->cmds;
+	while (act)
+	{
+		//clonar fds correspondientes
+		//hacer fork
+		//execute cada comando normal
+		pid = fork();
+		if (pid == 0)
+		{
+			act = act->next;
+			continue ;
+		}
+		if (probar_comandos(act, mshell) != 0)
+			return (0);
+		
+		if (act->path == NULL)
+		{
+			printf("minishell: %s: command not found\n", act->cmd);
+			mshell->exit_status = 127;
+		}
+		else
+		{
+			printf("DEBUG: Function execute: executing %s\n", act->cmd);
+			g_executing = 1;
+			execve(act->path, act->args, mshell->envp);
+		}
+	}
+	return (0);
+}
+
+//Tenemos que guardar stdin y stdout para poder restaurarlos
 //while : ; do leaks minishell | grep leak; done  -> probar leaks
 int	main(int argc, char **argv, char **envp)
 {
 	t_mshell		mshell;
 	char			*line;
-	int				status;
 	
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
 	ini_shell(&mshell, envp);
 	fancy_logo();
 	show_ini_data(&mshell);
-	status = 0;
 
 	//line = ft_strdup("cd ..");
 	rl_clear_history();
@@ -117,11 +156,11 @@ int	main(int argc, char **argv, char **envp)
 		parse_line(line, &mshell);
 		if (mshell.exit_status == 0)
 		{
-			//status = execute(args);
-			probar_comandos(mshell.cmds, &mshell);
+			mshell.exit_status = execute(&mshell);
+			//probar_comandos(mshell.cmds, &mshell);
 			show_cmds(mshell.cmds);
 		}
-		free_commands(&mshell.cmds);
+		free_commands(&mshell);
 		free(line);
 		//line = strdup("pwd");
 	}

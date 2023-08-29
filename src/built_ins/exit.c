@@ -6,12 +6,14 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:26:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 09:39:24 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 10:20:09 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
+//args is the array of arguments of the command (in case of normal execution)
+//status is the status of the last command executed
 int	ft_exit(char **args, int status)
 {
 	int	i;

@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 10:10:48 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/29 10:21:46 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ int	parse_command(t_mshell *args, char *token, char *line, int *i)
 		translation = ft_strdup(token);
 	act->cmd = ft_strdup(translation);
 	aux = ft_strjoin("/", token);
-	//act->path = find_path(args->envp, aux);
+	act->path = find_path(args->envp, aux);
 	act->args = split_and_expand(line + (*i) - ft_strlen(token), i, args->envp);
 	(*i) -= ft_strlen(token);
+	args->num_commands++;
 	free(translation);
 	free(aux);
 	return (0);
