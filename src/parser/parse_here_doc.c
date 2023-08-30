@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 13:44:33 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:23:38 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,20 @@ static void	pipe_heredoc(t_mshell *args, char *eof)
 		parent_process_hd(fd, args);
 }
 
+static void	hd_error(t_mshell *args, char *eof, char *line, int *i)
+{
+	if (!line[*i])
+	{
+		printf("minishell: syntax error near unexpected token `newline'\n");
+		ft_error(NULL, args, 1);
+		return ;
+	}
+	eof = ft_substr(line, *i, is_token(line, *i));
+	printf("minishell: syntax error near unexpected token `%s'\n", eof);
+	ft_error(NULL, args, 1);
+	free(eof);
+}
+
 int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 {
 	char	*eof;
@@ -58,20 +72,17 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 	j = 0;
 	if (ft_strncmp(token, "<<", 2))
 		return (-1);
-	while (ft_isspace(line[*i]))
+	while (ft_isspace(line[*i]) && line[*i])
 		(*i)++;
-	while (!ft_isspace(line[*i + j]) && !is_token(line, *i + j) && line[*i + j] != '\0')
-		j++;
-	if (is_token(line, *i))
+	if (is_token(line, *i) || !line[*i])
 	{
-		eof = ft_substr(line, *i, is_token(line, *i));
-		printf("minishell: syntax error near unexpected token `%s'\n", eof);
-		ft_error(NULL, args, 1);
-		free(eof);
+		hd_error(args, eof, line, i);
 		return (0);
 	}
+	while (!ft_isspace(line[*i + j]) && !is_token(line, *i + j) && line[*i + j] != '\0')
+		j++;
 	eof = ft_substr(line, *i, j);
-	printf("eof: .%s.\n", eof);
+	printf("eof: \'%s\'\n", eof);
 	pipe_heredoc(args, eof);
 	*i += j;
 	return (0);

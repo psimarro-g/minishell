@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 11:33:08 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:19:54 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	g_executing = 0;
 
 void	show_ini_data(t_mshell *mshell)
 {
-	int	i;
-
 	printf("cwd: %s\n", mshell->cwd);
 }
 
@@ -55,42 +53,41 @@ void	free_commands(t_mshell *mshell)
 
 int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 {
-	if (strcmp(args->cmd, "cd") == 0)
+	if (ft_strncmp(args->cmd, "cd", 2) == 0)
 	{
 		cd(args->args[1], &mshell->cwd, &mshell->envp);
 		return (1);
 	}
-	if (strcmp(args->cmd, "env") == 0)
+	if (ft_strncmp(args->cmd, "env", 3) == 0)
 	{
 		env(mshell->envp);
 		return (1);
 	}
-	if (strcmp(args->cmd, "exit") == 0)
+	if (ft_strncmp(args->cmd, "exit", 4) == 0)
 	{
 		ft_exit(args->args, mshell->exit_status);
 		return (1);
 	}
-	if (strcmp(args->cmd, "pwd") == 0)
+	if (ft_strncmp(args->cmd, "pwd", 3) == 0)
 	{
 		pwd(mshell->cwd);
 		return (1);
 	}
-	if (strcmp(args->cmd, "echo") == 0)
+	if (ft_strncmp(args->cmd, "echo", 4) == 0)
 	{
 		echo(args->args);
 		return (1);
 	}
-	if (strcmp(args->cmd, "export") == 0)
+	if (ft_strncmp(args->cmd, "export", 6) == 0)
 	{
 		export(args->args, &mshell->envp);
 		return (1);
 	}
-	if (strcmp(args->cmd, "unset") == 0)
+	if (ft_strncmp(args->cmd, "unset", 5) == 0)
 	{
 		unset(args->args, &mshell->envp);
 		return (1);
 	}
-
 	return (0);
 }
 
@@ -98,7 +95,6 @@ int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 int	execute(t_mshell *mshell)
 {
 	t_cmdlist	*act;
-	int			i;
 	int			pid;
 
 	//restauramos los fds

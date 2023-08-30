@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
+#    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 17:45:18 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/29 09:39:59 by dmontoro         ###   ########.fr        #
+#    Updated: 2023/08/30 12:57:35 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
 
 CC = gcc 
-CFLAGS	=  -g3 -O3 #-fsanitize=address #-Wall -Wextra -Werror
+CFLAGS	= -g3 -fsanitize=address #-Wall -Wextra -Werror -O3
 
 RM = rm -f
 
