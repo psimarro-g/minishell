@@ -55,12 +55,13 @@ typedef struct s_mshell
 }	t_mshell;
 
 /* MAIN.C */
+#ifdef __WIN32
 void			rl_replace_line(char *s, int a);
 void			rl_redisplay(void);
 int				rl_on_new_line(void);
 int				add_history(const char *read);
 void			rl_clear_history(void);
-
+#endif
 /* INIT_FUNCTIONS.C*/
 void			handler(int signo);
 void			change_signals(void);

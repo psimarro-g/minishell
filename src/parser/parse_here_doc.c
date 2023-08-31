@@ -44,6 +44,7 @@ static void	pipe_heredoc(t_mshell *args, char *eof)
 				exit(EXIT_SUCCESS);
 			}
 			write(fd[1], input, ft_strlen(input));
+			free(input);
 		}
 	}
 	else
@@ -82,8 +83,9 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 	while (!ft_isspace(line[*i + j]) && !is_token(line, *i + j) && line[*i + j] != '\0')
 		j++;
 	eof = ft_substr(line, *i, j);
-	printf("eof: \'%s\'\n", eof);
+	printf("DEBUG: Function parse_here_doc: eof: \'%s\'\n", eof);
 	pipe_heredoc(args, eof);
+	free(eof);
 	*i += j;
 	return (0);
 }

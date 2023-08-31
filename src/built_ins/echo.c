@@ -28,7 +28,6 @@ void	echo(char **args)
 			n++;
 		if (args[i][n] != '\0')
 			n = 0;
-		
 	}
 	i += n > 0;
 	while (args[i])

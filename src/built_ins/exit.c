@@ -29,7 +29,7 @@ int	ft_exit(char **args, int status)
 		return 1;
 	}
 	if (i == 1)
-		exit(0);
+		exit(status);
 	if (ft_atoi(args[1]) == -1)
 	{
 		printf("minishell: exit: %s: numeric argument required\n", args[1]);

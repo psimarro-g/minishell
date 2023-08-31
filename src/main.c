@@ -134,7 +134,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_mshell		mshell;
 	char			*line;
-	
+
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
 	ini_shell(&mshell, envp);
