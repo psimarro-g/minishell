@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/01 11:08:24 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/01 13:39:07 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	pipe_heredoc(t_mshell *args, char *eof)
 	}
 	else
 		parent_process_hd(fd, args);
+	free(eof);
 }
 
 static void	hd_error(t_mshell *args, char *eof, char *line, int *i)
@@ -80,6 +81,7 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 	j = 0;
 	if (ft_strncmp(token, "<<", 2))
 		return (-1);
+	*i -= (ft_strlen(token) - 2);
 	while (ft_isspace(line[*i]) && line[*i])
 		(*i)++;
 	if (is_token(line, *i) || !line[*i])
@@ -90,9 +92,8 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 	while (!ft_isspace(line[*i + j]) && !is_token(line, *i + j) && line[*i + j] != '\0')
 		j++;
 	eof = ft_substr(line, *i, j);
-	printf("DEBUG: Function parse_here_doc: eof: \'%s\'\n", eof);
+	//printf("DEBUG: Function parse_here_doc: eof: \'%s\'\n", eof);
 	pipe_heredoc(args, eof);
-	free(eof);
 	*i += j;
 	return (0);
 }

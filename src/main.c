@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/01 11:53:19 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/01 13:04:28 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int argc, char **argv, char **envp)
 		parse_line(line, &mshell);
 		if (mshell.exit_status == 0)
 		{
-			mshell.exit_status = execute(&mshell);
+			//mshell.exit_status = execute(&mshell);
 			//show_cmds(mshell.cmds);
 		}
 		free_commands(&mshell);
