@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:13:39 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 09:59:41 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/01 11:53:00 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,13 @@ void	echo(char **args)
 	i += n > 0;
 	while (args[i])
 	{
-		printf("%s", args[i]);
+		ft_putstr_fd(args[i], STDOUT_FILENO);
+		//printf("%s", args[i]);
 		if (args[i + 1])
-			printf(" ");
+			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
 	if (!n)
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
+
 }

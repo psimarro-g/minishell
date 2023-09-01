@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/30 11:54:05 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/01 11:53:32 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	process_token(char *line, t_mshell *args, int *i)
 	if (!line[*i])
 		return ;
 	token = get_token(line, i);
-	printf("DEBUG: Function process_token: token: %s\n", token); //DEBUG
+	//printf("DEBUG: Function process_token: token: %s\n", token); //DEBUG
 	add_token(args, token, line, i);
 	free(token);
 }

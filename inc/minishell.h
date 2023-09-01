@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/01 06:50:51 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/01 11:42:34 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@
 #  define PATH_MAX			4096
 # endif
 
+extern int g_executing;
+
 typedef struct s_mshell
 {
 	t_cmdlist	*cmds;
+	int			fd[2];
 	char		**envp;
 	char		*cwd;
 	int			num_commands;	//un solo comando o pipex
@@ -55,20 +58,24 @@ typedef struct s_mshell
 }	t_mshell;
 
 /* MAIN.C */
-#ifndef __APPLE__
+#ifdef __APPLE__
 void			rl_replace_line(char *s, int a);
 void			rl_redisplay(void);
 int				rl_on_new_line(void);
 int				add_history(const char *read);
-#endif
 void			rl_clear_history(void);
+#endif
 
 
 /* INIT_FUNCTIONS.C*/
-void			handler(int signo);
-void			change_signals(void);
 void			ini_shell(t_mshell *mshell, char **envp);
 char			*ft_getcwd();
+
+/* SIGNALS */
+void			change_signals(void);
+void			default_signals(void);
+void			interrupt_handler(int signo);
+
 
 /* BUILT_INS/ECHO.C */
 void			echo(char **args);
@@ -93,6 +100,9 @@ int				ft_exit(char **args, int exit_status);
 
 /* FANCY_LOGO.C */
 void			fancy_logo(void);
+
+/* EXECUTE.C */
+int 			execute(t_mshell *mshell);
 
 /* ENVP_UTILS.C */
 void			set_env(char *env, char *value, char ***envp);

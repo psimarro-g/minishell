@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/30 13:19:54 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/01 11:53:19 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
+
+/*
+	-Hay que poner las señales en modo default antes de hacer fork
+	-Hay que poner las antiguas al acabar la ejecución
+	-Hay que dejar los fds como estaban antes de hacer fork y despues
+	-Señal de salida: 
+		- 0 si todo ha ido bien
+		- <128 si el programa ha acabado con algun error
+		- 128 + n si el programa ha acabado por una señal
+*/
+
 
 int	g_executing = 0;
 
@@ -51,83 +62,6 @@ void	free_commands(t_mshell *mshell)
 	g_executing = 0;
 }
 
-int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
-{
-	if (ft_strncmp(args->cmd, "cd", 2) == 0)
-	{
-		cd(args->args[1], &mshell->cwd, &mshell->envp);
-		return (1);
-	}
-	if (ft_strncmp(args->cmd, "env", 3) == 0)
-	{
-		env(mshell->envp);
-		return (1);
-	}
-	if (ft_strncmp(args->cmd, "exit", 4) == 0)
-	{
-		ft_exit(args->args, mshell->exit_status);
-		return (1);
-	}
-	if (ft_strncmp(args->cmd, "pwd", 3) == 0)
-	{
-		pwd(mshell->cwd);
-		return (1);
-	}
-	if (ft_strncmp(args->cmd, "echo", 4) == 0)
-	{
-		echo(args->args);
-		return (1);
-	}
-	if (ft_strncmp(args->cmd, "export", 6) == 0)
-	{
-		export(args->args, &mshell->envp);
-		return (1);
-	}
-	if (ft_strncmp(args->cmd, "unset", 5) == 0)
-	{
-		unset(args->args, &mshell->envp);
-		return (1);
-	}
-	return (0);
-}
-
-//If it gets to execute, it has to have at least 1 good command
-int	execute(t_mshell *mshell)
-{
-	t_cmdlist	*act;
-	int			pid;
-
-	//restauramos los fds
-	//clonar fds correspondientes
-	//hacer fork
-	//execute cada comando normal
-
-	act = mshell->cmds;
-	if (mshell->num_commands == 1)
-	{
-		if(probar_comandos(mshell->cmds, mshell) != 0)
-			return (0);
-		pid = fork();
-		mshell->last_pid = pid;
-		if(pid == 0)
-		{
-			if (act->path == NULL)
-			{
-				printf("minishell: %s: command not found\n", act->cmd);
-				mshell->exit_status = 127;
-				exit(127);
-			}
-			else
-			{
-				printf("DEBUG: Function execute: executing %s\n", act->cmd);
-				g_executing = 1;
-				execve(act->path, act->args, mshell->envp);
-			}
-		}
-	}
-	return (0);
-}
-
 //Tenemos que guardar stdin y stdout para poder restaurarlos
 //while : ; do leaks minishell | grep leak; done  -> probar leaks
 int	main(int argc, char **argv, char **envp)
@@ -146,7 +80,6 @@ int	main(int argc, char **argv, char **envp)
 	while(1)
 	{
 		line = readline(GREEN"minishell $> "RESET);
-		//line = ft_strdup("ls");
 		if (!line)
 			ft_exit(NULL, mshell.exit_status);
 		add_history(line);
@@ -154,9 +87,7 @@ int	main(int argc, char **argv, char **envp)
 		if (mshell.exit_status == 0)
 		{
 			mshell.exit_status = execute(&mshell);
-			//probar_comandos(mshell.cmds, &mshell);
-			waitpid(mshell.last_pid, &mshell.exit_status, 0);
-			show_cmds(mshell.cmds);
+			//show_cmds(mshell.cmds);
 		}
 		free_commands(&mshell);
 		free(line);

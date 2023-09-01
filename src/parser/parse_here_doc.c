@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/30 12:23:38 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/01 11:08:24 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,20 @@ static void	pipe_heredoc(t_mshell *args, char *eof)
 	if (id == 0)
 	{
 		close(fd[0]);
+		g_executing = 1;
 		while (1)
 		{
 			input = readline("heredoc> ");
+			if (input != NULL && ft_strlen(input) == 0)
+			{
+				free(input);
+				continue ;
+			}
 			if (ft_strncmp(input, eof, ft_strlen(input)) == 0)
 			{
 				free(eof);
 				close(fd[1]);
+				g_executing = 0;
 				exit(EXIT_SUCCESS);
 			}
 			write(fd[1], input, ft_strlen(input));

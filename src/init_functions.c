@@ -3,32 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/30 09:30:28 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/01 11:21:42 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
-
-
-static void	interrupt_handler(int signo)
-{
-	//Debug
-	//printf("Signal %d received\n", signo);
-	rl_on_new_line();
-	printf("\n");
-	rl_redisplay();
-}
-
-//Queremos que reciba el handler porque cuando no hay nada en ejecución minishell tiene que printear
-//Pero cuando haces sigquit minishell nunca tiene que hacer nada.
-void	change_signals(void)
-{
-	signal(SIGINT, &interrupt_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
 
 char	*ft_getcwd()
 {
@@ -56,6 +38,8 @@ void	ini_shell(t_mshell *mshell, char **envp)
 {
 	char	*value;
 	ft_bzero(mshell, sizeof(t_mshell));
+	dup2(STDIN_FILENO, mshell->fd[0]);
+	dup2(STDOUT_FILENO, mshell->fd[1]);
 	mshell->envp = clone_envp(envp);
 	mshell->cwd = ft_getcwd();
 	mshell->exit_status = 0;

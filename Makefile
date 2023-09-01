@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/08/30 13:37:38 by psimarro         ###   ########.fr        #
+#    Updated: 2023/09/01 11:43:03 by dmontoro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ HEADER		= inc/minishell.h
 # **************************************************************************** #
 
 SRC_DIR		=	src/
-SRC 		=	main.c fancy_logo.c init_functions.c envp_utils.c\
+SRC 		=	main.c fancy_logo.c init_functions.c envp_utils.c signals.c execute.c\
 				ms_lstadd_back.c ms_lstlast.c ms_lstnew.c ms_lstdelone.c ms_lstclear.c\
 				parser.c parse_functions.c parse_env.c parse_utils.c parse_utils2.c\
 				parse_here_doc.c parse_pipe.c\
