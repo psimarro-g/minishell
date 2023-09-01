@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/08/30 09:27:11 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/01 06:50:51 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,15 @@ typedef struct s_mshell
 }	t_mshell;
 
 /* MAIN.C */
-#ifdef __WIN32
+#ifndef __APPLE__
 void			rl_replace_line(char *s, int a);
 void			rl_redisplay(void);
 int				rl_on_new_line(void);
 int				add_history(const char *read);
-void			rl_clear_history(void);
 #endif
+void			rl_clear_history(void);
+
+
 /* INIT_FUNCTIONS.C*/
 void			handler(int signo);
 void			change_signals(void);
