@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/06 09:35:00 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:47:48 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 #  define PATH_MAX			4096
 # endif
 
-extern int g_executing;
+extern int	g_executing;
 
 typedef struct s_mshell
 {
@@ -51,43 +51,43 @@ typedef struct s_mshell
 	int			fd[2];
 	char		**envp;
 	char		*cwd;
-	int			num_commands;	//un solo comando o pipex
+	int			num_commands;
 	int			last_pid;
 	int			exit_status;
-	int 		(*parse_list[FUN_SIZE])(struct s_mshell *, char *, char *, int *);
+	int			(*parse_list[FUN_SIZE])(struct s_mshell *, \
+					char *, char *, int *);
 }	t_mshell;
 
 /* MAIN.C */
-#ifdef __APPLE__
+# ifdef __APPLE__
+
 void			rl_replace_line(char *s, int a);
 void			rl_redisplay(void);
 int				rl_on_new_line(void);
 int				add_history(const char *read);
 void			rl_clear_history(void);
-#endif
-
+# endif
 
 /* INIT_FUNCTIONS.C*/
 void			ini_shell(t_mshell *mshell, char **envp);
-char			*ft_getcwd();
+char			*ft_getcwd(void);
 
 /* SIGNALS */
 void			change_signals(void);
 void			default_signals(void);
 void			interrupt_handler(int signo);
 
-
 /* BUILT_INS/ECHO.C */
-int			echo(char **args);
+int				echo(char **args);
 
 /* BUILT_INS/CD.C */
-int			cd(char *path, char **cwd, char ***envp);
+int				cd(char *path, char **cwd, char ***envp);
 
 /* BUILT_INS/PWD.C */
-int			pwd(char *cwd);
+int				pwd(char *cwd);
 
 /* BUILT_INS/ENV.C */
-int			env(char **envp);
+int				env(char **envp);
 
 /* BUILT_INS/EXPORT.C */
 int				export(char **args, char ***envp);
@@ -101,9 +101,14 @@ int				ft_exit(char **args, int exit_status);
 /* FANCY_LOGO.C */
 void			fancy_logo(void);
 
-/* EXECUTE.C */
-int				test_execute(t_mshell *mshell);
-int 			execute(t_mshell *mshell);
+/* EXECUTE/EXECUTE.C */
+int				execute(t_mshell *mshell);
+
+/* EXECUTE/EXECUTE_UTILS.C*/
+int				probar_comandos(t_cmdlist *args, t_mshell *mshell);
+void			change_fds(t_cmdlist *act, int pipe_fd[2]);
+int				get_status(int pid, int size);
+int				is_simple(t_mshell *mshell);
 
 /* ENVP_UTILS.C */
 void			set_env(char *env, char *value, char ***envp);
