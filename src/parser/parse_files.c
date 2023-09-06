@@ -6,7 +6,7 @@
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:10:24 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/05 15:53:50 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:25:40 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static char	*get_filename(char *line, int *i)
 	return (file_name);
 }
 
-static int	ms_open_file(t_mshell *args, char *argv, int i)
+static void	ms_open_file(t_mshell *args, char *argv, int i)
 {
 	int			file;
 	t_cmdlist	*last;
@@ -37,7 +37,6 @@ static int	ms_open_file(t_mshell *args, char *argv, int i)
 		file = open(argv, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (i == 2 )
 		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	return (file);
 	last = ms_lstlast(args->cmds);
 	if (i == 1)
 		last->input = file;
