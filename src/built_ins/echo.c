@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:13:39 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/01 11:53:00 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:59:17 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 //Echo -nnnnnnnn hola = hola$
 //Echo -nnnnnnnnHola = -nnnnnnnnHola
-void	echo(char **args)
+int	echo(char **args)
 {
 	int	i;
 	int	n;
 
-	i = 1; // el primero será echo
+	i = 1;
 	n = 0;
 	if (args[i] && ft_strncmp(args[i], "-n", 2) == 0)
 	{
@@ -33,12 +33,11 @@ void	echo(char **args)
 	while (args[i])
 	{
 		ft_putstr_fd(args[i], STDOUT_FILENO);
-		//printf("%s", args[i]);
 		if (args[i + 1])
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		i++;
 	}
 	if (!n)
 		ft_putstr_fd("\n", STDOUT_FILENO);
-
+	return (0);
 }

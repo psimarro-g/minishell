@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:55 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 09:36:30 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:58:40 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	cd(char *path, char **cwd, char ***envp)
 	{
 		printf("cd: no such file or directory: %s\n", path);
 		free(tmp);
-		return 1;
+		return (1);
 	}
 	tmp = ft_getcwd();
 	if (tmp)
