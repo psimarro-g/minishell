@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/01 13:54:05 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:02:02 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ void	ini_shell(t_mshell *mshell, char **envp)
 	mshell->parse_list[0] = &parse_here_doc;
 	mshell->parse_list[1] = &parse_env;
 	mshell->parse_list[2] = &parse_pipe;
-	mshell->parse_list[3] = &parse_command;
+	mshell->parse_list[3] = &parse_files;
+	mshell->parse_list[4] = &parse_command;
 	remove_print_controlc();
 	change_signals();
 	
