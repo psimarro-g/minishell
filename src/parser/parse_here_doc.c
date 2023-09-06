@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/05 12:12:34 by psimarro         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/09/06 11:09:23 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../inc/minishell.h"
 
@@ -51,6 +52,7 @@ static void	pipe_heredoc(t_mshell *args, char *eof)
 				exit(EXIT_SUCCESS);
 			}
 			write(fd[1], input, ft_strlen(input));
+			write(fd[1], "\n", 1);
 			free(input);
 		}
 	}

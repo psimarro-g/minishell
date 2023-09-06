@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:15:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/01 11:09:47 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:37:30 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ void	interrupt_handler(int signo)
 		rl_on_new_line();
 		printf("\n");
 		rl_redisplay();
-	}
-	else if (g_executing == 1)
-	{
-		close(0);
-		printf("\n");
-		g_executing = 0;
 	}
 }
 

@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_lstclear.c                                      :+:      :+:    :+:   */
+/*   ms_lstsize.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 14:27:08 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 10:01:09 by dmontoro         ###   ########.fr       */
+/*   Created: 2023/09/06 06:55:58 by dmontoro          #+#    #+#             */
+/*   Updated: 2023/09/06 10:01:36 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/ms_lst.h"
 
-void	ms_lstclear(t_cmdlist **lst)
+int	ms_lstsize(t_cmdlist *lst)
 {
-	t_cmdlist	*last;
+	int			i;
+	t_cmdlist	*act;
 
-	if (!lst)
-		return ;
-	while (*lst)
+	i = 0;
+	act = lst;
+	while (act)
 	{
-		last = (*lst)->next;
-		ms_lstdelone(*lst);
-		*lst = last;
+		i++;
+		act = act->next;
 	}
+	return (i);
 }

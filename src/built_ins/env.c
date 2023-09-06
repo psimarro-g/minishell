@@ -6,13 +6,13 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:26:02 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 07:26:02 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:00:07 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	env(char **envp)
+int	env(char **envp)
 {
 	int	i;
 
@@ -22,4 +22,5 @@ void	env(char **envp)
 		printf("%s\n", envp[i]);
 		i++;
 	}
+	return (0);
 }

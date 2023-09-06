@@ -6,13 +6,13 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:49 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 10:11:52 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:00:24 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void print_export(char **envp);
+static void	print_export(char **envp);
 static int	check_var(char *str);
 static char	*get_key(char *str);
 static char	*get_value(char *str);
@@ -102,4 +102,3 @@ static char	*get_value(char *str)
 	value = ft_substr(str, i + 1, ft_strlen(str) - i);
 	return (value);
 }
-

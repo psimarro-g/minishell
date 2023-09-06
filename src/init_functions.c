@@ -6,13 +6,13 @@
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 11:02:02 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:09:32 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-char	*ft_getcwd()
+char	*ft_getcwd(void)
 {
 	char *ret;
 

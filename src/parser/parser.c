@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/01 11:53:32 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 07:48:13 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,12 @@ void	parse_line(char *line, t_mshell *mshell)
 {
 	int				i; //indice de donde estamos en line
 	
-	mshell->exit_status = 0;
 	i = 0;
 	while(line[i])
 	{
 		while(ft_isspace(line[i]))
 			i++;
 		process_token(line, mshell, &i);
-		if (mshell->exit_status != 0)
-			return ;
 	}
 }
 

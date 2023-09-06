@@ -6,14 +6,14 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:55 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/01 06:57:00 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:58:40 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 //In bash if it doesnt find the var, it doesnt create it
-void	cd(char *path, char **cwd, char ***envp)
+int	cd(char *path, char **cwd, char ***envp)
 {
 	char	*tmp;
 
@@ -21,7 +21,7 @@ void	cd(char *path, char **cwd, char ***envp)
 	{
 		printf("cd: no such file or directory: %s\n", path);
 		free(tmp);
-		return ;
+		return (1);
 	}
 	tmp = ft_getcwd();
 	if (tmp)
@@ -32,4 +32,5 @@ void	cd(char *path, char **cwd, char ***envp)
 	}
 	printf("DEBUG: Function cd: PWD Despues del cambio: %s\n", *cwd);
 	set_env("PWD", *cwd, envp);
+	return (0);
 }

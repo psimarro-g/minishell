@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 14:24:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/30 13:24:09 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:01:22 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void	ms_lstdelone(t_cmdlist *lst)
 		free(lst->cmd);
 	if (lst->path)
 		free(lst->path);
-	while(lst->args && lst->args[i])
+	while (lst->args && lst->args[i])
 	{
 		free(lst->args[i]);
 		i++;
 	}
-	if(lst->args)
+	if (lst->args)
 		free(lst->args);
 	free(lst);
 }
