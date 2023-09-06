@@ -6,20 +6,22 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 10:37:17 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:56:24 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	parent_process_hd(int fd[2], t_mshell *args)
+static void	parent_process_hd(int fd[2], t_mshell *args, pid_t id)
 {
 	t_cmdlist	*last;
 
 	last = ms_lstlast(args->cmds);
 	close(fd[1]);
 	last->input = fd[0];
-	wait(NULL);
+	ignore_signals();
+	waitpid(id, &args->exit_status, 0);
+	change_signals();
 }
 
 static void	pipe_heredoc(t_mshell *args, char *eof)
@@ -33,6 +35,7 @@ static void	pipe_heredoc(t_mshell *args, char *eof)
 	id = fork();
 	if (id == 0)
 	{
+		here_doc_signals();
 		close(fd[0]);
 		g_executing = 1;
 		while (1)
@@ -56,7 +59,7 @@ static void	pipe_heredoc(t_mshell *args, char *eof)
 		}
 	}
 	else
-		parent_process_hd(fd, args);
+		parent_process_hd(fd, args, id);
 	free(eof);
 }
 

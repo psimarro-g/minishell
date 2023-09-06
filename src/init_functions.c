@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 09:46:32 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:49:52 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ void	remove_print_controlc(void)
 {
 	struct termios	t;
 
-	// tcgetattr(0, &t);
-	// t.c_lflag &= ~ECHOCTL;
-	// tcsetattr(0, TCSANOW, &t);
+	tcgetattr(0, &t);
+	t.c_lflag &= ~ECHOCTL;
+	tcsetattr(0, TCSANOW, &t);
 }
 
 void	ini_shell(t_mshell *mshell, char **envp)

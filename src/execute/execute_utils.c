@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 09:42:48 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:58:27 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,12 @@ void	change_fds(t_cmdlist *act, int pipe_fd[2])
 int	get_status(int pid, int size)
 {
 	int	status;
-	
+
+	ignore_signals();
 	while (--size > 0)
 		wait(NULL);
 	waitpid(pid, &status, 0);
+	change_signals();
 	g_executing = 0;
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));

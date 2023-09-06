@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/06 09:47:48 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:56:11 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ char			*ft_getcwd(void);
 /* SIGNALS */
 void			change_signals(void);
 void			default_signals(void);
-void			interrupt_handler(int signo);
+void			here_doc_signals(void);
+void			ignore_signals(void);
 
 /* BUILT_INS/ECHO.C */
 int				echo(char **args);
