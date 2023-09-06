@@ -6,7 +6,7 @@
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:10:24 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/06 11:47:41 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:02:34 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,15 @@ int	parse_files(t_mshell *args, char *token, char *line, int *i)
 	int		file_option;
 
 	file_option = 0;
-	if (!ft_strncmp(token, "<", 2))
+	if (!ft_strncmp(token, "<", 1))
 		file_option = 1;
-	else if (!ft_strncmp(token, ">", 2))
+	else if (!ft_strncmp(token, ">", 1))
 		file_option = 2;
 	else if (!ft_strncmp(token, ">>", 2))
 		file_option = 3;
 	else
 		return (-1);
 	*i -= (ft_strlen(token) - is_token(token, 0));
-	printf("DEBUG: Function parse_files: line: \'%s\'\n", &line[*i]);
 	while (ft_isspace(line[*i]) && line[*i])
 		(*i)++;
 	if (is_token(line, *i) || !line[*i])
