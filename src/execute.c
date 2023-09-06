@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 08:24:10 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:37:41 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,41 +16,20 @@ int	probar_comandos(t_cmdlist *args, t_mshell *mshell);
 
 int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 {
-	if (ft_strncmp(args->cmd, "cd", 2) == 0)
-	{
-		cd(args->args[1], &mshell->cwd, &mshell->envp);
-		exit(0);
-	}
-	if (ft_strncmp(args->cmd, "env", 3) == 0)
-	{
-		env(mshell->envp);
-		exit(0);
-	}
-	if (ft_strncmp(args->cmd, "exit", 4) == 0)
-	{
-		ft_exit(args->args, mshell->exit_status);
-		exit(0);
-	}
-	if (ft_strncmp(args->cmd, "pwd", 3) == 0)
-	{
-		pwd(mshell->cwd);
-		exit(0);
-	}
-	if (ft_strncmp(args->cmd, "echo", 4) == 0)
-	{
-		echo(args->args);
-		exit(0);
-	}
-	if (ft_strncmp(args->cmd, "export", 6) == 0)
-	{
-		export(args->args, &mshell->envp);
-		exit(0);
-	}
-	if (ft_strncmp(args->cmd, "unset", 5) == 0)
-	{
-		unset(args->args, &mshell->envp);
-		exit(0);
-	}
+	if (ft_strncmp(args->cmd, "cd", ft_strlen(args->cmd)) == 0)
+		exit(cd(args->args[1], &mshell->cwd, &mshell->envp));
+	if (ft_strncmp(args->cmd, "env", ft_strlen(args->cmd)) == 0)
+		exit(env(mshell->envp));
+	if (ft_strncmp(args->cmd, "exit", ft_strlen(args->cmd)) == 0)
+		exit(ft_exit(args->args, mshell->exit_status));
+	if (ft_strncmp(args->cmd, "pwd", ft_strlen(args->cmd)) == 0)
+		exit(pwd(mshell->cwd));
+	if (ft_strncmp(args->cmd, "echo", ft_strlen(args->cmd)) == 0)
+		exit(echo(args->args));
+	if (ft_strncmp(args->cmd, "export", ft_strlen(args->cmd)) == 0)
+		exit(export(args->args, &mshell->envp));
+	if (ft_strncmp(args->cmd, "unset", ft_strlen(args->cmd)) == 0)
+		exit(unset(args->args, &mshell->envp));
 	return (0);
 }
 
@@ -90,6 +69,28 @@ int	get_status(int pid, int size)
 	return (0);
 }
 
+static int	is_simple(t_mshell *mshell)
+{
+	return (mshell->num_commands == 1 && (ft_strncmp(mshell->cmds->cmd, "cd", ft_strlen(mshell->cmds->cmd)) == 0
+		|| ft_strncmp(mshell->cmds->cmd, "exit", ft_strlen(mshell->cmds->cmd)) == 0
+		|| ft_strncmp(mshell->cmds->cmd, "export", ft_strlen(mshell->cmds->cmd)) == 0
+		|| ft_strncmp(mshell->cmds->cmd, "unset", ft_strlen(mshell->cmds->cmd)) == 0));
+}
+
+static int	execute_simple(t_mshell *mshell)
+{
+
+	if (ft_strncmp(mshell->cmds->cmd, "cd", 2) == 0)
+		return (cd(mshell->cmds->args[1], &mshell->cwd, &mshell->envp));
+	if (ft_strncmp(mshell->cmds->cmd, "exit", 4) == 0)
+		return (ft_exit(mshell->cmds->args, mshell->exit_status));
+	if (ft_strncmp(mshell->cmds->cmd, "export", 6) == 0)
+		return (export(mshell->cmds->args, &mshell->envp));
+	if (ft_strncmp(mshell->cmds->cmd, "unset", 5) == 0)
+		return (unset(mshell->cmds->args, &mshell->envp));
+	return (0);
+}
+
 //If it gets to execute, it has to have at least 1 good command
 /*Execute -> Antes de hacer exec tiene que tener la entrada correcta y la salida correcta y las señales bien
 //Entrada puede ser:
@@ -101,7 +102,7 @@ int	get_status(int pid, int size)
 	- Pipe (-1) sin ser el ultimo comando
 	- Un archivo (> 0)
 */
-int	execute(t_mshell *mshell)
+static int	execute_pipes(t_mshell *mshell)
 {
 	t_cmdlist	*act;
 	pid_t		pid;
@@ -148,4 +149,11 @@ int	execute(t_mshell *mshell)
 		}
 	}
 	return (get_status(pid, mshell->num_commands));
+}
+
+int	execute(t_mshell *mshell)
+{
+	if (is_simple(mshell))
+		return (execute_simple(mshell));
+	return (execute_pipes(mshell));
 }

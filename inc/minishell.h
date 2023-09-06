@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/06 08:00:42 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 09:35:00 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,16 @@ void			interrupt_handler(int signo);
 
 
 /* BUILT_INS/ECHO.C */
-void			echo(char **args);
+int			echo(char **args);
 
 /* BUILT_INS/CD.C */
-void			cd(char *path, char **cwd, char ***envp);
+int			cd(char *path, char **cwd, char ***envp);
 
 /* BUILT_INS/PWD.C */
-void			pwd(char *cwd);
+int			pwd(char *cwd);
 
 /* BUILT_INS/ENV.C */
-void			env(char **envp);
+int			env(char **envp);
 
 /* BUILT_INS/EXPORT.C */
 int				export(char **args, char ***envp);
