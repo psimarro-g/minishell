@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 13:11:06 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:40:13 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int is_token(const char *s, int i)
 		return (1);
 	else if (ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<", 2) == 0)
 		return (2);
+	else if (s[i] == '\'' || s[i] == '\"')
+		return (-1);
 	return (0);
 }
 

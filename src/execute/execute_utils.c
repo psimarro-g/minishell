@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 11:38:04 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 21:03:41 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 {
-	if (ft_strncmp(args->cmd, "cd", ft_strlen(args->cmd)) == 0)
+	if (ft_strncmp(args->cmd, "cd", 2) == 0)
 		exit(cd(args->args[1], &mshell->cwd, &mshell->envp));
-	if (ft_strncmp(args->cmd, "env", ft_strlen(args->cmd)) == 0)
+	if (ft_strncmp(args->cmd, "env", 3) == 0)
 		exit(env(mshell->envp));
-	if (ft_strncmp(args->cmd, "exit", ft_strlen(args->cmd)) == 0)
+	if (ft_strncmp(args->cmd, "exit", 4) == 0)
 		exit(ft_exit(args->args, mshell->exit_status));
-	if (ft_strncmp(args->cmd, "pwd", ft_strlen(args->cmd)) == 0)
+	if (ft_strncmp(args->cmd, "pwd", 3) == 0)
 		exit(pwd(mshell->cwd));
-	if (ft_strncmp(args->cmd, "echo", ft_strlen(args->cmd)) == 0)
+	if (ft_strncmp(args->cmd, "echo", 4) == 0)
 		exit(echo(args->args));
-	if (ft_strncmp(args->cmd, "export", ft_strlen(args->cmd)) == 0)
+	if (ft_strncmp(args->cmd, "export", 6) == 0)
 		exit(export(args->args, &mshell->envp));
-	if (ft_strncmp(args->cmd, "unset", ft_strlen(args->cmd)) == 0)
+	if (ft_strncmp(args->cmd, "unset", 5) == 0)
 		exit(unset(args->args, &mshell->envp));
 	return (0);
 }
@@ -70,8 +70,8 @@ int	get_status(int pid, int num_commands)
 
 int	is_simple(t_mshell *mshell)
 {
-	return (mshell->num_commands == 1 && (ft_strncmp(mshell->cmds->cmd, "cd", ft_strlen(mshell->cmds->cmd)) == 0
-		|| ft_strncmp(mshell->cmds->cmd, "exit", ft_strlen(mshell->cmds->cmd)) == 0
-		|| ft_strncmp(mshell->cmds->cmd, "export", ft_strlen(mshell->cmds->cmd)) == 0
-		|| ft_strncmp(mshell->cmds->cmd, "unset", ft_strlen(mshell->cmds->cmd)) == 0));
+	return (mshell->num_commands == 1 && (ft_strncmp(mshell->cmds->cmd, "cd", 2) == 0
+		|| ft_strncmp(mshell->cmds->cmd, "exit", 4) == 0
+		|| ft_strncmp(mshell->cmds->cmd, "export", 6) == 0
+		|| ft_strncmp(mshell->cmds->cmd, "unset", 5) == 0));
 }

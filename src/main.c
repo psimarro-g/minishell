@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 13:31:22 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:33:50 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,13 @@ int	main(int argc, char **argv, char **envp)
 		line = readline(GREEN"minishell $> "RESET);
 		if (!line)
 			ft_exit(NULL, mshell.exit_status);
-		add_history(line);
+		if (ft_strlen(line) > 0)
+			add_history(line);
 		parse_line(line, &mshell);
 		if (mshell.cmds->cmd)
 		{
 			mshell.exit_status = execute(&mshell);
-			//show_cmds(mshell.cmds);
+			show_cmds(mshell.cmds);
 		}
 		free_commands(&mshell);
 		free(line);
