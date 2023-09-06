@@ -6,9 +6,10 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 10:56:24 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:46:18 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../inc/minishell.h"
 
@@ -63,7 +64,7 @@ static void	pipe_heredoc(t_mshell *args, char *eof)
 	free(eof);
 }
 
-static void	hd_error(t_mshell *args, char *eof, char *line, int *i)
+void	syntax_error(t_mshell *args, char *eof, char *line, int *i)
 {
 	if (!line[*i])
 	{
@@ -90,7 +91,7 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 		(*i)++;
 	if (is_token(line, *i) || !line[*i])
 	{
-		hd_error(args, eof, line, i);
+		syntax_error(args, eof, line, i);
 		return (0);
 	}
 	while (!ft_isspace(line[*i + j]) && !is_token(line, *i + j) && line[*i + j] != '\0')

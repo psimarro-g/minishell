@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/06 10:56:11 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:45:36 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <signal.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <termios.h>
@@ -72,7 +73,7 @@ void			rl_clear_history(void);
 void			ini_shell(t_mshell *mshell, char **envp);
 char			*ft_getcwd(void);
 
-/* SIGNALS */
+/* SIGNALS.C */
 void			change_signals(void);
 void			default_signals(void);
 void			here_doc_signals(void);
@@ -130,6 +131,7 @@ int				parse_pipe(t_mshell *args, char *token, char *line, int *i);
 
 /* PARSER/PARSE_HEREDOC.C */
 int				parse_here_doc(t_mshell *args, char *token, char *line, int *i);
+void			syntax_error(t_mshell *args, char *eof, char *line, int *i);
 
 /* PARSER/PARSE_UTILS2.C */
 int				check_comillas(char c, const char *s, int i);
@@ -142,4 +144,6 @@ char			**split_and_expand(char const *s, int *i, t_mshell mshell);
 int				parse_command(t_mshell *args, char *token, char *line, int *i);
 char			**split_args(char const *s);
 
+/* PARSER/PARSE_FILES.C*/
+int	parse_files(t_mshell *args, char *token, char *line, int *i);
 #endif
