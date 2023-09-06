@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/17 13:42:03 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:40:58 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 int is_token(const char *s, int i)
-{
+{ 
 	if (s[i] == '<' || s[i] == '>' || s[i] == '|')
 		return (1);
 	else if (ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<", 2) == 0)
@@ -60,7 +60,7 @@ void	jump_spaces(char const *s, int *i, int *found)
 	*found = 0;
 }
 
-int	count_words(char const *s)
+int		count_words(char const *s)
 {
 	int	count;
 	int	found;

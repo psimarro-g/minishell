@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 10:58:27 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 11:38:04 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,13 @@ void	change_fds(t_cmdlist *act, int pipe_fd[2])
 	close(pipe_fd[1]);
 }
 //Hacemos el cambio de señales para que coja bien las señales
-int	get_status(int pid, int size)
+int	get_status(int pid, int num_commands)
 {
 	int	status;
 
 	ignore_signals();
-	while (--size > 0)
-		wait(NULL);
 	waitpid(pid, &status, 0);
+	while (waitpid(-1, NULL, 0) != -1) ;
 	change_signals();
 	g_executing = 0;
 	if (WIFEXITED(status))
