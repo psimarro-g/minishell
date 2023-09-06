@@ -20,7 +20,6 @@ int	cd(char *path, char **cwd, char ***envp)
 	if (chdir(path) == -1)
 	{
 		printf("cd: no such file or directory: %s\n", path);
-		free(tmp);
 		return (1);
 	}
 	tmp = ft_getcwd();
