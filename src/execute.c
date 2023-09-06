@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 07:52:49 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 08:24:10 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	change_fds(t_cmdlist *act, int pipe_fd[2])
 		dup2(pipe_fd[1], STDOUT_FILENO);
 		close(pipe_fd[1]);
 	}
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
 }
 //Hacemos el cambio de señales para que coja bien las señales
 int	get_status(int pid, int size)
@@ -127,7 +129,6 @@ int	execute(t_mshell *mshell)
 				else
 				{
 					printf("DEBUG: Function execute: executing %s\n", act->cmd);
-					g_executing = 1;
 					execve(act->path, act->args, mshell->envp);
 				}
 			}
@@ -139,10 +140,10 @@ int	execute(t_mshell *mshell)
 			if (act->output != -1)
 				close(act->output);
 			if (act->next != NULL)
-			{
-				close(pipe_fd[1]);
 				act->next->input = pipe_fd[0];
-			}
+			else
+				close(pipe_fd[0]);
+			close(pipe_fd[1]);
 			act = act->next;
 		}
 	}
