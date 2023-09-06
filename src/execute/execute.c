@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 09:43:00 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 10:14:13 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,36 @@ static int	execute_simple(t_mshell *mshell)
 	if (ft_strncmp(mshell->cmds->cmd, "unset", 5) == 0)
 		return (unset(mshell->cmds->args, &mshell->envp));
 	return (0);
+}
+
+static void	execute_child(int pipe_fd[2], t_cmdlist	*act, t_mshell *mshell)
+{
+	default_signals();
+	change_fds(act, pipe_fd);
+	if (probar_comandos(act, mshell) == 0)
+	{
+		if (act->path == NULL)
+		{
+			printf("minishell: %s: command not found\n", act->cmd);
+			mshell->exit_status = 127;
+			exit(127);
+		}
+		else
+			execve(act->path, act->args, mshell->envp);
+	}
+}
+
+static void	manage_parent_fds(t_cmdlist	*act, int pipe_fd[2])
+{
+	if (act->input != -1)
+		close(act->input);
+	if (act->output != -1)
+		close(act->output);
+	if (act->next != NULL)
+		act->next->input = pipe_fd[0];
+	else
+		close(pipe_fd[0]);
+	close(pipe_fd[1]);
 }
 
 //If it gets to execute, it has to have at least 1 good command
@@ -49,33 +79,13 @@ static int	execute_pipes(t_mshell *mshell)
 		if (pipe(pipe_fd) == -1)
 			ft_error("Error creating pipe", mshell, 1);
 		pid = fork();
+		if (pid == -1)
+			ft_error("Error creating fork", mshell, 1);
 		if(pid == 0)
-		{
-			default_signals();
-			change_fds(act, pipe_fd);
-			if (probar_comandos(act, mshell) == 0)
-			{
-				if (act->path == NULL)
-				{
-					printf("minishell: %s: command not found\n", act->cmd);
-					mshell->exit_status = 127;
-					exit(127);
-				}
-				else
-					execve(act->path, act->args, mshell->envp);
-			}
-		}
+			execute_child(pipe_fd, act, mshell);
 		else
 		{
-			if (act->input != -1)
-				close(act->input);
-			if (act->output != -1)
-				close(act->output);
-			if (act->next != NULL)
-				act->next->input = pipe_fd[0];
-			else
-				close(pipe_fd[0]);
-			close(pipe_fd[1]);
+			manage_parent_fds(act, pipe_fd);
 			act = act->next;
 		}
 	}
