@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_command.c                                    :+:      :+:    :+:   */
+/*   parse_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/30 13:42:19 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/06 08:00:51 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 static char	*find_path(char **envp, char *command);
 
 //Coge el token, lo expande, clona el comando, busca el path y coge sus argumentos y los expande si es necesario
-int	parse_command(t_mshell *args, char *token, char *line, int *i)
+int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 {
 	t_cmdlist	*act;
 	char		*aux;
 	char		*translation;
 
-	act = ms_lstlast(args->cmds);
-	translation = expand_var(token, args->envp, args->exit_status);
+	act = ms_lstlast(mshell->cmds);
+	translation = expand_var(token, mshell->envp, mshell->exit_status);
 	if (translation == NULL)
 		translation = ft_strdup(token);
 	act->cmd = ft_strdup(translation);
 	aux = ft_strjoin("/", translation);
-	act->path = find_path(args->envp, aux);
-	act->args = split_and_expand(line + (*i) - ft_strlen(token), i, args);
+	act->path = find_path(mshell->envp, aux);
+	act->args = split_and_expand(line + (*i) - ft_strlen(token), i, *mshell);
 	(*i) -= ft_strlen(token);
-	args->num_commands++;
+	mshell->num_commands++;
 	free(translation);
 	free(aux);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/08/29 11:49:34 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 08:00:39 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void static	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
 }
 
 //Indexes 0 = index de la palabra a escribir en ret y 1 = index de la linea
-char	**split_and_expand(char const *s, int *i, t_mshell *mshell)
+char	**split_and_expand(char const *s, int *i, t_mshell mshell)
 {
 	int		num_words;
 	char	**ret;
@@ -97,7 +97,7 @@ char	**split_and_expand(char const *s, int *i, t_mshell *mshell)
 		return (NULL);
 	while (--num_words > 0)
 	{
-		copy_word(ret, s, &indexes[0], mshell);
+		copy_word(ret, s, &indexes[0], &mshell);
 		if (!ret[indexes[0] - 1])
 			return (NULL);
 	}

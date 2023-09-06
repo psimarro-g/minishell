@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/01 11:42:34 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 08:00:42 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int				ft_exit(char **args, int exit_status);
 void			fancy_logo(void);
 
 /* EXECUTE.C */
+int				test_execute(t_mshell *mshell);
 int 			execute(t_mshell *mshell);
 
 /* ENVP_UTILS.C */
@@ -131,7 +132,7 @@ int				is_token(const char *s, int i);
 void			ft_error(char *s, t_mshell *mshell, int exit_code);
 
 /* PARSER/PARSE_UTILS.C*/
-char			**split_and_expand(char const *s, int *i, t_mshell *mshell);
+char			**split_and_expand(char const *s, int *i, t_mshell mshell);
 int				parse_command(t_mshell *args, char *token, char *line, int *i);
 char			**split_args(char const *s);
 

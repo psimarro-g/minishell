@@ -6,7 +6,7 @@
 #    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/09/01 11:43:03 by dmontoro         ###   ########.fr        #
+#    Updated: 2023/09/06 06:56:33 by dmontoro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ HEADER		= inc/minishell.h
 
 SRC_DIR		=	src/
 SRC 		=	main.c fancy_logo.c init_functions.c envp_utils.c signals.c execute.c\
-				ms_lstadd_back.c ms_lstlast.c ms_lstnew.c ms_lstdelone.c ms_lstclear.c\
+				ms_lstadd_back.c ms_lstlast.c ms_lstnew.c ms_lstdelone.c ms_lstclear.c ms_lstsize.c\
 				parser.c parse_functions.c parse_env.c parse_utils.c parse_utils2.c\
 				parse_here_doc.c parse_pipe.c\
 				echo.c cd.c exit.c pwd.c env.c export.c unset.c\
