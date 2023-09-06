@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 08:00:39 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:12:47 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int	word_size(const char *s)
 
 	i = 0;
 	ret = 0;
-	while (s[i] && !ft_isspace(s[i]))
+	while (s[i] && !ft_isspace(s[i]) && !is_token(s, i))
 	{
 		if (check_comillas('\'', s, i))
 		{

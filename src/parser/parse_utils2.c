@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 11:40:58 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:11:06 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		count_words(char const *s)
 	while (s[i])
 	{
 		jump_quotes(s, &i, &count);
-		while (s[i] && !ft_isspace(s[i]))
+		while (s[i] && !ft_isspace(s[i]) && !is_token(s, i))
 		{
 			count += !found;
 			found = 1;
