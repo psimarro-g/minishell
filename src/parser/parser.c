@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 07:48:13 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/06 13:31:28 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void process_token(char *line, t_mshell *args, int *i);
 
 void	parse_line(char *line, t_mshell *mshell)
 {
-	int				i; //indice de donde estamos en line
+	int	i; //indice de donde estamos en line
 	
 	i = 0;
 	while(line[i])
@@ -27,6 +27,19 @@ void	parse_line(char *line, t_mshell *mshell)
 	}
 }
 
+static int	consume_token(const char *line, int *i)
+{
+	int	j;
+
+	while (line[*i] && ft_isspace(line[*i]))
+		(*i)++;
+	if (ft_strncmp(&line[*i], ">>", 2) == 0 || ft_strncmp(&line[*i], "<<", 2) == 0)
+		return (2);
+	else if (is_token(line, *i))
+		return (1);
+	return (0);
+}
+
 char	*get_token(const char *line, int *i)
 {
 	int	start;
@@ -35,12 +48,14 @@ char	*get_token(const char *line, int *i)
 
 	start = *i;
 	quote = line[start] == '\'';
-	while(line[*i] && (!ft_isspace(line[*i]) || quote))
+	while(line[*i] && !is_token(line, *i) && (!ft_isspace(line[*i]) || quote))
 	{
 		if (line[*i] == '\'' && *i != start)
 			quote = 0;
 		(*i)++;
 	}
+	if (start == *i)
+		(*i) += consume_token(line, i);
 	end = *i;
 	return (ft_substr(line, start, end - start));
 }
