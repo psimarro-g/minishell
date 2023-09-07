@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 19:33:50 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:11:23 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	g_executing = 0;
 
 void	show_ini_data(t_mshell *mshell)
 {
-	printf("cwd: %s\n", mshell->cwd);
+	printf(GREEN"  cwd: %s\n\n"RESET, mshell->cwd);
 }
 
 void	show_cmds(t_cmdlist *cmds)
@@ -74,8 +74,6 @@ int	main(int argc, char **argv, char **envp)
 	ini_shell(&mshell, envp);
 	fancy_logo();
 	show_ini_data(&mshell);
-
-	//line = ft_strdup("cd ..");
 	rl_clear_history();
 	while(1)
 	{
@@ -88,7 +86,7 @@ int	main(int argc, char **argv, char **envp)
 		if (mshell.cmds->cmd)
 		{
 			mshell.exit_status = execute(&mshell);
-			show_cmds(mshell.cmds);
+			//show_cmds(mshell.cmds);
 		}
 		free_commands(&mshell);
 		free(line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/06 11:45:36 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/07 19:11:06 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,5 +145,5 @@ int				parse_command(t_mshell *args, char *token, char *line, int *i);
 char			**split_args(char const *s);
 
 /* PARSER/PARSE_FILES.C*/
-int	parse_files(t_mshell *args, char *token, char *line, int *i);
+int				parse_files(t_mshell *args, char *token, char *line, int *i);
 #endif
