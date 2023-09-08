@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 12:10:24 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/06 16:33:02 by psimarro         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/09/08 09:46:53 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../inc/minishell.h"
 

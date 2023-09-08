@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 13:12:47 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/07 18:40:13 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,13 @@ char	**split_and_expand(char const *s, int *i, t_mshell mshell)
 	indexes[0] = 0;
 	indexes[1] = skip_char(&s[0]);
 	num_words = count_words(s) + 1;
-	ret = malloc((num_words) * sizeof(char *));
+	ret = ft_calloc((num_words), sizeof(char *));
 	if (!ret)
 		return (NULL);
 	while (--num_words > 0)
 	{
 		copy_word(ret, s, &indexes[0], &mshell);
-		if (!ret[indexes[0] - 1])
+		if (!indexes[0] || !ret[indexes[0] - 1])
 			return (NULL);
 	}
 	ret[indexes[0]] = 0;

@@ -19,6 +19,7 @@ char	*ft_getcwd(void)
 	ret = malloc(sizeof(char) * PATH_MAX);
 	if(getcwd(ret, PATH_MAX) != NULL)
 		return (ret);
+	free(ret);
 	return (NULL);
 }
 
