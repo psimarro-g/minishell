@@ -23,6 +23,10 @@ int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 
 	act = ms_lstlast(mshell->cmds);
 	translation = expand_var(token, mshell->envp, mshell->exit_status);
+	//El codigo este de abajo petará por que cuando tenga que expandir algo que no sea un comando
+	//Por ejemplo wc -l <infile $documento
+	//$documento no es un comando, deberia ser tratado como un argumento y no tiene sentido que devuelva 0
+	//creo, nota para mi, pensar cuando puedas hacerlo
 	if (translation == NULL && ft_strncmp(token, "$", 1) == 0)
 		return (0);
 	else if (translation == NULL)
