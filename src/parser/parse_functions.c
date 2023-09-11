@@ -23,7 +23,9 @@ int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 
 	act = ms_lstlast(mshell->cmds);
 	translation = expand_var(token, mshell->envp, mshell->exit_status);
-	if (translation == NULL)
+	if (translation == NULL && ft_strncmp(token, "$", 1) == 0)
+		return (0);
+	else if (translation == NULL)
 		translation = ft_strdup(token);
 	act->cmd = ft_strdup(translation);
 	aux = ft_strjoin("/", translation);

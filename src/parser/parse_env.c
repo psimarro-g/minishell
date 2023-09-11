@@ -48,7 +48,6 @@ char	*expand_var(char *var, char **envp, int ret_code)
 
 	if (var[0] != '$')
 		return (NULL);
-
 	var_name = ft_substr(var, 1, ft_strlen(var));
 	if (ft_strncmp(var_name, "?", 1) == 0)
 	{
