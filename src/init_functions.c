@@ -38,6 +38,8 @@ void	remove_print_controlc(void)
 void	ini_shell(t_mshell *mshell, char **envp)
 {
 	char	*value;
+	int		lvl;
+
 	ft_bzero(mshell, sizeof(t_mshell));
 	dup2(STDIN_FILENO, mshell->fd[0]);
 	dup2(STDOUT_FILENO, mshell->fd[1]);
@@ -52,11 +54,11 @@ void	ini_shell(t_mshell *mshell, char **envp)
 	mshell->parse_list[4] = &parse_command;
 	remove_print_controlc();
 	change_signals();
-	
+	set_env("0", "minishell", &mshell->envp);
 	value = expand_var("$SHLVL", mshell->envp, mshell->exit_status);
 	if (value)
 	{
-		int lvl = ft_atoi(value);
+		lvl = ft_atoi(value);
 		free(value);
 		value = ft_itoa(lvl + 1);
 		set_env("SHLVL", value, &mshell->envp);
