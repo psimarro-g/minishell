@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:42:13 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/12 20:07:26 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:38:35 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*get_var(const char *line, int *i)
 	char	*ret;
 
 	j = *i;
-	while (line[j] && !ft_isspace(line[j]) && !(line[j] == '\"' && line[j - 1] != '\\'))
+	while (line[j] && !ft_isspace(line[j]) && line[j] != '\'' && (line[j] != '\"' || !(line[j] == '\"' && line[j - 1] != '\\')))
 		j++;
 	ret = ft_substr(line, *i, j - *i);
 	*i = j;
@@ -75,8 +75,8 @@ char	*get_single_quotes(const char *line, int *i)
 
 	j = check_comillas('\'', line, *i);
 	(*i)++;
-	ret = ft_substr(line, *i, j);
-	*i += j + 1;
+	ret = ft_substr(line, *i, j - 1);
+	*i += j;
 	return (ret);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/12 20:44:19 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:47:25 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,17 @@ static int	skip_char(char const *s)
 	return (i);
 }
 
-void static	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
+int static	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
 {
 	int		comillas;
 
 	ret[indexes[0]] = get_tranche(mshell, s, &indexes[1]);
 	if (!ret[indexes[0]])
-		return ;
+		return (0);
 	indexes[1] += skip_char(&s[indexes[1]]);
 	if (ret[indexes[0]])
 		indexes[0]++;
+	return (1);
 }
 
 //Indexes 0 = index de la palabra a escribir en ret y 1 = index de la linea
@@ -88,8 +89,7 @@ char	**split_and_expand(char const *s, int *i, t_mshell mshell, char *token)
 	ret[0] = ft_strdup(token);
 	while (--num_words > 0)
 	{
-		copy_word(ret, s, indexes, &mshell);
-		if (!ret[indexes[0] - 1])
+		if (!copy_word(ret, s, indexes, &mshell))
 			break;
 	}
 	ret[indexes[0]] = 0;

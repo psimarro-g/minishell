@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:46:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/12 19:39:13 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/12 21:39:22 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ char	*expand_var(char *var, char **envp, int ret_code)
 
 	if (var[0] != '$')
 		return (NULL);
+	if (!var[1])
+		return (ft_strdup("$"));
 	var_name = ft_substr(var, 1, ft_strlen(var));
 	if (ft_strncmp(var_name, "?", 1) == 0)
 	{
