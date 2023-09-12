@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/12 19:25:56 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:44:19 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	ft_error(char *s, t_mshell *mshell, int exit_code)
 {
+	mshell->error = 1;
 	if (mshell)
 		mshell->exit_status = exit_code;
 	if (s)
@@ -60,7 +61,6 @@ static int	skip_char(char const *s)
 void static	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
 {
 	int		comillas;
-	char	*translation;
 
 	ret[indexes[0]] = get_tranche(mshell, s, &indexes[1]);
 	if (!ret[indexes[0]])

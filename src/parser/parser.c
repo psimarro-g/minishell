@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/12 19:03:46 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:36:47 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,18 @@ static int	consume_token(const char *line, int *i)
 
 char	*get_token(t_mshell *mshell, const char *line, int *i)
 {
-	return (get_tranche(mshell, line, i)); 
-	
+	int		size;
+	char	*ret;
+
+	size = is_token(line, *i);
+	if (size == 0)
+		ret = get_tranche(mshell, line, i);
+	else
+	{
+		ret = ft_substr(line, *i, size);
+		(*i) += size;
+	}
+	return (ret);
 }
 
 void add_token(t_mshell *args, char *token, char *line, int *i)
