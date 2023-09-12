@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 16:58:33 by psimarro          #+#    #+#             */
-/*   Updated: 2022/06/08 16:58:37 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:18:08 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!s)
 		return (0);
 	if (!len || start > ft_strlen(s))
-		return (ft_calloc(sizeof(char), 1));
+		return (NULL);
 	cpstr = ft_calloc(sizeof(char), len + 1);
 	if (!cpstr)
 		return (0);

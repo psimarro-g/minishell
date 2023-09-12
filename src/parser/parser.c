@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 13:31:28 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:03:46 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,10 @@ static int	consume_token(const char *line, int *i)
 	return (0);
 }
 
-char	*get_token(const char *line, int *i)
+char	*get_token(t_mshell *mshell, const char *line, int *i)
 {
-	int	start;
-	int	end;
-	int	quote;
-
-	start = *i;
-	quote = line[start] == '\'';
-	while(line[*i] && !is_token(line, *i) && (!ft_isspace(line[*i]) || quote))
-	{
-		if (line[*i] == '\'' && *i != start)
-			quote = 0;
-		(*i)++;
-	}
-	if (start == *i)
-		(*i) += consume_token(line, i);
-	end = *i;
-	return (ft_substr(line, start, end - start));
+	return (get_tranche(mshell, line, i)); 
+	
 }
 
 void add_token(t_mshell *args, char *token, char *line, int *i)
@@ -80,7 +66,7 @@ void	process_token(char *line, t_mshell *args, int *i)
 
 	if (!line[*i])
 		return ;
-	token = get_token(line, i);
+	token = get_token(args, line, i);
 	//printf("DEBUG: Function process_token: token: %s\n", token); //DEBUG
 	add_token(args, token, line, i);
 	free(token);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 08:00:51 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:25:51 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,13 @@ int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 {
 	t_cmdlist	*act;
 	char		*aux;
-	char		*translation;
 
 	act = ms_lstlast(mshell->cmds);
-	translation = expand_var(token, mshell->envp, mshell->exit_status);
-	//El codigo este de abajo petará por que cuando tenga que expandir algo que no sea un comando
-	//Por ejemplo wc -l <infile $documento
-	//$documento no es un comando, deberia ser tratado como un argumento y no tiene sentido que devuelva 0
-	//creo, nota para mi, pensar cuando puedas hacerlo
-	if (translation == NULL && ft_strncmp(token, "$", 1) == 0)
-		return (0);
-	else if (translation == NULL)
-		translation = ft_strdup(token);
-	act->cmd = ft_strdup(translation);
-	aux = ft_strjoin("/", translation);
+	act->cmd = ft_strdup(token);
+	aux = ft_strjoin("/", token);
 	act->path = find_path(mshell->envp, aux);
-	act->args = split_and_expand(line + (*i) - ft_strlen(token), i, *mshell);
-	(*i) -= ft_strlen(token);
+	act->args = split_and_expand(line + (*i), i, *mshell, token);
 	mshell->num_commands++;
-	free(translation);
 	free(aux);
 	return (0);
 }

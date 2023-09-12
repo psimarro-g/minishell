@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/07 17:29:23 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/12 17:35:07 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	check_comillas(char c, const char *s, int i)
 
 static void	jump_quotes(char const *s, int *i, int *count)
 {
+	int	res;
+
 	if (s[*i] == '\'')
 	{
 		while (s[++(*i)] && s[*i] != '\'')
@@ -44,11 +46,10 @@ static void	jump_quotes(char const *s, int *i, int *count)
 		(*i)++;
 		(*count)++;
 	}
-	if (s[*i] == '\"')
+	res = check_dquotes(s, *i);
+	if (s[*i] == '\"' && res)
 	{
-		while (s[++(*i)] && s[*i] != '\"')
-			;
-		(*i)++;
+		(*i) = res + 1;
 		(*count)++;
 	}
 }
@@ -69,18 +70,15 @@ int		count_words(char const *s)
 	i = 0;
 	found = 0;
 	count = 0;
+	while (s[i] && ft_isspace(s[i]))
+		i++;
 	while (s[i])
 	{
-		jump_quotes(s, &i, &count);
-		while (s[i] && !ft_isspace(s[i]) && !is_token(s, i))
-		{
-			count += !found;
-			found = 1;
-			++i;
-		}
-		jump_spaces(s, &i, &found);
-		if (s[i] && is_token(s, i))
-			return (count);
+		count++;
+		while(s[i] && !ft_isspace(s[i]))
+			i++;
+		while (s[i] && ft_isspace(s[i]))
+			i++;
 	}
 	return (count);
 }
