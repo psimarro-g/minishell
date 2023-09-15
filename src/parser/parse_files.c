@@ -6,25 +6,12 @@
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/09/08 09:46:53 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:33:13 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../inc/minishell.h"
-
-static char	*get_filename(char *line, int *i)
-{
-	char	*file_name;
-	int		j;
-
-	j = 0;
-	while (!ft_isspace(line[*i + j]) && !is_token(line, *i + j) && line[*i + j])
-		j++;
-	file_name = ft_substr(line, *i, j);
-	*i += j;
-	return (file_name);
-}
 
 static void	ms_open_file(t_mshell *args, char *argv, int i)
 {
@@ -67,7 +54,7 @@ int	parse_files(t_mshell *args, char *token, char *line, int *i)
 		syntax_error(args, file_name, line, i);
 		return (0);
 	}
-	file_name = get_filename(line, i);
+	file_name = get_tranche(args, line, i);
 	printf("DEBUG: Function parse_files: file_name: \'%s\'\n", file_name);
 	ms_open_file(args, file_name, file_option);
 	free(file_name);
