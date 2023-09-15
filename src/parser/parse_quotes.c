@@ -6,7 +6,7 @@
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:42:13 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/16 00:15:16 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/16 00:17:17 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ char	*ft_strjoin_free(char *s1, char *s2)
 	int		len;
 
 	len = ft_strlen(s1) + ft_strlen(s2);
+	if (len == 0)
+		return(NULL);
 	joinstr = ft_calloc(sizeof(char), len + 1);
 	if (!joinstr)
 		return (0);
@@ -48,7 +50,7 @@ char	*get_var(const char *line, int *i)
 	char	*ret;
 
 	j = *i;
-	while (line[j] && !ft_isspace(line[j]))
+	while (line[j] && !ft_isspace(line[j]) && line[j] != '\'' && (line[j] != '\"' || !(line[j] == '\"' && line[j - 1] != '\\')))
 		j++;
 	ret = ft_substr(line, *i, j - *i);
 	*i = j;
@@ -60,7 +62,7 @@ int	check_dquotes(const char *line, int i)
 	while (line[i] && line[i] != '\"')
 		i++;
 	if (line[i] == '\"' && line[i - 1] != '\\')
-		return (1);
+		return (i);
 	else if (!line[i])
 		return (0);
 	return (check_dquotes(line, i + 1));
@@ -72,8 +74,9 @@ char	*get_single_quotes(const char *line, int *i)
 	char	*ret;
 
 	j = check_comillas('\'', line, *i);
-	ret = ft_substr(line, *i, j);
-	*i += j + 1;
+	(*i)++;
+	ret = ft_substr(line, *i, j - 1);
+	*i += j;
 	return (ret);
 }
 
@@ -82,23 +85,31 @@ char	*get_double_quotes(t_mshell *mshell, const char *line, int *i)
 {
 	int		j;
 	char	*ret;
+	char	*env_var;
 
-	j = *i + 1;
+	(*i)++;
+	j = *i;
+	ret = NULL;
 	while (line[j] != '\"')
 	{
 		while (line[j] && line[j] != '\"' && line[j] != '\\' && line[j] != '$')
 			j++;
-		ret = ft_strjoin_free(ret, ft_substr(line, j, *i - j));
+		ret = ft_strjoin_free(ret, ft_substr(line, *i, j - *i));
 		*i = j;
 		if (line[*i] == '$')
-			ret = ft_strjoin_free(ret, expand_var(get_var(line, i), mshell->envp, mshell->exit_status));
+		{
+			env_var = get_var(line, i);
+			ret = ft_strjoin_free(ret, expand_var(env_var, mshell->envp, mshell->exit_status));
+			free(env_var);
+		}
 		else if (line[*i] == '\\')
 		{
 			*i += 1;
-			ret = ft_strjoin_free(ret, line[*i]);
+			ret = ft_strjoin_free(ret, ft_substr(line, *i, 1));
 		}
-		j = *i + 1;
+		j = *i;
 	}
+	(*i)++;
 	return (ret);
 }
 
@@ -106,23 +117,29 @@ char	*get_tranche(t_mshell *mshell, const char *line, int *i)
 {
 	int		j;
 	char	*ret;
+	char	*env_var;
 	
 	j = *i;
+	ret = NULL;
 	while (line[j] && !ft_isspace(line[j]) && !is_token(line, j))
 	{
 		while (line[j] && !ft_isspace(line[j]) && !is_token(line, j) \
 			&& line[j] != '\'' && line[j] != '\"' && line[j] != '$')
 			j++;
-		ret = ft_strjoin_free(ret, ft_substr(line, j, *i - j));
+		ret = ft_strjoin_free(ret, ft_substr(line, *i, j - *i));
 		*i = j;
-		if (line[j] == '$')
-			ret = ft_strjoin_free(ret, expand_var(get_var(line, i), mshell->envp, mshell->exit_status));
-		else if (line[j] == '\'' && check_comillas('\'', line, j))
+		if (line[*i] == '$')
+		{
+			env_var = get_var(line, i);
+			ret = ft_strjoin_free(ret, expand_var(env_var, mshell->envp, mshell->exit_status));
+			free(env_var);
+		}
+		else if (line[*i] == '\'' && check_comillas('\'', line, j))
 			ret = ft_strjoin_free(ret, get_single_quotes(line, i));
-		else if (line[j] == '\"' && check_dquotes(line, j + 1))
+		else if (line[*i] == '\"' && check_dquotes(line, j + 1))
 			ret = ft_strjoin_free(ret, get_double_quotes(mshell, line, i));
-		j = *i + 1;
+		j = *i;
 	}
-	printf("DEBUG: parse_quotes.c: get_tranche: ret: %s\n", ret);
+	printf("DEBUG: parse_quotes.c: get_tranche: ret: .%s.\n", ret);
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 21:03:41 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:49:10 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 {
-	if (ft_strncmp(args->cmd, "cd", 2) == 0)
+	if (ft_strcmp(args->cmd, "cd") == 0)
 		exit(cd(args->args[1], &mshell->cwd, &mshell->envp));
-	if (ft_strncmp(args->cmd, "env", 3) == 0)
+	if (ft_strcmp(args->cmd, "env") == 0)
 		exit(env(mshell->envp));
-	if (ft_strncmp(args->cmd, "exit", 4) == 0)
+	if (ft_strcmp(args->cmd, "exit") == 0)
 		exit(ft_exit(args->args, mshell->exit_status));
-	if (ft_strncmp(args->cmd, "pwd", 3) == 0)
+	if (ft_strcmp(args->cmd, "pwd") == 0)
 		exit(pwd(mshell->cwd));
-	if (ft_strncmp(args->cmd, "echo", 4) == 0)
+	if (ft_strcmp(args->cmd, "echo") == 0)
 		exit(echo(args->args));
-	if (ft_strncmp(args->cmd, "export", 6) == 0)
+	if (ft_strcmp(args->cmd, "export") == 0)
 		exit(export(args->args, &mshell->envp));
-	if (ft_strncmp(args->cmd, "unset", 5) == 0)
+	if (ft_strcmp(args->cmd, "unset") == 0)
 		exit(unset(args->args, &mshell->envp));
 	return (0);
 }

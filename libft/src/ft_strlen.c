@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 16:56:11 by psimarro          #+#    #+#             */
-/*   Updated: 2022/12/18 21:20:57 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/12 18:26:24 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	i = 0;
 	if (!s)
 		return (0);
-	i = 0;
 	while (*s++)
 		i++;
 	return (i);

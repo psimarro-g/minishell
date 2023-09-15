@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 11:58:11 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/12 19:45:24 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void	ini_shell(t_mshell *mshell, char **envp)
 	mshell->parse_list[4] = &parse_command;
 	remove_print_controlc();
 	change_signals();
-	set_env("0", "minishell", &mshell->envp);
 	value = expand_var("$SHLVL", mshell->envp, mshell->exit_status);
 	if (value)
 	{

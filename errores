@@ -1,0 +1,3 @@
+- si la variable de entorno no existe $0 peta
+- si creas una variable con export que no tiene valor (a=) no deberia salir en env
+-doble pipe

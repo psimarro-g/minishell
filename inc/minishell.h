@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/07 19:11:06 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/12 20:43:07 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_mshell
 	int			num_commands;
 	int			last_pid;
 	int			exit_status;
+	int			error;
 	int			(*parse_list[FUN_SIZE])(struct s_mshell *, \
 					char *, char *, int *);
 }	t_mshell;
@@ -120,7 +121,7 @@ char			**clone_envp(char **envp);
 
 /* PARSER/PARSER.C */
 void			parse_line(char *line, t_mshell *mshell);
-char			*get_token(const char *line, int *i);
+//char			*get_token(const char *line, int *i);
 
 /* PARSER/PARSE_ENV.C */
 char			*expand_var(char *var, char **envp, int exit_status);
@@ -140,10 +141,14 @@ int				is_token(const char *s, int i);
 void			ft_error(char *s, t_mshell *mshell, int exit_code);
 
 /* PARSER/PARSE_UTILS.C*/
-char			**split_and_expand(char const *s, int *i, t_mshell mshell);
+char			**split_and_expand(char const *s, int *i, t_mshell mshell, char *token);
 int				parse_command(t_mshell *args, char *token, char *line, int *i);
 char			**split_args(char const *s);
 
 /* PARSER/PARSE_FILES.C*/
 int				parse_files(t_mshell *args, char *token, char *line, int *i);
+
+/* PARSER/PARSE_QUOTES.C*/
+char			*get_tranche(t_mshell *mshell, const char *line, int *i);
+int				check_dquotes(const char *line, int i);
 #endif
