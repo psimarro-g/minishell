@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/12 21:47:25 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/16 11:22:29 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,18 @@ void	ft_error(char *s, t_mshell *mshell, int exit_code)
 		ft_putstr_fd(s, 1);
 }
 
-static int	word_size(const char *s)
+void	syntax_error(t_mshell *args, char *eof, char *line, int *i)
 {
-	int	ret;
-	int	i;
-
-	i = 0;
-	ret = 0;
-	while (s[i] && !ft_isspace(s[i]) && !is_token(s, i))
+	if (!line[*i])
 	{
-		if (check_comillas('\'', s, i))
-		{
-			if (i == 0)
-				return (check_comillas('\'', s, i));
-			return (ret);
-		}
-		if (check_comillas('\"', s, i))
-		{
-			if (i == 0)
-				return (check_comillas('\"', s, i));
-			return (ret);
-		}
-		ret++;
-		i++;
+		printf("minishell: syntax error near unexpected token `newline'\n");
+		ft_error(NULL, args, 1);
+		return ;
 	}
-	return (ret);
+	eof = ft_substr(line, *i, is_token(line, *i));
+	printf("minishell: syntax error near unexpected token `%s'\n", eof);
+	ft_error(NULL, args, 1);
+	free(eof);
 }
 
 static int	skip_char(char const *s)
@@ -58,7 +45,7 @@ static int	skip_char(char const *s)
 	return (i);
 }
 
-int static	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
+static int	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
 {
 	int		comillas;
 

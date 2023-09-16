@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   parse_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/09/15 14:33:13 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/16 10:58:17 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../inc/minishell.h"
 

@@ -6,7 +6,7 @@
 #    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/09/12 17:07:04 by psimarro         ###   ########.fr        #
+#    Updated: 2023/09/16 12:19:08 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,8 +43,8 @@ SRC_DIR		=	src/
 SRC 		=	main.c fancy_logo.c init_functions.c envp_utils.c signals.c\
 				ms_lstadd_back.c ms_lstlast.c ms_lstnew.c ms_lstdelone.c ms_lstclear.c ms_lstsize.c\
 				execute.c execute_utils.c \
-				parser.c parse_functions.c parse_env.c parse_utils.c parse_utils2.c parse_files.c parse_quotes.c\
-				parse_here_doc.c parse_pipe.c\
+				parser.c parse_functions.c parse_env.c  parse_files.c parse_quotes.c parse_pipe.c\
+				parse_here_doc.c parse_utils.c parse_utils2.c parse_utils_hd.c\
 				echo.c cd.c exit.c pwd.c env.c export.c unset.c\
 
 OBJ_DIR		=	obj/

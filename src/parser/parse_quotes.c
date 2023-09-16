@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:42:13 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/16 00:17:17 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/16 11:07:02 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ char	*get_single_quotes(const char *line, int *i)
 }
 
 //terminar double quotes
-char	*get_double_quotes(t_mshell *mshell, const char *line, int *i)
+static char	*get_double_quotes(t_mshell *mshell, const char *line, int *i)
 {
 	int		j;
 	char	*ret;

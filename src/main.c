@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/12 20:44:33 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/16 10:38:27 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 
 int	g_executing = 0;
 
-void	show_ini_data(t_mshell *mshell)
+static void	show_ini_data(t_mshell *mshell)
 {
 	printf(GREEN"  cwd: %s\n\n"RESET, mshell->cwd);
 }
 
-void	show_cmds(t_cmdlist *cmds)
+static void	show_cmds(t_cmdlist *cmds)
 {
 	t_cmdlist	*act;
 	int			i;
@@ -54,7 +54,7 @@ void	show_cmds(t_cmdlist *cmds)
 	}
 }
 
-void	free_commands(t_mshell *mshell)
+static void	free_commands(t_mshell *mshell)
 {
 	ms_lstclear(&mshell->cmds);
 	mshell->cmds = ms_lstnew(NULL, NULL, NULL);

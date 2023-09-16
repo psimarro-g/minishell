@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/12 19:45:24 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/16 10:43:32 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_getcwd(void)
 //Takes the attributes of the terminal
 //removes the flag that prints ^char when you press a signal
 //and sets the attributes of the terminal to the new ones
-void	remove_print_controlc(void)
+static void	remove_print_controlc(void)
 {
 	struct termios	t;
 

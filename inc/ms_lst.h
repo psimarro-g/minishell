@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lst.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:36:00 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 06:59:53 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/16 10:50:09 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ typedef struct s_cmdlist
 	char				*cmd;
 	char				*path;
 	char				**args;
-	int					input; //Descriptores de fichero e/s
+	int					input;
 	int					output;
 
 }	t_cmdlist;
 
+/* LST_UTILS/* */
 void		ms_lstadd_back(t_cmdlist **lst, t_cmdlist *new);
 t_cmdlist	*ms_lstlast(t_cmdlist *lst);
 t_cmdlist	*ms_lstnew(char *cmd, char *path, char **args);
 void		ms_lstdelone(t_cmdlist *lst);
 void		ms_lstclear(t_cmdlist **lst);
 int			ms_lstsize(t_cmdlist *lst);
-
 
 # endif

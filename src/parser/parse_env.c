@@ -6,12 +6,11 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:46:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/12 21:39:22 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/16 10:58:23 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
-
 
 int	parse_env(t_mshell *args, char *token, char *line, int *i)
 {
@@ -22,7 +21,7 @@ int	parse_env(t_mshell *args, char *token, char *line, int *i)
 }
 
 //Var has already the = at the end
-char	*ft_getenv(char **envp, char* var)
+static char	*ft_getenv(char **envp, char* var)
 {
 	int		i;
 	int		j;

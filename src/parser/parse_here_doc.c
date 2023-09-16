@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   parse_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 11:46:18 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/16 11:55:01 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../../inc/minishell.h"
 
@@ -25,11 +24,35 @@ static void	parent_process_hd(int fd[2], t_mshell *args, pid_t id)
 	change_signals();
 }
 
-static void	pipe_heredoc(t_mshell *args, char *eof)
+static void	child_hd(t_mshell *args, int fd[2], char *eof, int expand)
+{
+	char	*input;
+
+	g_executing = 1;
+	while (1)
+	{
+		input = readline("heredoc> ");
+		if (input != NULL && ft_strlen(input) == 0)
+		{
+			free(input);
+			continue ;
+		}
+		if (ft_strncmp(input, eof, ft_strlen(input)) == 0)
+		{
+			free(eof);
+			close(fd[1]);
+			g_executing = 0;
+			exit(EXIT_SUCCESS);
+		}
+		expand_heredoc(args, fd, input, expand);
+		free(input);
+	}
+}
+
+static void	pipe_heredoc(t_mshell *args, char *eof, int expand)
 {
 	pid_t	id;
 	int		fd[2];
-	char	*input;
 
 	if (pipe(fd) == -1)
 		ft_error(NULL, args, 1);
@@ -38,52 +61,18 @@ static void	pipe_heredoc(t_mshell *args, char *eof)
 	{
 		here_doc_signals();
 		close(fd[0]);
-		g_executing = 1;
-		while (1)
-		{
-			input = readline("heredoc> ");
-			if (input != NULL && ft_strlen(input) == 0)
-			{
-				free(input);
-				continue ;
-			}
-			if (ft_strncmp(input, eof, ft_strlen(input)) == 0)
-			{
-				free(eof);
-				close(fd[1]);
-				g_executing = 0;
-				exit(EXIT_SUCCESS);
-			}
-			write(fd[1], input, ft_strlen(input));
-			write(fd[1], "\n", 1);
-			free(input);
-		}
+		child_hd(args, fd, eof, expand);
 	}
 	else
 		parent_process_hd(fd, args, id);
 	free(eof);
 }
 
-void	syntax_error(t_mshell *args, char *eof, char *line, int *i)
-{
-	if (!line[*i])
-	{
-		printf("minishell: syntax error near unexpected token `newline'\n");
-		ft_error(NULL, args, 1);
-		return ;
-	}
-	eof = ft_substr(line, *i, is_token(line, *i));
-	printf("minishell: syntax error near unexpected token `%s'\n", eof);
-	ft_error(NULL, args, 1);
-	free(eof);
-}
-
 int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 {
 	char	*eof;
-	int		j;
+	int		expand;
 
-	j = 0;
 	if (ft_strncmp(token, "<<", 2))
 		return (-1);
 	*i -= (ft_strlen(token) - 2);
@@ -94,11 +83,8 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 		syntax_error(args, eof, line, i);
 		return (0);
 	}
-	while (!ft_isspace(line[*i + j]) && !is_token(line, *i + j) && line[*i + j] != '\0')
-		j++;
-	eof = ft_substr(line, *i, j);
+	expand = get_eof(eof, line, i);
 	//printf("DEBUG: Function parse_here_doc: eof: \'%s\'\n", eof);
-	pipe_heredoc(args, eof);
-	*i += j;
+	pipe_heredoc(args, eof, expand);
 	return (0);
 }
