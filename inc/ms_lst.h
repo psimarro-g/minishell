@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:36:00 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/16 10:50:09 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/16 12:37:30 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_cmdlist
 
 }	t_cmdlist;
 
-/* LST_UTILS/* */
+/* LST_UTILS/ */
 void		ms_lstadd_back(t_cmdlist **lst, t_cmdlist *new);
 t_cmdlist	*ms_lstlast(t_cmdlist *lst);
 t_cmdlist	*ms_lstnew(char *cmd, char *path, char **args);

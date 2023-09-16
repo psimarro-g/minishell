@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/16 11:55:01 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/16 13:33:52 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	child_hd(t_mshell *args, int fd[2], char *eof, int expand)
 			free(input);
 			continue ;
 		}
-		if (ft_strncmp(input, eof, ft_strlen(input)) == 0)
+		if (ft_strcmp(input, eof) == 0)
 		{
 			free(eof);
 			close(fd[1]);
@@ -83,7 +83,7 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 		syntax_error(args, eof, line, i);
 		return (0);
 	}
-	expand = get_eof(eof, line, i);
+	expand = get_eof(&eof, line, i);
 	//printf("DEBUG: Function parse_here_doc: eof: \'%s\'\n", eof);
 	pipe_heredoc(args, eof, expand);
 	return (0);

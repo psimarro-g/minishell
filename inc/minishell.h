@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/16 12:16:00 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/16 13:09:41 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ char			*get_var(const char *line, int *i);
 char			*get_single_quotes(const char *line, int *i);
 
 /* PARSER/PARSE_UTILS_HD.C*/
-int				get_eof(char *eof, char *line, int *i);
-void			expand_heredoc(t_mshell *mshell, int fd[2], const char *line, int expand);
+int				get_eof(char **eof, char *line, int *i);
+void			expand_heredoc(t_mshell *mshell, int fd[2], char *line, int expand);
 
 /* PARSER/PARSE_UTILS.C*/
 void			ft_error(char *s, t_mshell *mshell, int exit_code);
