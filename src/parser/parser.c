@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 11:08:09 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:37:40 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,15 @@ static void	process_token(char *line, t_mshell *args, int *i);
 
 void	parse_line(char *line, t_mshell *mshell)
 {
-	int	i; //indice de donde estamos en line
-	
+	int i; // indice de donde estamos en line
 	i = 0;
-	while(line[i])
+	while (line[i])
 	{
-		while(ft_isspace(line[i]))
+		while (ft_isspace(line[i]))
 			i++;
 		process_token(line, mshell, &i);
 	}
-	//TODO Aqui quizas podrias poner que si no hay ultimo comando, funcione
+	// TODO Aqui quizas podrias poner que si no hay ultimo comando, funcione
 }
 
 static char	*get_token(t_mshell *mshell, const char *line, int *i)
@@ -44,7 +43,7 @@ static char	*get_token(t_mshell *mshell, const char *line, int *i)
 	return (ret);
 }
 
-static void add_token(t_mshell *args, char *token, char *line, int *i)
+static void	add_token(t_mshell *args, char *token, char *line, int *i)
 {
 	int	code;
 	int	j;

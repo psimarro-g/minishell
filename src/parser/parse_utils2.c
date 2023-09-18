@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 11:54:04 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:37:37 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ void	cpy_lst(char **to, char **from, int start)
 		free(from[i]);
 		i++;
 	}
-	
 }
 
-int is_token(const char *s, int i)
-{ 
+int	is_token(const char *s, int i)
+{
 	if (ft_strncmp(&s[i], ">>", 2) == 0 || ft_strncmp(&s[i], "<<", 2) == 0)
 		return (2);
 	else if (s[i] == '<' || s[i] == '>' || s[i] == '|')
@@ -49,7 +48,7 @@ int	check_comillas(char c, const char *s, int i)
 	return (0);
 }
 
-int		count_words(char const *s)
+int	count_words(char const *s)
 {
 	int	count;
 	int	found;
@@ -63,7 +62,7 @@ int		count_words(char const *s)
 	while (s[i])
 	{
 		count++;
-		while(s[i] && !ft_isspace(s[i]))
+		while (s[i] && !ft_isspace(s[i]))
 			i++;
 		while (s[i] && ft_isspace(s[i]))
 			i++;

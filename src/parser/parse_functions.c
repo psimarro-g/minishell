@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:03:39 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:36:08 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	**add_args(t_mshell *mshell, char *token, char *line, int *i)
 	int			size;
 	t_cmdlist	*aux;
 	int			ind;
-	
+
 	aux = ms_lstlast(mshell->cmds);
 	size = 0;
 	while (aux->args[size])
@@ -39,8 +39,8 @@ static char	**add_args(t_mshell *mshell, char *token, char *line, int *i)
 	return (ret);
 }
 
-
-//Coge el token, lo expande, clona el comando, busca el path y coge sus argumentos y los expande si es necesario
+// Coge el token, lo expande, clona el comando,
+//busca el path y coge sus argumentos y los expande si es necesario
 int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 {
 	t_cmdlist	*act;
@@ -68,7 +68,7 @@ static int	check_access(char *path, char **ret)
 	if (access(path, F_OK | X_OK) == 0)
 	{
 		*ret = ft_strdup(path);
-		free (path);
+		free(path);
 		return (0);
 	}
 	else
@@ -90,11 +90,11 @@ static void	free_split(char **split)
 
 static char	*find_path(char **envp, char *command)
 {
-	int		i;
-	char	**paths;
-	int		j;
-	char	*path;
-	char	*ret;
+	int i;
+	char **paths;
+	int j;
+	char *path;
+	char *ret;
 
 	i = 0;
 	ret = NULL;
@@ -110,7 +110,7 @@ static char	*find_path(char **envp, char *command)
 		if (check_access(path, &ret) == 0)
 			break ;
 		j++;
-		free (path);
+		free(path);
 	}
 	free_split(paths);
 	return (ret);

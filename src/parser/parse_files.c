@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/09/16 13:33:23 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:35:55 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 		file = open(argv, O_RDONLY, 0777);
 	else if (i == 2)
 		file = open(argv, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (i == 2 )
+	else if (i == 2)
 		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	last = ms_lstlast(args->cmds);
 	if (i == 1)
@@ -33,8 +33,8 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 
 int	parse_files(t_mshell *args, char *token, char *line, int *i)
 {
-    char	*file_name;
-	int		file_option;
+	char *file_name;
+	int file_option;
 
 	file_option = 0;
 	if (!ft_strncmp(token, "<", 1))

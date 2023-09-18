@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 11:52:10 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:37:26 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 		return (0);
 	}
 	expand = get_eof(&eof, line, i);
-	//printf("DEBUG: Function parse_here_doc: eof: \'%s\'\n", eof);
+	// printf("DEBUG: Function parse_here_doc: eof: \'%s\'\n", eof);
 	pipe_heredoc(args, eof, expand);
 	return (0);
 }

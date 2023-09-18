@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_hd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:35:02 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/16 14:10:26 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:35:42 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	get_eof(char **eof, char *line, int *i)
 	*eof = NULL;
 	while (line[j] && !ft_isspace(line[j]) && !is_token(line, j))
 	{
-		while (line[j] && !ft_isspace(line[j]) && !is_token(line, j) \
+		while (line[j] && !ft_isspace(line[j]) && !is_token(line, j)
 			&& line[j] != '\'' && line[j] != '\"')
 			j++;
 		*eof = ft_strjoin_free(*eof, ft_substr(line, *i, j - *i));
@@ -82,7 +82,8 @@ static char	*parse_expand_hd(t_mshell *mshell, char *line)
 		if (line[i] == '$')
 		{
 			env_var = get_var(line, &i);
-			ret = ft_strjoin_free(ret, expand_var(env_var, mshell->envp, mshell->exit_status));
+			ret = ft_strjoin_free(ret, expand_var(env_var, mshell->envp,
+						mshell->exit_status));
 			free(env_var);
 		}
 		j = i;
@@ -95,10 +96,10 @@ void	expand_heredoc(t_mshell *mshell, int fd[2], char *line, int expand)
 	char	*ret;
 
 	ret = line;
-    if (expand)
+	if (expand)
 		ret = parse_expand_hd(mshell, line);
 	write(fd[1], ret, ft_strlen(ret));
 	write(fd[1], "\n", 1);
 	if (expand && ret)
-		free (ret);
+		free(ret);
 }
