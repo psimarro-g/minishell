@@ -1,3 +1,1 @@
-- si la variable de entorno no existe $0 peta
-- si creas una variable con export que no tiene valor (a=) no deberia salir en env
--doble pipe
+- Ahora peta si pones algo del estilo "ls |" (pensar que hacer)
