@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 11:43:00 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/18 12:03:39 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,8 @@ static char	**add_args(t_mshell *mshell, char *token, char *line, int *i)
 	ind = 0;
 	while (new[ind])
 		ind++;
-	ret = malloc((size + ind + 2) * sizeof(char *));
+	ret = malloc((size + ind + 1) * sizeof(char *));
 	cpy_lst(ret, aux->args, 0);
-	//ret[size] = ft_strdup(token);
 	cpy_lst(ret, new, size);
 	ret[size + ind] = NULL;
 	free(new);
@@ -51,6 +50,8 @@ int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 	if (act->cmd == NULL)
 	{
 		act->cmd = ft_strdup(token);
+		if (!act->cmd)
+			return (0);
 		aux = ft_strjoin("/", token);
 		act->path = find_path(mshell->envp, aux);
 		act->args = split_and_expand(line + (*i), i, *mshell, token);

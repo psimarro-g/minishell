@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:46:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/16 10:58:23 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/18 11:59:57 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	parse_env(t_mshell *args, char *token, char *line, int *i)
 {
-	if (token[0] != '$')
+	if (!token || token[0] != '$')
 		return (-1);
 
 	return (parse_command(args, token, line, i));
