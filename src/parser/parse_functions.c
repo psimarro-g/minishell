@@ -3,16 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   parse_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/12 19:25:51 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/18 11:43:00 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 static char	*find_path(char **envp, char *command);
+
+static char	**add_args(t_mshell *mshell, char *token, char *line, int *i)
+{
+	char		**ret;
+	char		**new;
+	int			size;
+	t_cmdlist	*aux;
+	int			ind;
+	
+	aux = ms_lstlast(mshell->cmds);
+	size = 0;
+	while (aux->args[size])
+		size++;
+	new = split_and_expand(line + (*i), i, *mshell, token);
+	ind = 0;
+	while (new[ind])
+		ind++;
+	ret = malloc((size + ind + 2) * sizeof(char *));
+	cpy_lst(ret, aux->args, 0);
+	//ret[size] = ft_strdup(token);
+	cpy_lst(ret, new, size);
+	ret[size + ind] = NULL;
+	free(new);
+	free(aux->args);
+	return (ret);
+}
+
 
 //Coge el token, lo expande, clona el comando, busca el path y coge sus argumentos y los expande si es necesario
 int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
@@ -21,12 +48,17 @@ int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 	char		*aux;
 
 	act = ms_lstlast(mshell->cmds);
-	act->cmd = ft_strdup(token);
-	aux = ft_strjoin("/", token);
-	act->path = find_path(mshell->envp, aux);
-	act->args = split_and_expand(line + (*i), i, *mshell, token);
-	mshell->num_commands++;
-	free(aux);
+	if (act->cmd == NULL)
+	{
+		act->cmd = ft_strdup(token);
+		aux = ft_strjoin("/", token);
+		act->path = find_path(mshell->envp, aux);
+		act->args = split_and_expand(line + (*i), i, *mshell, token);
+		mshell->num_commands++;
+		free(aux);
+	}
+	else
+		act->args = add_args(mshell, token, line, i);
 	return (0);
 }
 

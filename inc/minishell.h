@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/16 13:09:41 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/18 11:34:18 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ void			syntax_error(t_mshell *args, char *eof, char *line, int *i);
 char			**split_and_expand(char const *s, int *i, t_mshell mshell, char *token);
 
 /* PARSER/PARSE_UTILS2.C */
+void	cpy_lst(char **to, char **from, int start);
 int				is_token(const char *s, int i);
 int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s);

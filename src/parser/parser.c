@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/16 10:56:53 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/18 11:08:09 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	parse_line(char *line, t_mshell *mshell)
 			i++;
 		process_token(line, mshell, &i);
 	}
+	//TODO Aqui quizas podrias poner que si no hay ultimo comando, funcione
 }
 
 static char	*get_token(t_mshell *mshell, const char *line, int *i)

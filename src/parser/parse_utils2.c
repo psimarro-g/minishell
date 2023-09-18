@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/16 11:13:13 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/18 11:35:05 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+void	cpy_lst(char **to, char **from, int start)
+{
+	int	i;
+
+	i = 0;
+	while (from[i])
+	{
+		to[start + i] = ft_strdup(from[i]);
+		free(from[i]);
+		i++;
+	}
+	
+}
 
 int is_token(const char *s, int i)
 { 
