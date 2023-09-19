@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:36:08 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/19 15:15:06 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,17 @@ static char	*find_path(char **envp, char *command)
 
 	i = 0;
 	ret = NULL;
-	while (envp[i] != NULL && ft_strncmp(envp[i], "PATH=", 5) != 0)
+	if (check_access(ft_substr(command, 1, ft_strlen(command)), &ret) == 0)
+		return (ret);
+	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
+	if (!envp[i])
+		return (NULL);
 	paths = ft_split(envp[i] + 5, ':');
-	j = -1;
-	path = ft_substr(command, 1, ft_strlen(command));
-	while (j == -1 || paths[j] != NULL)
+	j = 0;
+	while (paths[j] != NULL)
 	{
-		if (j != -1)
-			path = ft_strjoin(paths[j], command);
+		path = ft_strjoin(paths[j], command);
 		if (check_access(path, &ret) == 0)
 			break ;
 		j++;
