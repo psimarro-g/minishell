@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/09/18 12:35:55 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:17:22 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 	file = 0;
 	if (i == 1)
 		file = open(argv, O_RDONLY, 0777);
-	else if (i == 2)
+	else if (i == 3)
 		file = open(argv, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (i == 2)
 		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
@@ -41,9 +41,9 @@ int	parse_files(t_mshell *args, char *token, char *line, int *i)
 		file_option = 1;
 	else if (!ft_strncmp(token, ">", 1))
 		file_option = 2;
-	else if (!ft_strncmp(token, ">>", 2))
+	if (!ft_strncmp(token, ">>", 2))
 		file_option = 3;
-	else
+	else if (!file_option)
 		return (-1);
 	*i -= (ft_strlen(token) - is_token(token, 0));
 	while (ft_isspace(line[*i]) && line[*i])

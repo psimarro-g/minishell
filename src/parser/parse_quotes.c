@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:42:13 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:37:32 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/19 12:36:14 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*get_var(const char *line, int *i)
 	char	*ret;
 
 	j = *i + 1;
-	while (line[j] && !ft_isspace(line[j]) && line[j] != '$' && line[j] != '\''
+	while (line[j] && !ft_isspace(line[j]) && !is_token(line, j) && line[j] != '$' && line[j] != '\''
 		&& (line[j] != '\"' || !(line[j] == '\"' && line[j - 1] != '\\')))
 		j++;
 	ret = ft_substr(line, *i, j - *i);
