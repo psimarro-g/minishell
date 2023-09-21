@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_hd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:35:02 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:35:42 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/21 13:55:36 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ static char	*parse_expand_hd(t_mshell *mshell, char *line)
 
 	i = 0;
 	j = i;
+	ret = NULL;
 	while (line[j])
 	{
 		while (line[j] && line[j] != '$')

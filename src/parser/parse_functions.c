@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/19 15:15:06 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:38:07 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,10 @@ static char	*find_path(char **envp, char *command)
 
 	i = 0;
 	ret = NULL;
-	if (check_access(ft_substr(command, 1, ft_strlen(command)), &ret) == 0)
+	path = ft_substr(command, 1, ft_strlen(command));
+	if (check_access(path, &ret) == 0)
 		return (ret);
+	free(path);
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!envp[i])
