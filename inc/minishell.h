@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/18 11:34:18 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/21 21:10:09 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_mshell
 	int			fd[2];
 	char		**envp;
 	char		*cwd;
+	char		*mshell_dir;
 	int			num_commands;
 	int			last_pid;
 	int			exit_status;
@@ -109,6 +110,9 @@ int				unset(char **args, char ***envp);
 /* BUILT_INS/EXIT.C */
 int				ft_exit(char **args, int exit_status);
 
+/* BUILT_INS/MINISHELL.C */
+int				minishell(t_mshell *mshell, char *path, char ***envp);
+
 /* EXECUTE/EXECUTE.C */
 int				execute(t_mshell *mshell);
 
@@ -154,7 +158,7 @@ void			syntax_error(t_mshell *args, char *eof, char *line, int *i);
 char			**split_and_expand(char const *s, int *i, t_mshell mshell, char *token);
 
 /* PARSER/PARSE_UTILS2.C */
-void	cpy_lst(char **to, char **from, int start);
+void			cpy_lst(char **to, char **from, int start);
 int				is_token(const char *s, int i);
 int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s);

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/09/16 12:19:08 by psimarro         ###   ########.fr        #
+#    Updated: 2023/09/21 19:31:34 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ SRC 		=	main.c fancy_logo.c init_functions.c envp_utils.c signals.c\
 				execute.c execute_utils.c \
 				parser.c parse_functions.c parse_env.c  parse_files.c parse_quotes.c parse_pipe.c\
 				parse_here_doc.c parse_utils.c parse_utils2.c parse_utils_hd.c\
-				echo.c cd.c exit.c pwd.c env.c export.c unset.c\
+				echo.c cd.c exit.c pwd.c env.c export.c unset.c minishell.c\
 
 OBJ_DIR		=	obj/
 OBJ			= 	$(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))

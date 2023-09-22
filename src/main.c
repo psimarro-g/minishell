@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/19 13:44:23 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/21 22:06:43 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@ int	g_executing = 0;
 
 static void	show_ini_data(t_mshell *mshell)
 {
+	int			i;
+	char	*mshell_dir;
+
+	i = 0;
+	mshell_dir = expand_var("$MSHELLDIR", mshell->envp,
+						mshell->exit_status);
+	if (!mshell_dir)
+	{
+		set_env("MSHELLDIR", mshell->cwd, &mshell->envp);
+		mshell_dir = ft_strdup(mshell->cwd);
+	}
+	mshell->mshell_dir = mshell_dir;
+	if (!ft_strnstr(mshell_dir, "minishell", ft_strlen(mshell_dir)))
+	{
+		free(mshell->mshell_dir);
+		mshell->mshell_dir = NULL;
+	}
 	printf(GREEN"  cwd: %s\n\n"RESET, mshell->cwd);
 }
 
@@ -93,5 +110,7 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 	}
 	free(mshell.cwd);
+	if (mshell.mshell_dir)
+		free(mshell.mshell_dir);
 	return (0);
 }

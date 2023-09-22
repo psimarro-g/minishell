@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:55 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/19 14:04:19 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:57:41 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,15 @@
 int	cd(char *path, char **cwd, char ***envp)
 {
 	char	*tmp;
+	int		ret;
 
 	if (!path)
-		path = expand_var("$HOME", *envp, 0);
+	{
+		tmp = expand_var("$HOME", *envp, 0);
+		ret = cd(tmp, cwd, envp);
+		free(tmp);
+		return (ret);
+	}
 	if (chdir(path) == -1)
 	{
 		printf("cd: no such file or directory: %s\n", path);
