@@ -6,7 +6,7 @@
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/21 21:10:09 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:39:44 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int				ft_exit(char **args, int exit_status);
 
 /* BUILT_INS/MINISHELL.C */
 int				minishell(t_mshell *mshell, char *path, char ***envp);
+char			*ft_trim_dir(char *mshell_dir);
 
 /* EXECUTE/EXECUTE.C */
 int				execute(t_mshell *mshell);

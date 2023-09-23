@@ -6,7 +6,7 @@
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/21 22:06:43 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:38:55 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,25 +25,29 @@
 
 int	g_executing = 0;
 
-static void	show_ini_data(t_mshell *mshell)
+static void	show_ini_data(t_mshell *mshell, char *mshell_path)
 {
 	int			i;
 	char	*mshell_dir;
+	char	*aux;
 
 	i = 0;
 	mshell_dir = expand_var("$MSHELLDIR", mshell->envp,
 						mshell->exit_status);
 	if (!mshell_dir)
 	{
-		set_env("MSHELLDIR", mshell->cwd, &mshell->envp);
-		mshell_dir = ft_strdup(mshell->cwd);
+		if (mshell_path[0] == '/')
+			mshell_dir = ft_strdup(mshell_path);
+		else
+		{
+			aux = ft_strjoin("/", mshell_path);
+			mshell_dir = ft_strjoin(mshell->cwd, aux);
+			mshell_dir = ft_trim_dir(mshell_dir);
+			free(aux);
+		}
+		set_env("MSHELLDIR", mshell_dir, &mshell->envp);
 	}
 	mshell->mshell_dir = mshell_dir;
-	if (!ft_strnstr(mshell_dir, "minishell", ft_strlen(mshell_dir)))
-	{
-		free(mshell->mshell_dir);
-		mshell->mshell_dir = NULL;
-	}
 	printf(GREEN"  cwd: %s\n\n"RESET, mshell->cwd);
 }
 
@@ -90,7 +94,7 @@ int	main(int argc, char **argv, char **envp)
 		return (0);
 	ini_shell(&mshell, envp);
 	fancy_logo();
-	show_ini_data(&mshell);
+	show_ini_data(&mshell, argv[0]);
 	rl_clear_history();
 	while(1)
 	{
@@ -110,7 +114,6 @@ int	main(int argc, char **argv, char **envp)
 		free(line);
 	}
 	free(mshell.cwd);
-	if (mshell.mshell_dir)
-		free(mshell.mshell_dir);
+	free(mshell.mshell_dir);
 	return (0);
 }
