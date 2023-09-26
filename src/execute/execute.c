@@ -6,7 +6,7 @@
 /*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/21 21:08:50 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/23 17:24:58 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ static int	execute_pipes(t_mshell *mshell)
 	act = mshell->cmds;
 	while (act)
 	{
+		if (act->input == -1)
+			continue ;
 		if (pipe(pipe_fd) == -1)
 			ft_error("Error creating pipe", mshell, 1);
 		pid = fork();
