@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/26 18:31:21 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/26 19:40:16 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ static void	manage_parent_fds(t_cmdlist	*act, int pipe_fd[2])
 //Entrada puede ser:
 	- Stdin (-1)
 	- Pipe (-1) sin ser el primer comando
-	- Un archivo (> 0)
+	- Un archivo (>= 0)
 //La salida puede ser:
 	- Stdout (-1)
 	- Pipe (-1) sin ser el ultimo comando
-	- Un archivo (> 0)
+	- Un archivo (>= 0)
 */
 static int	execute_pipes(t_mshell *mshell)
 {
