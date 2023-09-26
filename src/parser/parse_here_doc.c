@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_here_doc.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:37:26 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:53:09 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,11 @@ static void	child_hd(t_mshell *args, int fd[2], char *eof, int expand)
 		input = readline("heredoc> ");
 		if (input != NULL && ft_strlen(input) == 0)
 		{
+			write(fd[1], "\n", 1);
 			free(input);
 			continue ;
 		}
-		if (ft_strcmp(input, eof) == 0)
+		if (input == NULL || (ft_strcmp(input, eof) == 0))
 		{
 			free(eof);
 			close(fd[1]);

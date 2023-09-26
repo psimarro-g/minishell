@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/22 19:39:44 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:33:26 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,5 +163,6 @@ void			cpy_lst(char **to, char **from, int start);
 int				is_token(const char *s, int i);
 int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s);
+void			check_path(t_cmdlist **act, char *path);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/21 22:02:28 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:10:06 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 		exit(export(args->args, &mshell->envp));
 	if (ft_strcmp(args->cmd, "unset") == 0)
 		exit(unset(args->args, &mshell->envp));
-	if (ft_strcmp(args->cmd, "minishell") == 0 || \
-				ft_strcmp(args->cmd, "./minishell") == 0)
+	if (ft_strcmp(args->cmd, "minishell") == 0)
 		exit(minishell(mshell, mshell->mshell_dir, &mshell->envp));
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/21 15:38:07 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:32:43 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 			return (0);
 		aux = ft_strjoin("/", token);
 		act->path = find_path(mshell->envp, aux);
+		check_path(&act, act->path);
 		act->args = split_and_expand(line + (*i), i, *mshell, token);
 		mshell->num_commands++;
 		free(aux);

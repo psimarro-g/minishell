@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:28:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 10:01:34 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/26 18:09:10 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ t_cmdlist	*ms_lstnew(char *cmd, char *path, char **args)
 	new->output = -1;
 	new->next = NULL;
 	new->pre = NULL;
+	new->error = 0;
 	return (new);
 }

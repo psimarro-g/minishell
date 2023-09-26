@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:37:37 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:53:24 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static int isDirectory(const char *path)
+{
+	struct stat statbuf;
+
+	if (stat(path, &statbuf) != 0)
+		return 0;
+	return S_ISDIR(statbuf.st_mode);
+}
+
+void	check_path(t_cmdlist **act, char *path)
+{
+	if (path == NULL)
+		return ;
+	else if (isDirectory(path))
+	{
+		free((*act)->path);
+		(*act)->path = NULL;
+	}
+}
 
 void	cpy_lst(char **to, char **from, int start)
 {

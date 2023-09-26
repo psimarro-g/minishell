@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:58:08 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/23 16:51:41 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/26 17:59:20 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*ft_trim_dir(char *mshell_dir)
 		while (mshell_dir[i] && mshell_dir[i] != '.')
 			i++;
 		aux = ft_strjoin_free(aux, ft_substr(mshell_dir, j, i - j));
-		if (strncmp(&mshell_dir[i], "..", 2) == 0)
+		if (ft_strncmp(&mshell_dir[i], "..", 2) == 0)
 		{
 			aux = trim_puntos(aux);
 			i += 3;
@@ -49,9 +49,7 @@ char	*ft_trim_dir(char *mshell_dir)
 		else if (mshell_dir[i] == '.')
 			i += 2;
 		j = i;
-		printf ("debug: trimmed path '%s'\n", aux);
 	}
-	printf ("debug: untrimmed path '%s'\n", mshell_dir);
 	free(mshell_dir);
 	return (aux);
 }
@@ -59,26 +57,16 @@ char	*ft_trim_dir(char *mshell_dir)
 int	minishell(t_mshell *mshell, char *path, char ***envp)
 {
 	char	*aux[2];
-	char	*tmp;
 
-	aux[0] = strdup("minishell");
+	aux[0] = ft_strdup("minishell");
 	aux[1] = NULL;
-	tmp = ft_strjoin(mshell->cwd, "/minishell");
-	if (ft_strcmp(mshell->cmds->cmd, "./minishell") == 0)
-	{
-		if (ft_strcmp(path, tmp) == 0)
-			execve("./minishell", &aux[0], *envp);
-		else
-			printf("minishell: %s: command not found\n", "./minishell");
-	}
-	else if (path)
+	if (path)
 		execve(path, &aux[0], *envp);
 	else
 	{
 		printf("minishell: %s: command not found\n", "minishell");
 		mshell->exit_status = 127;
 	}
-	free(tmp);
 	free(aux[0]);
 	return (0);
 }
