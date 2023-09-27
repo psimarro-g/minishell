@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/27 13:05:57 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:09:45 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ static void	check_last_cmd(t_mshell *mshell)
 	char		*line;
 
 	last_cmd = ms_lstlast(mshell->cmds);
-	if (!last_cmd->cmd && !last_cmd->args && last_cmd->input == -1 && last_cmd->output == -1 && last_cmd->error == 0)
+	if (!last_cmd->cmd && !last_cmd->args && last_cmd->input == -1
+		&& last_cmd->output == -1 && last_cmd->error == 0 && last_cmd->pre)
 	{
 		line = readline("> ");
 		if (line && line[0] != '\n')
@@ -47,7 +48,8 @@ static void	check_last_cmd(t_mshell *mshell)
 		else
 		{
 			free(line);
-			ft_error("minishell: syntax error: unexpected end of file\n", mshell, 0);
+			ft_error("minishell: syntax error: unexpected end of file\n",
+				mshell, 0);
 		}
 	}
 }
