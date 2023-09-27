@@ -6,13 +6,14 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:37:40 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:53:03 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
 static void	process_token(char *line, t_mshell *args, int *i);
+static void	check_last_cmd(t_mshell *mshell);
 
 void	parse_line(char *line, t_mshell *mshell)
 {
@@ -25,6 +26,31 @@ void	parse_line(char *line, t_mshell *mshell)
 		process_token(line, mshell, &i);
 	}
 	// TODO Aqui quizas podrias poner que si no hay ultimo comando, funcione
+	check_last_cmd(mshell);
+}
+
+static void	check_last_cmd(t_mshell *mshell)
+{
+	t_cmdlist	*last_cmd;
+	char		*line;
+
+	last_cmd = ms_lstlast(mshell->cmds);
+	if (!last_cmd->cmd && !last_cmd->args && last_cmd->input == -1 && last_cmd->output == -1 && last_cmd->error == 0)
+	{
+		line = readline("> ");
+		if (line && line[0] != '\n')
+		{
+			add_history(line);
+			parse_line(line, mshell);
+			free(line);
+		}
+		else
+		{
+			free(line);
+			printf("minishell: syntax error: unexpected end of file\n");
+			exit(0);
+		}
+	}
 }
 
 static char	*get_token(t_mshell *mshell, const char *line, int *i)

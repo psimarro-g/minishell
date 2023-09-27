@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/26 18:31:21 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/27 12:58:29 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ static void	execute_child(int pipe_fd[2], t_cmdlist	*act, t_mshell *mshell)
 {
 	default_signals();
 	change_fds(act, pipe_fd);
+	if (act->cmd == NULL)
+		exit(0);
 	if (probar_comandos(act, mshell) == 0)
 	{
 		if (act->path == NULL)

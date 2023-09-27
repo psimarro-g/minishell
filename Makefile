@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+         #
+#    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/09/21 19:31:34 by psimarro         ###   ########.fr        #
+#    Updated: 2023/09/27 12:47:34 by dmontoro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -87,6 +87,7 @@ fclean:				clean
 
 re:			fclean all
 
-bonus:		re
+bonus:		
+	@echo "\n\033[31mNo bonus here! (╯°□°）╯︵ ┻━┻\033[37m\n"
 
 .PHONY:		all libft clean fclean re bonus
