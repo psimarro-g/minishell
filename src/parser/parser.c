@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/27 13:04:36 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/27 13:05:57 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static void	check_last_cmd(t_mshell *mshell)
 		{
 			free(line);
 			ft_error("minishell: syntax error: unexpected end of file\n", mshell, 0);
-			exit(0);
 		}
 	}
 }
