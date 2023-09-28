@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/27 12:58:29 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/28 17:00:19 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	manage_parent_fds(t_cmdlist	*act, int pipe_fd[2])
 		close(act->input);
 	if (act->output != -1)
 		close(act->output);
-	if (act->next != NULL)
+	if (act->next != NULL && act->next->input == -1)
 		act->next->input = pipe_fd[0];
 	else
 		close(pipe_fd[0]);

@@ -1,3 +1,2 @@
 si ejecutas un scrip vacio con un path relativo ./script PETA
 $hola=WOW no deberia funcionar
-ls | wc -l <test2.c 
