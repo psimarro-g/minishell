@@ -16,14 +16,16 @@ int main(int argc, char **argv, char **envp)
 {
 	pid_t pid;
 
-	char *args[] = {"./hello.sh", NULL};
-	char *path = "./hello.sh";
+	char *args[] = {"ls", NULL};
+	char *path = "/bin/ls";
 
 	// Create a pipe to communicate with child process
 	pid = fork();
 	if(pid == 0) {
 		// Child process
+		printf("hi\n");
 		execve(path, args, envp);
+		printf("bye\n");
 	}
 	else {
 		// Parent process

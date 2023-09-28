@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/28 17:00:19 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:36:39 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ static void	execute_child(int pipe_fd[2], t_cmdlist	*act, t_mshell *mshell)
 			exit(127);
 		}
 		else
-			execve(act->path, act->args, mshell->envp);
+		{
+			if(execve(act->path, act->args, mshell->envp) == -1)
+				exit(126);
+		}
 	}
 }
 

@@ -6,13 +6,13 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/26 18:32:43 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/28 20:45:05 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static char	*find_path(char **envp, char *command);
+static char	*find_path(char **envp, char *command, char *cwd);
 
 static char	**add_args(t_mshell *mshell, char *token, char *line, int *i)
 {
@@ -53,7 +53,7 @@ int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 		if (!act->cmd)
 			return (0);
 		aux = ft_strjoin("/", token);
-		act->path = find_path(mshell->envp, aux);
+		act->path = find_path(mshell->envp, aux, mshell->cwd);
 		check_path(&act, act->path);
 		act->args = split_and_expand(line + (*i), i, *mshell, token);
 		mshell->num_commands++;
@@ -88,33 +88,60 @@ static void	free_split(char **split)
 	}
 	free(split);
 }
+//Comprueba si path es relativo y valido y lo concatena si lo es y lo devuelve check_relative(ret) -> int si es valido
+//Comprueba si path es abssoluyto y lo devuelve
+//Busca el comando en PATH= y lo devuelve si está
 
-static char	*find_path(char **envp, char *command)
+static char	*check_absolute_path(char *command, char ***envp, char *cwd)
+{
+	char	*tmp;
+	char 	*ret;
+	char	*path;
+	
+	ret = NULL;
+	path = ft_strdup(&command[1]);
+	if (ft_strncmp(path, "~/", 2) == 0)
+	{
+		tmp = expand_var("$HOME", *envp, 0);
+		ret = ft_strjoin(tmp, command);
+		free(tmp);
+	}
+	else if (ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0)
+		ret = ft_strjoin(cwd, command);
+	else if (command[1] == '/')
+		ret = ft_strdup(path);
+	if (ret && access(ret, F_OK | X_OK))
+	{
+		free(ret);
+		ret = NULL;
+	}
+	free(path);
+	return (ret);
+}
+
+static char	*find_path(char **envp, char *command, char *cwd)
 {
 	int i;
 	char **paths;
-	int j;
 	char *path;
 	char *ret;
 
 	i = 0;
-	ret = NULL;
-	path = ft_substr(command, 1, ft_strlen(command));
-	if (check_access(path, &ret) == 0)
+	ret = check_absolute_path(command, &envp, cwd);
+	if (ret)
 		return (ret);
-	free(path);
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	if (!envp[i])
 		return (NULL);
 	paths = ft_split(envp[i] + 5, ':');
-	j = 0;
-	while (paths[j] != NULL)
+	i = 0;
+	while (paths[i] != NULL)
 	{
-		path = ft_strjoin(paths[j], command);
+		path = ft_strjoin(paths[i], command);
 		if (check_access(path, &ret) == 0)
 			break ;
-		j++;
+		i++;
 		free(path);
 	}
 	free_split(paths);
