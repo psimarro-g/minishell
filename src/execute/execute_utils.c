@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/28 17:01:34 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:10:21 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 {
 	if (ft_strcmp(args->cmd, "cd") == 0)
-		exit(cd(args->args[1], &mshell->cwd, &mshell->envp));
+		exit(cd(&args->args[1], &mshell->cwd, &mshell->envp));
 	if (ft_strcmp(args->cmd, "env") == 0)
 		exit(env(mshell->envp));
 	if (ft_strcmp(args->cmd, "exit") == 0)

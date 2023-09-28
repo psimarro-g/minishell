@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/28 20:36:39 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:08:16 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	execute_simple(t_mshell *mshell)
 {
 	if (ft_strcmp(mshell->cmds->cmd, "cd") == 0)
-		return (cd(mshell->cmds->args[1], &mshell->cwd, &mshell->envp));
+		return (cd(&mshell->cmds->args[1], &mshell->cwd, &mshell->envp));
 	if (ft_strcmp(mshell->cmds->cmd, "exit") == 0)
 		return (ft_exit(mshell->cmds->args, mshell->exit_status));
 	if (ft_strcmp(mshell->cmds->cmd, "export") == 0)

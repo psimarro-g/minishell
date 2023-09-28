@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/26 17:33:26 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/09/28 21:08:38 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ char			**clone_envp(char **envp);
 void			fancy_logo(void);
 
 /* BUILT_INS/CD.C */
-int				cd(char *path, char **cwd, char ***envp);
+int				cd(char **path, char **cwd, char ***envp);
 
 /* BUILT_INS/ECHO.C */
 int				echo(char **args);
