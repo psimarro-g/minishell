@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/26 17:56:20 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 09:07:57 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,11 @@ static void	free_commands(t_mshell *mshell)
 	mshell->num_commands = 0;
 	g_executing = 0;
 }
+/*
+void    show_leaks(void)
+{
+        system("leaks -q minishell");
+}*/
 
 //Tenemos que guardar stdin y stdout para poder restaurarlos
 //while : ; do leaks minishell | grep leak; done  -> probar leaks
@@ -89,9 +94,17 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_mshell		mshell;
 	char			*line;
+	int				free_envp;
 
+	//atexit(show_leaks);
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
+	if (!envp)
+	{
+		envp = (char **)malloc(sizeof(char *));
+		free_envp = 1;
+		envp = NULL;
+	}
 	ini_shell(&mshell, envp);
 	fancy_logo();
 	show_ini_data(&mshell, argv[0]);

@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/28 21:10:21 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 09:32:09 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,20 @@ int	get_status(int pid, int num_commands)
 
 int	is_simple(t_mshell *mshell)
 {
-	return (mshell->num_commands == 1 && (ft_strncmp(mshell->cmds->cmd, "cd", 2) == 0
-		|| ft_strncmp(mshell->cmds->cmd, "exit", 4) == 0
-		|| ft_strncmp(mshell->cmds->cmd, "export", 6) == 0
-		|| ft_strncmp(mshell->cmds->cmd, "unset", 5) == 0));
+	return (mshell->num_commands == 1 && (ft_strcmp(mshell->cmds->cmd, "cd") == 0
+		|| ft_strcmp(mshell->cmds->cmd, "exit") == 0
+		|| ft_strcmp(mshell->cmds->cmd, "export") == 0
+		|| ft_strcmp(mshell->cmds->cmd, "unset") == 0));
+}
+
+int	built_in(char *cmd)
+{
+	return (ft_strcmp(cmd, "cd") == 0
+		|| ft_strcmp(cmd, "exit") == 0
+		|| ft_strcmp(cmd, "echo") == 0
+		|| ft_strcmp(cmd, "env") == 0
+		|| ft_strcmp(cmd, "minishell") == 0
+		|| ft_strcmp(cmd, "pwd") == 0
+		|| ft_strcmp(cmd, "export") == 0
+		|| ft_strcmp(cmd, "unset") == 0);
 }

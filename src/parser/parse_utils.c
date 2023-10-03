@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:37:35 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/03 10:01:03 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,24 @@ static int	skip_char(char const *s)
 	return (i);
 }
 
+static void	check_home_path(char **command, char ***envp, char *cwd)
+{
+	char	*tmp;
+	char 	*ret;
+	
+	tmp = expand_var("$HOME", *envp, 0);
+	ret = ft_strjoin(tmp, &command[0][1]);
+	free(*command);
+	*command = ret;
+}
+
 static int	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
 {
 	int	comillas;
 
 	ret[indexes[0]] = get_tranche(mshell, s, &indexes[1]);
+	if (ft_strncmp(ret[indexes[0]], "~/", 2) == 0)
+		check_home_path(&ret[indexes[0]], &mshell->envp, mshell->cwd);
 	if (!ret[indexes[0]])
 		return (0);
 	indexes[1] += skip_char(&s[indexes[1]]);

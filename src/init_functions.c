@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/16 10:43:32 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 08:28:04 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ void	ini_shell(t_mshell *mshell, char **envp)
 	int		lvl;
 
 	ft_bzero(mshell, sizeof(t_mshell));
-	dup2(STDIN_FILENO, mshell->fd[0]);
-	dup2(STDOUT_FILENO, mshell->fd[1]);
 	mshell->envp = clone_envp(envp);
 	mshell->cwd = ft_getcwd();
 	mshell->exit_status = 0;

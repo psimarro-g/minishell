@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/28 21:08:16 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 09:25:10 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,20 @@ static int	execute_simple(t_mshell *mshell)
 
 static void	execute_child(int pipe_fd[2], t_cmdlist	*act, t_mshell *mshell)
 {
-	default_signals();
-	change_fds(act, pipe_fd);
 	if (act->cmd == NULL)
 		exit(0);
+	if (!built_in(act->cmd) && act->path == NULL)
+	{
+		printf("minishell: %s: command not found\n", act->cmd);
+		mshell->exit_status = 127;
+		exit(127);
+	}
+	default_signals();
+	change_fds(act, pipe_fd);
 	if (probar_comandos(act, mshell) == 0)
 	{
-		if (act->path == NULL)
-		{
-			printf("minishell: %s: command not found\n", act->cmd);
-			mshell->exit_status = 127;
-			exit(127);
-		}
-		else
-		{
-			if(execve(act->path, act->args, mshell->envp) == -1)
-				exit(126);
-		}
+		if(execve(act->path, act->args, mshell->envp) == -1)
+			exit(126);
 	}
 }
 

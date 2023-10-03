@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:16:22 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/07 17:49:57 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 08:46:03 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char	**clone_envp(char **envp)
 	char	**new_envp;
 
 	i = 0;
+	if (!envp)
+		return (NULL);
 	while (envp[i] != NULL)
 		i++;
 	new_envp = malloc(sizeof(char *) * (i + 1));

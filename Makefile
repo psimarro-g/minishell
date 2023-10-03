@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
+#    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/09/27 12:47:34 by dmontoro         ###   ########.fr        #
+#    Updated: 2023/10/03 09:00:25 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ NAME		= minishell
 
 CC 			= gcc
 
-CFLAGS		=  -g3 -fsanitize=address #-Wall -Wextra -Werror -O0
-LDFLAGS 	= libft/libft.a -fsanitize=address
+CFLAGS		=  -g3 #-fsanitize=address #-Wall -Wextra -Werror -O0
+LDFLAGS 	= libft/libft.a #-fsanitize=address
 LIBS 		= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 LIBS_LINUX	= -l readline -L /usr/include/readline -I /usr/include/readline
 RM			= rm -f

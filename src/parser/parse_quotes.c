@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:42:13 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/19 12:36:14 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 09:34:57 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,6 @@ char	*get_tranche(t_mshell *mshell, const char *line, int *i)
 			ret = ft_strjoin_free(ret, get_double_quotes(mshell, line, i));
 		j = *i;
 	}
-	printf("DEBUG: parse_quotes.c: get_tranche: ret: .%s.\n", ret);
+	//printf("DEBUG: parse_quotes.c: get_tranche: ret: .%s.\n", ret);
 	return (ret);
 }

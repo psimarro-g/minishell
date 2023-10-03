@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:46:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:35:49 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/03 08:42:58 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static char	*ft_getenv(char **envp, char *var)
 	char	*ret;
 
 	i = 0;
+	if (envp == NULL)
+		return (NULL);
 	while (envp[i] != NULL && ft_strncmp(envp[i], var, ft_strlen(var)) != 0)
 		i++;
 	if (envp[i] == NULL)
