@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:55 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/28 21:10:54 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:08:39 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	cd(char **path, char **cwd, char ***envp)
 		free(*cwd);
 		*cwd = tmp;
 	}
-	printf("DEBUG: Function cd: PWD Despues del cambio: %s\n", *cwd);
+	//printf("DEBUG: Function cd: PWD Despues del cambio: %s\n", *cwd);
 	set_env("PWD", *cwd, envp);
 	return (0);
 }

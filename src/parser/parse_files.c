@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/09/26 18:27:10 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:08:51 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	parse_files(t_mshell *args, char *token, char *line, int *i)
 		return (0);
 	}
 	file_name = get_tranche(args, line, i);
-	printf("DEBUG: Function parse_files: file_name: \'%s\'\n", file_name);
+	//printf("DEBUG: Function parse_files: file_name: \'%s\'\n", file_name);
 	ms_open_file(args, file_name, file_option);
 	free(file_name);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:58:08 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/26 17:59:20 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:08:47 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char *trim_puntos(char *line)
 		i--;
 	aux = ft_substr(line, 0, i + 1);
 	free(line);
-	printf ("debug: trimmed puntos '%s'\n", aux);
+	//printf ("debug: trimmed puntos '%s'\n", aux);
 	return (aux);
 }
 

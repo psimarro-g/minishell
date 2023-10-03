@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 09:07:57 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:08:24 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	show_ini_data(t_mshell *mshell, char *mshell_path)
 		set_env("MSHELLDIR", mshell_dir, &mshell->envp);
 	}
 	mshell->mshell_dir = mshell_dir;
-	printf(GREEN"  cwd: %s\n\n"RESET, mshell->cwd);
+	//printf(GREEN"  cwd: %s\n\n"RESET, mshell->cwd);
 }
 
 static void	show_cmds(t_cmdlist *cmds)
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **envp)
 		envp = NULL;
 	}
 	ini_shell(&mshell, envp);
-	fancy_logo();
+	//fancy_logo();
 	show_ini_data(&mshell, argv[0]);
 	rl_clear_history();
 	while(1)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:26:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/06 08:30:30 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:10:34 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	ft_exit(char **args, int status)
 	i = 1;
 	while (args && args[i] != NULL)
 		i++;
-	printf("minishell $> exit\n");
-	printf("DEBUG: Function ft_exit: exiting\n");
+	//printf("minishell $> exit\n");
+	//printf("DEBUG: Function ft_exit: exiting\n");
 	if (i > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
