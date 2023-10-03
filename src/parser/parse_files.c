@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/03 11:08:51 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:52:26 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 	else if (i == 2)
 		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	last = ms_lstlast(args->cmds);
-	if (i == 1 && file == -1)
+	if (i == 1 && file == -1 && !last->error)
 	{
-		printf("minishell: %s: No such file or directory\n", argv);
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: No such file or directory\n", argv);
 		last->error = 1;
 	}
 	if (i == 1)

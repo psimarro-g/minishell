@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/10/03 09:32:21 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:47:31 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int				execute(t_mshell *mshell);
 /* EXECUTE/EXECUTE_UTILS.C*/
 int				probar_comandos(t_cmdlist *args, t_mshell *mshell);
 void			change_fds(t_cmdlist *act, int pipe_fd[2]);
-int				get_status(int pid, int size);
+int				get_status(int pid, int size, int exit_status);
 int				is_simple(t_mshell *mshell);
 int				built_in(char *cmd);
 

@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:26:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 12:08:20 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:30:14 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	ft_exit(char **args, int status)
 	//printf("DEBUG: Function ft_exit: exiting\n");
 	if (i > 2)
 	{
-		printf("minishell: exit: too many arguments\n");
+		ft_printf_fd(STDERR_FILENO, "minishell: exit: too many arguments\n");
 		return (1);
 	}
 	if (i == 1)
 		exit(status);
 	if (!is_number(args[1]))
 	{
-		printf("minishell: exit: %s: numeric argument required\n", args[1]);
+		ft_printf_fd(STDERR_FILENO, "minishell: exit: %s: numeric argument required\n", args[1]);
 		exit(255);
 	}
 	exit((uint8_t)ft_atoi(args[1]));

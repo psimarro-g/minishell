@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/30 17:45:18 by psimarro          #+#    #+#              #
-#    Updated: 2023/10/03 09:01:46 by psimarro         ###   ########.fr        #
+#    Updated: 2023/10/03 12:29:27 by dmontoro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,8 @@ SRC = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c ft_memchr.c\
 	  ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstlast.c\
 	  ft_lstmap.c ft_strchrs.c ft_itoa_base.c ft_is_pnt_or_hex.c ft_num_utils.c\
 	  ft_print_char.c ft_print_num.c ft_print_str.c ft_printf.c ft_utils_1.c ft_utils_2.c\
-	  ft_get_next_line_bonus.c ft_strdel.c ft_strnew.c ft_strcmp.c
+	  ft_get_next_line_bonus.c ft_strdel.c ft_strnew.c ft_strcmp.c ft_strrev.c ft_uitoh.c ft_swap.c ft_itoh.c\
+	  ft_printf_fd.c parse_hexa.c parse_number.c parse_text.c parse_pointer.c printf_utils_fd.c parser.c\
 
 OBJ_DIR = obj/
 OBJ = $(addprefix $(OBJ_DIR), $(SRC:%.c=%.o))

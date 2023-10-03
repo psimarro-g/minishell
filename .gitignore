@@ -11,3 +11,4 @@ libft/obj
 .vscode
 minishell
 *.txt
+minishell_tester

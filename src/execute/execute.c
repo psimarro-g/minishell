@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 09:25:10 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:49:24 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ static int	execute_pipes(t_mshell *mshell)
 	{
 		if (act->error == 1)
 		{
+			mshell->exit_status = 1;
+			pid = -1;
 			act = act->next;
 			continue ;
 		}
@@ -98,7 +100,7 @@ static int	execute_pipes(t_mshell *mshell)
 			act = act->next;
 		}
 	}
-	return (get_status(pid, mshell->num_commands));
+	return (get_status(pid, mshell->num_commands, mshell->exit_status));
 }
 
 int	execute(t_mshell *mshell)

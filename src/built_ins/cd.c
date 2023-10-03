@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:55 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 11:08:39 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:32:53 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	cd(char **path, char **cwd, char ***envp)
 	*path = check_home(path, *envp);
 	if (chdir(*path) == -1)
 	{
-		printf("cd: no such file or directory: %s\n", *path);
+		ft_printf_fd(STDERR_FILENO, "minishell: cd: %s: No such file or directory\n", *path);
 		return (1);
 	}
 	tmp = ft_getcwd();

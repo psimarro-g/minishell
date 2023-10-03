@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 09:32:09 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:48:05 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	change_fds(t_cmdlist *act, int pipe_fd[2])
 	close(pipe_fd[1]);
 }
 //Hacemos el cambio de señales para que coja bien las señales
-int	get_status(int pid, int num_commands)
+int	get_status(int pid, int num_commands, int exit_status)
 {
 	int	status;
 
@@ -63,6 +63,8 @@ int	get_status(int pid, int num_commands)
 	while (waitpid(-1, NULL, 0) != -1) ;
 	change_signals();
 	g_executing = 0;
+	if (pid == -1)
+		return (exit_status);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	if (WIFSIGNALED(status))
