@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/03 12:52:26 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 09:31:12 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 	int			file;
 	t_cmdlist	*last;
 
+	last = ms_lstlast(args->cmds);
+	if (last->error)
+		return ;
 	file = 0;
 	if (i == 1)
 		file = open(argv, O_RDONLY, 0777);
@@ -24,16 +27,24 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 		file = open(argv, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (i == 2)
 		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	last = ms_lstlast(args->cmds);
-	if (i == 1 && file == -1 && !last->error)
+	if (file == -1)
 	{
-		ft_printf_fd(STDERR_FILENO, "minishell: %s: No such file or directory\n", argv);
+		ft_printf_fd(STDERR_FILENO, "minishell: %s: %s\n", argv, strerror(errno));
 		last->error = 1;
+		args->exit_status = 1;
 	}
 	if (i == 1)
+	{
+		if (last->input != -1)
+			close(last->input);
 		last->input = file;
+	}
 	else
+	{
+		if (last->output != -1)
+			close(last->output);
 		last->output = file;
+	}
 }
 
 int	parse_files(t_mshell *args, char *token, char *line, int *i)

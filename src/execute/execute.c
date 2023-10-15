@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 12:49:24 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 10:16:00 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,23 @@ static int	execute_simple(t_mshell *mshell)
 		return (export(mshell->cmds->args, &mshell->envp));
 	if (ft_strcmp(mshell->cmds->cmd, "unset") == 0)
 		return (unset(mshell->cmds->args, &mshell->envp));
-	printf("minishell: %s: command not found\n", mshell->cmds->cmd);
+	ft_printf_fd(2, "minishell: %s: command not found\n", mshell->cmds->cmd);
 	mshell->exit_status = 127;
 	return (0);
 }
-
+//TODO Pensar si hay que cerrar input y output en el hijo
 static void	execute_child(int pipe_fd[2], t_cmdlist	*act, t_mshell *mshell)
 {
-	if (act->cmd == NULL)
-		exit(0);
+	if (act->error == 1 || act->cmd == NULL)
+		exit(mshell->exit_status);
 	if (!built_in(act->cmd) && act->path == NULL)
 	{
-		printf("minishell: %s: command not found\n", act->cmd);
-		mshell->exit_status = 127;
+		if (is_directory(act->cmd) && (!ft_strncmp(act->cmd, "./", 2) || !ft_strncmp(act->cmd, "/", 1)))
+		{
+			ft_printf_fd(2, "minishell: %s: is a directory\n", act->cmd);
+			exit(126);
+		}
+		ft_printf_fd(2, "minishell: %s: command not found\n", act->cmd);
 		exit(127);
 	}
 	default_signals();
@@ -80,13 +84,6 @@ static int	execute_pipes(t_mshell *mshell)
 	act = mshell->cmds;
 	while (act)
 	{
-		if (act->error == 1)
-		{
-			mshell->exit_status = 1;
-			pid = -1;
-			act = act->next;
-			continue ;
-		}
 		if (pipe(pipe_fd) == -1)
 			ft_error("Error creating pipe", mshell, 1);
 		pid = fork();

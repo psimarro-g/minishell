@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/28 20:45:05 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 10:07:43 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static char	*find_path(char **envp, char *command, char *cwd);
+static char	*find_path(t_mshell *mshell, char *command);
 
 static char	**add_args(t_mshell *mshell, char *token, char *line, int *i)
 {
@@ -53,7 +53,7 @@ int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 		if (!act->cmd)
 			return (0);
 		aux = ft_strjoin("/", token);
-		act->path = find_path(mshell->envp, aux, mshell->cwd);
+		act->path = find_path(mshell, aux);
 		check_path(&act, act->path);
 		act->args = split_and_expand(line + (*i), i, *mshell, token);
 		mshell->num_commands++;
@@ -92,34 +92,40 @@ static void	free_split(char **split)
 //Comprueba si path es abssoluyto y lo devuelve
 //Busca el comando en PATH= y lo devuelve si está
 
-static char	*check_absolute_path(char *command, char ***envp, char *cwd)
+static char	*check_absolute_path(char *command, t_mshell *mshell, int *i)
 {
 	char	*tmp;
 	char 	*ret;
 	char	*path;
+	t_cmdlist	*act;
 	
 	ret = NULL;
 	path = ft_strdup(&command[1]);
 	if (ft_strncmp(path, "~/", 2) == 0)
 	{
-		tmp = expand_var("$HOME", *envp, 0);
+		tmp = expand_var("$HOME", mshell->envp, 0);
 		ret = ft_strjoin(tmp, command);
 		free(tmp);
 	}
 	else if (ft_strncmp(path, "./", 2) == 0 || ft_strncmp(path, "../", 3) == 0)
-		ret = ft_strjoin(cwd, command);
+		ret = ft_strjoin(mshell->cwd, command);
 	else if (command[1] == '/')
 		ret = ft_strdup(path);
 	if (ret && access(ret, F_OK | X_OK))
 	{
 		free(ret);
 		ret = NULL;
+		act = ms_lstlast(mshell->cmds);
+		act->error = 1;
+		mshell->exit_status = 126;
+		ft_printf_fd(2, "minishell: %s: %s\n", path, strerror(errno));
 	}
 	free(path);
+	*i = !ft_strncmp(path, "~/", 2) || !ft_strncmp(path, "./", 2) || !ft_strncmp(path, "../", 3);
 	return (ret);
 }
 
-static char	*find_path(char **envp, char *command, char *cwd)
+static char	*find_path(t_mshell *mshell, char *command)
 {
 	int i;
 	char **paths;
@@ -127,14 +133,17 @@ static char	*find_path(char **envp, char *command, char *cwd)
 	char *ret;
 
 	i = 0;
-	ret = check_absolute_path(command, &envp, cwd);
+	ret = check_absolute_path(command, mshell, &i);
 	if (ret)
 		return (ret);
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5) != 0)
-		i++;
-	if (!envp[i])
+	if (i)
 		return (NULL);
-	paths = ft_split(envp[i] + 5, ':');
+	i = 0;
+	while (mshell->envp[i] && ft_strncmp(mshell->envp[i], "PATH=", 5) != 0)
+		i++;
+	if (!mshell->envp[i])
+		return (NULL);
+	paths = ft_split(mshell->envp[i] + 5, ':');
 	i = 0;
 	while (paths[i] != NULL)
 	{

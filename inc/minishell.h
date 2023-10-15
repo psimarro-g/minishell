@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/10/03 12:47:31 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 10:11:55 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <string.h>
+# include <errno.h>
 # include "../libft/inc/libft.h"
 # include "ms_lst.h"
 
@@ -164,5 +166,6 @@ int				is_token(const char *s, int i);
 int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s);
 void			check_path(t_cmdlist **act, char *path);
+int				is_directory(const char *path);
 
 #endif
