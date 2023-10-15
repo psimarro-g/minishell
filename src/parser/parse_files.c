@@ -6,27 +6,17 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/15 11:50:27 by psimarro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:51:29 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 13:26:11 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static void	ms_open_file(t_mshell *args, char *argv, int i)
+static void	handle_file_err(t_mshell *args, int file, char *argv, int i)
 {
-	int			file;
 	t_cmdlist	*last;
 
 	last = ms_lstlast(args->cmds);
-	if (last->error)
-		return ;
-	file = 0;
-	if (i == 1)
-		file = open(argv, O_RDONLY, 0777);
-	else if (i == 3)
-		file = open(argv, O_WRONLY | O_CREAT | O_APPEND, 0644);
-	else if (i == 2)
-		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file == -1)
 	{
 		ft_printf_fd(2, "minishell: %s: %s\n", argv, strerror(errno));
@@ -45,6 +35,24 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 			close(last->output);
 		last->output = file;
 	}
+}
+
+static void	ms_open_file(t_mshell *args, char *argv, int i)
+{
+	int			file;
+	t_cmdlist	*last;
+
+	last = ms_lstlast(args->cmds);
+	if (last->error)
+		return ;
+	file = 0;
+	if (i == 1)
+		file = open(argv, O_RDONLY, 0777);
+	else if (i == 3)
+		file = open(argv, O_WRONLY | O_CREAT | O_APPEND, 0644);
+	else if (i == 2)
+		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	handle_file_err(args, file, argv, i);
 }
 
 int	parse_files(t_mshell *args, char *token, char *line, int *i)

@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:57:20 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 13:24:22 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,21 @@ static int	check_access(char *path, char **ret)
 		return (1);
 }
 
+static void	handle_path_err(t_mshell *mshell, char **ret, char *path)
+{
+	t_cmdlist	*act;
+
+	free(*ret);
+	*ret = NULL;
+	act = ms_lstlast(mshell->cmds);
+	act->error = 1;
+	ft_printf_fd(2, "minishell: %s: %s\n", path, strerror(errno));
+	if (errno == ENOENT)
+		mshell->exit_status = 127;
+	else
+		mshell->exit_status = 126;
+}
+
 //Comprueba si path es relativo y valido y lo concatena si lo es 
 //y lo devuelve check_relative(ret) -> int si es valido
 //Comprueba si path es abssoluyto y lo devuelve
@@ -86,7 +101,6 @@ static char	*check_absolute_path(char *command, t_mshell *mshell, int *i)
 	char		*tmp;
 	char		*ret;
 	char		*path;
-	t_cmdlist	*act;
 
 	ret = NULL;
 	path = ft_strdup(&command[1]);
@@ -101,20 +115,28 @@ static char	*check_absolute_path(char *command, t_mshell *mshell, int *i)
 	else if (command[1] == '/')
 		ret = ft_strdup(path);
 	if (ret && access(ret, F_OK | X_OK))
-	{
-		free(ret);
-		ret = NULL;
-		act = ms_lstlast(mshell->cmds);
-		act->error = 1;
-		ft_printf_fd(2, "minishell: %s: %s\n", path, strerror(errno));
-		if (errno == ENOENT)
-			mshell->exit_status = 127;
-		else
-			mshell->exit_status = 126;
-	}
+		handle_path_err(mshell, &ret, path);
 	free(path);
 	*i = (!ft_strncmp(path, "~/", 2) || !ft_strncmp(path, "./", 2) || \
 		!ft_strncmp(path, "../", 3) || command[1] == '/');
+	return (ret);
+}
+
+static char	*loop_paths(char **paths, char **path, char *command)
+{
+	int		i;
+	char	*ret;
+
+	i = 0;
+	ret = NULL;
+	while (paths[i] != NULL)
+	{
+		*path = ft_strjoin(paths[i], command);
+		if (check_access(*path, &ret) == 0)
+			break ;
+		i++;
+		free(*path);
+	}
 	return (ret);
 }
 
@@ -137,15 +159,7 @@ static char	*find_path(t_mshell *mshell, char *command)
 	if (!mshell->envp[i])
 		return (NULL);
 	paths = ft_split(mshell->envp[i] + 5, ':');
-	i = 0;
-	while (paths[i] != NULL)
-	{
-		path = ft_strjoin(paths[i], command);
-		if (check_access(path, &ret) == 0)
-			break ;
-		i++;
-		free(path);
-	}
+	ret = loop_paths(paths, &path, command);
 	free_split(paths);
 	return (ret);
 }

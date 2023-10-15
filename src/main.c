@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:28:47 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 13:25:27 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,38 @@ static void	free_commands(t_mshell *mshell)
 	mshell->num_commands = 0;
 	g_executing = 0;
 }
+
+static void	loop_mshell(t_mshell *mshell)
+{
+	char			*line;
+
+	while (1)
+	{
+		line = readline(GREEN"minishell $> "RESET);
+		if (!line)
+			ft_exit(NULL, mshell->exit_status);
+		if (ft_strlen(line) > 0)
+			add_history(line);
+		mshell->error = 0;
+		parse_line(line, mshell);
+		if (mshell->cmds->cmd && !mshell->error)
+			mshell->exit_status = execute(mshell);
+		free_commands(mshell);
+		free(line);
+	}
+}
 /*
 void    show_leaks(void)
 {
         system("leaks -q minishell");
-}*/
+}
+*/
 
 //Tenemos que guardar stdin y stdout para poder restaurarlos
 //while : ; do leaks minishell | grep leak; done  -> probar leaks
 int	main(int argc, char **argv, char **envp)
 {
 	t_mshell		mshell;
-	char			*line;
 	int				free_envp;
 
 	//atexit(show_leaks);
@@ -84,21 +104,6 @@ int	main(int argc, char **argv, char **envp)
 	//fancy_logo();
 	show_ini_data(&mshell, argv[0]);
 	rl_clear_history();
-	while (1)
-	{
-		line = readline(GREEN"minishell $> "RESET);
-		if (!line)
-			ft_exit(NULL, mshell.exit_status);
-		if (ft_strlen(line) > 0)
-			add_history(line);
-		mshell.error = 0;
-		parse_line(line, &mshell);
-		if (mshell.cmds->cmd && !mshell.error)
-			mshell.exit_status = execute(&mshell);
-		free_commands(&mshell);
-		free(line);
-	}
-	free(mshell.cwd);
-	free(mshell.mshell_dir);
+	loop_mshell(&mshell);
 	return (0);
 }
