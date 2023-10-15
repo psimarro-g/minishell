@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:26:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 12:30:14 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:40:51 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,7 @@ int	ft_exit(char **args, int status)
 	i = 1;
 	while (args && args[i] != NULL)
 		i++;
-	//printf("minishell $> exit\n");
-	//printf("DEBUG: Function ft_exit: exiting\n");
+	printf("exit\n");
 	if (i > 2)
 	{
 		ft_printf_fd(STDERR_FILENO, "minishell: exit: too many arguments\n");
@@ -50,7 +49,8 @@ int	ft_exit(char **args, int status)
 		exit(status);
 	if (!is_number(args[1]))
 	{
-		ft_printf_fd(STDERR_FILENO, "minishell: exit: %s: numeric argument required\n", args[1]);
+		ft_printf_fd(STDERR_FILENO, "minishell: exit: %s \
+						: numeric argument required\n", args[1]);
 		exit(255);
 	}
 	exit((uint8_t)ft_atoi(args[1]));

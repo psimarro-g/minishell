@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:04:34 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:44:18 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	execute_simple(t_mshell *mshell)
 	mshell->exit_status = 127;
 	return (0);
 }
+
 //TODO Pensar si hay que cerrar input y output en el hijo
 static void	execute_child(int pipe_fd[2], t_cmdlist	*act, t_mshell *mshell)
 {
@@ -33,7 +34,8 @@ static void	execute_child(int pipe_fd[2], t_cmdlist	*act, t_mshell *mshell)
 		exit(mshell->exit_status);
 	if (!built_in(act->cmd) && act->path == NULL)
 	{
-		if (is_directory(act->cmd) && (!ft_strncmp(act->cmd, "./", 2) || !ft_strncmp(act->cmd, "/", 1)))
+		if (is_directory(act->cmd) && \
+			(!ft_strncmp(act->cmd, "./", 2) || !ft_strncmp(act->cmd, "/", 1)))
 		{
 			ft_printf_fd(2, "minishell: %s: is a directory\n", act->cmd);
 			exit(126);
@@ -45,7 +47,7 @@ static void	execute_child(int pipe_fd[2], t_cmdlist	*act, t_mshell *mshell)
 	change_fds(act, pipe_fd);
 	if (probar_comandos(act, mshell) == 0)
 	{
-		if(execve(act->path, act->args, mshell->envp) == -1)
+		if (execve(act->path, act->args, mshell->envp) == -1)
 			exit(126);
 	}
 }
@@ -64,12 +66,13 @@ static void	manage_parent_fds(t_cmdlist	*act, int pipe_fd[2])
 }
 
 //If it gets to execute, it has to have at least 1 good command
-/*Execute -> Antes de hacer exec tiene que tener la entrada correcta y la salida correcta y las señales bien
-//Entrada puede ser:
+/*Execute -> Antes de hacer exec tiene que tener la entrada 
+correcta y la salida correcta y las señales bien
+Entrada puede ser:
 	- Stdin (-1)
 	- Pipe (-1) sin ser el primer comando
 	- Un archivo (> 0)
-//La salida puede ser:
+La salida puede ser:
 	- Stdout (-1)
 	- Pipe (-1) sin ser el ultimo comando
 	- Un archivo (> 0)
@@ -79,7 +82,7 @@ static int	execute_pipes(t_mshell *mshell)
 	t_cmdlist	*act;
 	pid_t		pid;
 	int			pipe_fd[2];
-	
+
 	g_executing = 1;
 	act = mshell->cmds;
 	while (act)
@@ -89,7 +92,7 @@ static int	execute_pipes(t_mshell *mshell)
 		pid = fork();
 		if (pid == -1)
 			ft_error("Error creating fork", mshell, 1);
-		if(pid == 0)
+		if (pid == 0)
 			execute_child(pipe_fd, act, mshell);
 		else
 		{

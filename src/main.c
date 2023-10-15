@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:01:04 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:28:47 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,16 @@
 		- 128 + n si el programa ha acabado por una señal
 */
 
-
 int	g_executing = 0;
 
 static void	show_ini_data(t_mshell *mshell, char *mshell_path)
 {
 	int			i;
-	char	*mshell_dir;
-	char	*aux;
+	char		*mshell_dir;
+	char		*aux;
 
 	i = 0;
-	mshell_dir = expand_var("$MSHELLDIR", mshell->envp,
+	mshell_dir = expand_var("$MSHELLDIR", mshell->envp, \
 						mshell->exit_status);
 	if (!mshell_dir)
 	{
@@ -85,7 +84,7 @@ int	main(int argc, char **argv, char **envp)
 	//fancy_logo();
 	show_ini_data(&mshell, argv[0]);
 	rl_clear_history();
-	while(1)
+	while (1)
 	{
 		line = readline(GREEN"minishell $> "RESET);
 		if (!line)
@@ -95,10 +94,7 @@ int	main(int argc, char **argv, char **envp)
 		mshell.error = 0;
 		parse_line(line, &mshell);
 		if (mshell.cmds->cmd && !mshell.error)
-		{
 			mshell.exit_status = execute(&mshell);
-			//show_cmds(mshell.cmds);
-		}
 		free_commands(&mshell);
 		free(line);
 	}

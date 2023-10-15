@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:49 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 12:32:07 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:41:43 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	export(char **args, char ***envp)
 	{
 		if (!check_var(args[i]))
 		{
-			ft_printf_fd(STDERR_FILENO, "export: '%s': not a valid identifier\n", args[i]);
+			ft_printf_fd(2, "export: '%s': not a valid identifier\n", args[i]);
 			return (1);
 		}
 		key = get_key(args[i]);

@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:15:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:02:27 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:30:41 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 static void	interrupt_handler(int signo)
 {
-	//Debug
-	//printf("Debug: Function interrupt_handler: %d received\n", signo);
 	(void)signo;
 	if (g_executing == 0)
 	{
@@ -25,8 +23,11 @@ static void	interrupt_handler(int signo)
 	}
 }
 
-//Queremos que reciba el handler porque cuando no hay nada en ejecución minishell tiene que printear
-//Pero cuando haces sigquit minishell nunca tiene que hacer nada.
+/*
+Queremos que reciba el handler porque cuando no hay nada en ejecución,
+minishell tiene que printear.
+Pero cuando haces sigquit minishell nunca tiene que hacer nada.
+*/
 void	change_signals(void)
 {
 	signal(SIGINT, &interrupt_handler);

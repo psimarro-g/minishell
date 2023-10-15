@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:03:21 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:47:35 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	change_fds(t_cmdlist *act, int pipe_fd[2])
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 }
+
 //Hacemos el cambio de señales para que coja bien las señales
 int	get_status(int pid, int exit_status)
 {
@@ -60,7 +61,8 @@ int	get_status(int pid, int exit_status)
 
 	ignore_signals();
 	waitpid(pid, &status, 0);
-	while (waitpid(-1, NULL, 0) != -1) ;
+	while (waitpid(-1, NULL, 0) != -1)
+		;
 	change_signals();
 	g_executing = 0;
 	if (pid == -1)
@@ -74,10 +76,10 @@ int	get_status(int pid, int exit_status)
 
 int	is_simple(t_mshell *mshell)
 {
-	return (mshell->num_commands == 1 && (ft_strcmp(mshell->cmds->cmd, "cd") == 0
-		|| ft_strcmp(mshell->cmds->cmd, "exit") == 0
-		|| ft_strcmp(mshell->cmds->cmd, "export") == 0
-		|| ft_strcmp(mshell->cmds->cmd, "unset") == 0));
+	return (mshell->num_commands == 1 && (!ft_strcmp(mshell->cmds->cmd, "cd") \
+				|| ft_strcmp(mshell->cmds->cmd, "exit") == 0 \
+				|| ft_strcmp(mshell->cmds->cmd, "export") == 0 \
+				|| ft_strcmp(mshell->cmds->cmd, "unset") == 0));
 }
 
 int	built_in(char *cmd)

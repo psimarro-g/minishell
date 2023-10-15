@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 07:25:55 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 12:32:53 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:34:48 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	cd(char **path, char **cwd, char ***envp)
 	*path = check_home(path, *envp);
 	if (chdir(*path) == -1)
 	{
-		ft_printf_fd(STDERR_FILENO, "minishell: cd: %s: No such file or directory\n", *path);
+		ft_printf_fd(2, "minishell: cd: %s: %s\n", *path, strerror(errno));
 		return (1);
 	}
 	tmp = ft_getcwd();
@@ -55,7 +55,6 @@ int	cd(char **path, char **cwd, char ***envp)
 		free(*cwd);
 		*cwd = tmp;
 	}
-	//printf("DEBUG: Function cd: PWD Despues del cambio: %s\n", *cwd);
 	set_env("PWD", *cwd, envp);
 	return (0);
 }
