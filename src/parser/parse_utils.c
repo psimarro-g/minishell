@@ -6,25 +6,16 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:08:42 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 12:08:00 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	ft_error(char *s, t_mshell *mshell, int exit_code)
-{
-	mshell->error = 1;
-	if (mshell)
-		mshell->exit_status = exit_code;
-	if (s)
-		ft_putstr_fd(s, 1);
-}
-
 void	syntax_error(t_mshell *args, char *line, int *i)
 {
 	char	*eof;
-	
+
 	if (!line[*i])
 	{
 		printf("minishell: syntax error near unexpected token `newline'\n");
@@ -50,8 +41,8 @@ static int	skip_char(char const *s)
 static void	check_home_path(char **command, char ***envp)
 {
 	char	*tmp;
-	char 	*ret;
-	
+	char	*ret;
+
 	tmp = expand_var("$HOME", *envp, 0);
 	ret = ft_strjoin(tmp, &command[0][1]);
 	free(*command);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:37 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/27 13:09:45 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 12:10:26 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	check_last_cmd(t_mshell *mshell);
 
 void	parse_line(char *line, t_mshell *mshell)
 {
-	int i; // indice de donde estamos en line
+	int	i;
+
 	i = 0;
 	while (line[i])
 	{
@@ -25,7 +26,6 @@ void	parse_line(char *line, t_mshell *mshell)
 			i++;
 		process_token(line, mshell, &i);
 	}
-	// TODO Aqui quizas podrias poner que si no hay ultimo comando, funcione
 	check_last_cmd(mshell);
 }
 

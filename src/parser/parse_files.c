@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/15 11:07:01 by psimarro         ###   ########.fr       */
+/*   Created: 2023/10/15 11:50:27 by psimarro          #+#    #+#             */
+/*   Updated: 2023/10/15 11:51:29 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file == -1)
 	{
-		ft_printf_fd(STDERR_FILENO, "minishell: %s: %s\n", argv, strerror(errno));
+		ft_printf_fd(2, "minishell: %s: %s\n", argv, strerror(errno));
 		last->error = 1;
 		args->exit_status = 1;
 	}
@@ -49,8 +49,8 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 
 int	parse_files(t_mshell *args, char *token, char *line, int *i)
 {
-	char *file_name;
-	int file_option;
+	char	*file_name;
+	int		file_option;
 
 	file_option = 0;
 	if (!ft_strncmp(token, "<", 1))
@@ -70,7 +70,6 @@ int	parse_files(t_mshell *args, char *token, char *line, int *i)
 		return (0);
 	}
 	file_name = get_tranche(args, line, i);
-	//printf("DEBUG: Function parse_files: file_name: \'%s\'\n", file_name);
 	ms_open_file(args, file_name, file_option);
 	free(file_name);
 	return (0);

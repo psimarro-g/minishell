@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:58:19 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 10:16:07 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 12:09:41 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-int is_directory(const char *path)
+int	is_directory(const char *path)
 {
-	struct stat statbuf;
+	struct stat	statbuf;
 
 	if (!path || stat(path, &statbuf) != 0)
-		return 0;
-	return S_ISDIR(statbuf.st_mode);
+		return (0);
+	return (S_ISDIR(statbuf.st_mode));
 }
 
 void	check_path(t_cmdlist **act, char *path)
@@ -51,20 +51,6 @@ int	is_token(const char *s, int i)
 		return (2);
 	else if (s[i] == '<' || s[i] == '>' || s[i] == '|')
 		return (1);
-	return (0);
-}
-
-int	check_comillas(char c, const char *s, int i)
-{
-	int	j;
-
-	if (s[i] != c)
-		return (0);
-	j = i + 1;
-	while (s[j] && s[j] != c)
-		j++;
-	if (s[j] == c)
-		return (j - i);
 	return (0);
 }
 

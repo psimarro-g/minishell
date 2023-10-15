@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_quotes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:42:13 by psimarro          #+#    #+#             */
-/*   Updated: 2023/10/03 11:51:54 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 12:07:21 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,14 @@
 if no space found keep getting quotes and strjoin them
 if regular text is found strdup line and strjoin with quotes until space is found
 if quotes, check if there are end quotes,
-	if there are get the index of the end quote and continue
+if there are get the index of the end quote and continue
 if the quotes are not closed return 0,
-	this includes double quotes where end quote is preceeded by backslash
+this includes double quotes where end quote is preceeded by backslash
 if single quotes, parse quoted string as usual
-if double quotes,
-	parse quoted string as usual but expand variables and mind special chars such as backslash
+if double quotes, parse quoted string as usual but 
+expand variables and mind special chars such as backslash
 update *i value
 */
-
-char	*ft_strjoin_free(char *s1, char *s2)
-{
-	char	*joinstr;
-	int		len;
-
-	len = ft_strlen(s1) + ft_strlen(s2);
-	if (len == 0)
-		return (NULL);
-	joinstr = ft_calloc(sizeof(char), len + 1);
-	if (!joinstr)
-		return (0);
-	ft_strlcpy(joinstr, s1, ft_strlen(s1) + 1);
-	if (s2)
-	{
-		ft_strlcat(joinstr, s2, len + 1);
-		free(s2);
-	}
-	if (s1)
-		free(s1);
-	return (joinstr);
-}
 
 char	*get_var(const char *line, int *i)
 {
@@ -53,14 +31,15 @@ char	*get_var(const char *line, int *i)
 	char	*ret;
 
 	j = *i + 1;
-	if(line[j] == '?')
+	if (line[j] == '?')
 	{
 		ret = ft_strdup("$?");
 		*i += 2;
 		return (ret);
 	}
-	while (line[j] && !ft_isspace(line[j]) && !is_token(line, j) && line[j] != '$' && line[j] != '\''
-		&& (line[j] != '\"' || !(line[j] == '\"' && line[j - 1] != '\\')))
+	while (line[j] && !ft_isspace(line[j]) && !is_token(line, j) \
+			&& line[j] != '$' && line[j] != '\'' && \
+			(line[j] != '\"' || !(line[j] == '\"' && line[j - 1] != '\\')))
 		j++;
 	ret = ft_substr(line, *i, j - *i);
 	*i = j;
@@ -152,6 +131,5 @@ char	*get_tranche(t_mshell *mshell, const char *line, int *i)
 			ret = ft_strjoin_free(ret, get_double_quotes(mshell, line, i));
 		j = *i;
 	}
-	//printf("DEBUG: parse_quotes.c: get_tranche: ret: .%s.\n", ret);
 	return (ret);
 }

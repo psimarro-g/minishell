@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:13:56 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 12:06:54 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,6 @@ int				parse_pipe(t_mshell *args, char *token, char *line, int *i);
 /* PARSER/PARSE_QUOTES.C*/
 char			*get_tranche(t_mshell *mshell, const char *line, int *i);
 int				check_dquotes(const char *line, int i);
-char			*ft_strjoin_free(char *s1, char *s2);
 char			*get_var(const char *line, int *i);
 char			*get_single_quotes(const char *line, int *i);
 
@@ -158,7 +157,6 @@ void			expand_heredoc(t_mshell *mshell, \
 					int fd[2], char *line, int expand);
 
 /* PARSER/PARSE_UTILS.C*/
-void			ft_error(char *s, t_mshell *mshell, int exit_code);
 void			syntax_error(t_mshell *args, char *line, int *i);
 char			**split_and_expand(char const *s, int *i, \
 					t_mshell mshell, char *token);
@@ -166,9 +164,14 @@ char			**split_and_expand(char const *s, int *i, \
 /* PARSER/PARSE_UTILS2.C */
 void			cpy_lst(char **to, char **from, int start);
 int				is_token(const char *s, int i);
-int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s);
 void			check_path(t_cmdlist **act, char *path);
 int				is_directory(const char *path);
+
+/* PARSER/PARSE_UTILS3.C */
+void			free_split(char **split);
+void			ft_error(char *s, t_mshell *mshell, int exit_code);
+int				check_comillas(char c, const char *s, int i);
+char			*ft_strjoin_free(char *s1, char *s2);
 
 #endif

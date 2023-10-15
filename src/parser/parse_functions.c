@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 10:58:16 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:57:20 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,29 +76,18 @@ static int	check_access(char *path, char **ret)
 		return (1);
 }
 
-static void	free_split(char **split)
-{
-	int	i;
-
-	i = 0;
-	while (split[i] != NULL)
-	{
-		free(split[i]);
-		i++;
-	}
-	free(split);
-}
-//Comprueba si path es relativo y valido y lo concatena si lo es y lo devuelve check_relative(ret) -> int si es valido
+//Comprueba si path es relativo y valido y lo concatena si lo es 
+//y lo devuelve check_relative(ret) -> int si es valido
 //Comprueba si path es abssoluyto y lo devuelve
 //Busca el comando en PATH= y lo devuelve si está
 
 static char	*check_absolute_path(char *command, t_mshell *mshell, int *i)
 {
-	char	*tmp;
-	char 	*ret;
-	char	*path;
+	char		*tmp;
+	char		*ret;
+	char		*path;
 	t_cmdlist	*act;
-	
+
 	ret = NULL;
 	path = ft_strdup(&command[1]);
 	if (ft_strncmp(path, "~/", 2) == 0)
@@ -124,16 +113,17 @@ static char	*check_absolute_path(char *command, t_mshell *mshell, int *i)
 			mshell->exit_status = 126;
 	}
 	free(path);
-	*i = !ft_strncmp(path, "~/", 2) || !ft_strncmp(path, "./", 2) || !ft_strncmp(path, "../", 3) || command[1] == '/';
+	*i = (!ft_strncmp(path, "~/", 2) || !ft_strncmp(path, "./", 2) || \
+		!ft_strncmp(path, "../", 3) || command[1] == '/');
 	return (ret);
 }
 
 static char	*find_path(t_mshell *mshell, char *command)
 {
-	int i;
-	char **paths;
-	char *path;
-	char *ret;
+	int		i;
+	char	**paths;
+	char	*path;
+	char	*ret;
 
 	i = 0;
 	ret = check_absolute_path(command, mshell, &i);
