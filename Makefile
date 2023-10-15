@@ -6,7 +6,7 @@
 #    By: psimarro <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/15 10:20:49 by psimarro          #+#    #+#              #
-#    Updated: 2023/10/15 11:58:15 by psimarro         ###   ########.fr        #
+#    Updated: 2023/10/15 13:57:49 by psimarro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,8 +22,8 @@ NAME		= minishell
 
 CC 			= gcc
 
-CFLAGS		=  -g3 -Wall -Wextra -Werror -O3
-LDFLAGS 	= libft/libft.a #-fsanitize=address
+CFLAGS		=  -g3 -Wall -Wextra -Werror -O3 # -fsanitize=address
+LDFLAGS 	= libft/libft.a # -fsanitize=address
 LIBS 		= -l readline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include
 LIBS_LINUX	= -l readline -L /usr/include/readline -I /usr/include/readline
 RM			= rm -f
@@ -44,7 +44,7 @@ SRC 		=	main.c fancy_logo.c init_functions.c envp_utils.c signals.c\
 				ms_lstadd_back.c ms_lstlast.c ms_lstnew.c ms_lstdelone.c ms_lstclear.c ms_lstsize.c\
 				execute.c execute_utils.c \
 				parser.c parse_functions.c parse_env.c  parse_files.c parse_quotes.c parse_pipe.c\
-				parse_here_doc.c parse_utils.c parse_utils2.c parse_utils3.c parse_utils_hd.c\
+				parse_here_doc.c parse_utils.c parse_utils2.c parse_utils3.c parse_utils4.c parse_utils_hd.c\
 				echo.c cd.c exit.c pwd.c env.c export.c unset.c minishell.c\
 
 OBJ_DIR		=	obj/
@@ -62,7 +62,7 @@ linux : libft $(OBJ)
 	@echo "\n\033[32mCompiled! ᕦ(\033[31m♥\033[32m_\033[31m♥\033[32m)ᕤ\n"
 
 $(OBJ_DIR)%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@ 
+	@$(CC) $(CFLAGS) -c $< -o $@ 
 
 $(OBJ): | $(OBJ_DIR)
 
@@ -70,7 +70,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(NAME): $(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(LIBS) $(LDFLAGS)
+	@$(CC) -o $(NAME) $(OBJ) $(LIBS) $(LDFLAGS)
 	@echo "\n\033[32mCompiled! ᕦ(\033[31m♥\033[32m_\033[31m♥\033[32m)ᕤ\n"
 
 libft:

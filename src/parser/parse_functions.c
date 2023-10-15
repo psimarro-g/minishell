@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 13:24:22 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 13:43:05 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	parse_command(t_mshell *mshell, char *token, char *line, int *i)
 	return (0);
 }
 
-static int	check_access(char *path, char **ret)
+int	check_access(char *path, char **ret)
 {
 	if (access(path, F_OK | X_OK) == 0)
 	{
@@ -74,21 +74,6 @@ static int	check_access(char *path, char **ret)
 	}
 	else
 		return (1);
-}
-
-static void	handle_path_err(t_mshell *mshell, char **ret, char *path)
-{
-	t_cmdlist	*act;
-
-	free(*ret);
-	*ret = NULL;
-	act = ms_lstlast(mshell->cmds);
-	act->error = 1;
-	ft_printf_fd(2, "minishell: %s: %s\n", path, strerror(errno));
-	if (errno == ENOENT)
-		mshell->exit_status = 127;
-	else
-		mshell->exit_status = 126;
 }
 
 //Comprueba si path es relativo y valido y lo concatena si lo es 
@@ -119,24 +104,6 @@ static char	*check_absolute_path(char *command, t_mshell *mshell, int *i)
 	free(path);
 	*i = (!ft_strncmp(path, "~/", 2) || !ft_strncmp(path, "./", 2) || \
 		!ft_strncmp(path, "../", 3) || command[1] == '/');
-	return (ret);
-}
-
-static char	*loop_paths(char **paths, char **path, char *command)
-{
-	int		i;
-	char	*ret;
-
-	i = 0;
-	ret = NULL;
-	while (paths[i] != NULL)
-	{
-		*path = ft_strjoin(paths[i], command);
-		if (check_access(*path, &ret) == 0)
-			break ;
-		i++;
-		free(*path);
-	}
 	return (ret);
 }
 

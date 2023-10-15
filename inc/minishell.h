@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/10/15 12:06:54 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 13:43:19 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int				parse_files(t_mshell *args, char *token, char *line, int *i);
 
 /* PARSER/PARSE_FUNCTIONS.C*/
 int				parse_command(t_mshell *args, char *token, char *line, int *i);
+int				check_access(char *path, char **ret);
 
 /* PARSER/PARSE_HEREDOC.C */
 int				parse_here_doc(t_mshell *args, char *token, char *line, int *i);
@@ -147,7 +148,6 @@ int				parse_pipe(t_mshell *args, char *token, char *line, int *i);
 
 /* PARSER/PARSE_QUOTES.C*/
 char			*get_tranche(t_mshell *mshell, const char *line, int *i);
-int				check_dquotes(const char *line, int i);
 char			*get_var(const char *line, int *i);
 char			*get_single_quotes(const char *line, int *i);
 
@@ -173,5 +173,10 @@ void			free_split(char **split);
 void			ft_error(char *s, t_mshell *mshell, int exit_code);
 int				check_comillas(char c, const char *s, int i);
 char			*ft_strjoin_free(char *s1, char *s2);
+
+/* PARSER/PARSE_UTILS4.C */
+int				check_dquotes(const char *line, int i);
+void			handle_path_err(t_mshell *mshell, char **ret, char *path);
+char			*loop_paths(char **paths, char **path, char *command);
 
 #endif

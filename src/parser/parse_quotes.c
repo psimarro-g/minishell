@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 18:42:13 by psimarro          #+#    #+#             */
-/*   Updated: 2023/10/15 12:07:21 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 13:44:01 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,6 @@ char	*get_var(const char *line, int *i)
 	return (ret);
 }
 
-int	check_dquotes(const char *line, int i)
-{
-	while (line[i] && line[i] != '\"')
-		i++;
-	if (line[i] == '\"' && line[i - 1] != '\\')
-		return (i);
-	else if (!line[i])
-		return (0);
-	return (check_dquotes(line, i + 1));
-}
-
 char	*get_single_quotes(const char *line, int *i)
 {
 	int		j;
@@ -69,12 +58,21 @@ char	*get_single_quotes(const char *line, int *i)
 	return (ret);
 }
 
+static void	handle_env(t_mshell *mshell, char **ret, const char *line, int *i)
+{
+	char	*env_var;
+
+	env_var = get_var(line, i);
+	*ret = ft_strjoin_free(*ret, expand_var(env_var, mshell->envp, \
+			mshell->exit_status));
+	free(env_var);
+}
+
 // terminar double quotes
 static char	*get_double_quotes(t_mshell *mshell, const char *line, int *i)
 {
 	int		j;
 	char	*ret;
-	char	*env_var;
 
 	(*i)++;
 	j = *i;
@@ -86,12 +84,7 @@ static char	*get_double_quotes(t_mshell *mshell, const char *line, int *i)
 		ret = ft_strjoin_free(ret, ft_substr(line, *i, j - *i));
 		*i = j;
 		if (line[*i] == '$')
-		{
-			env_var = get_var(line, i);
-			ret = ft_strjoin_free(ret, expand_var(env_var, mshell->envp,
-						mshell->exit_status));
-			free(env_var);
-		}
+			handle_env(mshell, &ret, line, i);
 		else if (line[*i] == '\\')
 		{
 			*i += 1;
@@ -107,7 +100,6 @@ char	*get_tranche(t_mshell *mshell, const char *line, int *i)
 {
 	int		j;
 	char	*ret;
-	char	*env_var;
 
 	j = *i;
 	ret = NULL;
@@ -119,12 +111,7 @@ char	*get_tranche(t_mshell *mshell, const char *line, int *i)
 		ret = ft_strjoin_free(ret, ft_substr(line, *i, j - *i));
 		*i = j;
 		if (line[*i] == '$')
-		{
-			env_var = get_var(line, i);
-			ret = ft_strjoin_free(ret, expand_var(env_var, mshell->envp,
-						mshell->exit_status));
-			free(env_var);
-		}
+			handle_env(mshell, &ret, line, i);
 		else if (line[*i] == '\'' && check_comillas('\'', line, j))
 			ret = ft_strjoin_free(ret, get_single_quotes(line, i));
 		else if (line[*i] == '\"' && check_dquotes(line, j + 1))
