@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 10:01:03 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:08:42 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ void	ft_error(char *s, t_mshell *mshell, int exit_code)
 		ft_putstr_fd(s, 1);
 }
 
-void	syntax_error(t_mshell *args, char *eof, char *line, int *i)
+void	syntax_error(t_mshell *args, char *line, int *i)
 {
+	char	*eof;
+	
 	if (!line[*i])
 	{
 		printf("minishell: syntax error near unexpected token `newline'\n");
@@ -45,7 +47,7 @@ static int	skip_char(char const *s)
 	return (i);
 }
 
-static void	check_home_path(char **command, char ***envp, char *cwd)
+static void	check_home_path(char **command, char ***envp)
 {
 	char	*tmp;
 	char 	*ret;
@@ -58,11 +60,9 @@ static void	check_home_path(char **command, char ***envp, char *cwd)
 
 static int	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
 {
-	int	comillas;
-
 	ret[indexes[0]] = get_tranche(mshell, s, &indexes[1]);
 	if (ft_strncmp(ret[indexes[0]], "~/", 2) == 0)
-		check_home_path(&ret[indexes[0]], &mshell->envp, mshell->cwd);
+		check_home_path(&ret[indexes[0]], &mshell->envp);
 	if (!ret[indexes[0]])
 		return (0);
 	indexes[1] += skip_char(&s[indexes[1]]);

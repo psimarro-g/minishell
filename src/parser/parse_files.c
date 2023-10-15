@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/10/15 09:31:12 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:07:01 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	parse_files(t_mshell *args, char *token, char *line, int *i)
 		(*i)++;
 	if (is_token(line, *i) || !line[*i])
 	{
-		syntax_error(args, file_name, line, i);
+		syntax_error(args, line, i);
 		return (0);
 	}
 	file_name = get_tranche(args, line, i);

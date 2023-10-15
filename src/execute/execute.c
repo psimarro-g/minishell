@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:24:45 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 10:16:00 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:04:34 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ static int	execute_pipes(t_mshell *mshell)
 			act = act->next;
 		}
 	}
-	return (get_status(pid, mshell->num_commands, mshell->exit_status));
+	return (get_status(pid, mshell->exit_status));
 }
 
 int	execute(t_mshell *mshell)

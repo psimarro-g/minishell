@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 07:47:57 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 10:07:43 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 10:58:16 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,14 @@ static char	*check_absolute_path(char *command, t_mshell *mshell, int *i)
 		ret = NULL;
 		act = ms_lstlast(mshell->cmds);
 		act->error = 1;
-		mshell->exit_status = 126;
 		ft_printf_fd(2, "minishell: %s: %s\n", path, strerror(errno));
+		if (errno == ENOENT)
+			mshell->exit_status = 127;
+		else
+			mshell->exit_status = 126;
 	}
 	free(path);
-	*i = !ft_strncmp(path, "~/", 2) || !ft_strncmp(path, "./", 2) || !ft_strncmp(path, "../", 3);
+	*i = !ft_strncmp(path, "~/", 2) || !ft_strncmp(path, "./", 2) || !ft_strncmp(path, "../", 3) || command[1] == '/';
 	return (ret);
 }
 

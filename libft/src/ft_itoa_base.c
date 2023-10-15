@@ -6,13 +6,13 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 16:42:22 by psimarro          #+#    #+#             */
-/*   Updated: 2022/06/08 16:42:29 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:15:44 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 
-char	*ft_itoa_base(long long unsigned  int n, int base, char *elm_base)
+char	*ft_itoa_base(long long unsigned int n, int base, char *elm_base)
 {
 	long long int	nn;
 	char			*ret;

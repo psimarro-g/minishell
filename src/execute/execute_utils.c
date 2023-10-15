@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 12:48:05 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:03:21 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	change_fds(t_cmdlist *act, int pipe_fd[2])
 	close(pipe_fd[1]);
 }
 //Hacemos el cambio de señales para que coja bien las señales
-int	get_status(int pid, int num_commands, int exit_status)
+int	get_status(int pid, int exit_status)
 {
 	int	status;
 

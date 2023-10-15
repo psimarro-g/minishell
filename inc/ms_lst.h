@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 08:36:00 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/26 18:06:40 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:14:44 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 typedef struct s_cmdlist
 {
-	struct s_cmdlist    *next;
+	struct s_cmdlist	*next;
 	struct s_cmdlist	*pre;
 	char				*cmd;
 	char				*path;
@@ -37,4 +37,4 @@ void		ms_lstdelone(t_cmdlist *lst);
 void		ms_lstclear(t_cmdlist **lst);
 int			ms_lstsize(t_cmdlist *lst);
 
-# endif
+#endif

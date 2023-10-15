@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils_hd.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 10:35:02 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/21 13:55:36 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:09:41 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static char	*get_dquotes_hd(const char *line, int *i)
 {
 	int		j;
 	char	*ret;
-	char	*env_var;
 
 	(*i)++;
 	j = *i;

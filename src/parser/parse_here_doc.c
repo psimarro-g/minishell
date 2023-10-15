@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 10:17:09 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/26 19:29:40 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:06:52 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	parse_here_doc(t_mshell *args, char *token, char *line, int *i)
 		(*i)++;
 	if (is_token(line, *i) || !line[*i])
 	{
-		syntax_error(args, eof, line, i);
+		syntax_error(args, line, i);
 		return (0);
 	}
 	expand = get_eof(&eof, line, i);

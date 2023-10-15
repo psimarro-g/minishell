@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/10/15 10:11:55 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:13:56 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ typedef struct s_mshell
 
 /* MAIN.C */
 # ifdef __APPLE__
+
 void			rl_replace_line(char *s, int a);
 void			rl_redisplay(void);
 int				rl_on_new_line(void);
@@ -121,7 +122,7 @@ int				execute(t_mshell *mshell);
 /* EXECUTE/EXECUTE_UTILS.C*/
 int				probar_comandos(t_cmdlist *args, t_mshell *mshell);
 void			change_fds(t_cmdlist *act, int pipe_fd[2]);
-int				get_status(int pid, int size, int exit_status);
+int				get_status(int pid, int exit_status);
 int				is_simple(t_mshell *mshell);
 int				built_in(char *cmd);
 
@@ -153,12 +154,14 @@ char			*get_single_quotes(const char *line, int *i);
 
 /* PARSER/PARSE_UTILS_HD.C*/
 int				get_eof(char **eof, char *line, int *i);
-void			expand_heredoc(t_mshell *mshell, int fd[2], char *line, int expand);
+void			expand_heredoc(t_mshell *mshell, \
+					int fd[2], char *line, int expand);
 
 /* PARSER/PARSE_UTILS.C*/
 void			ft_error(char *s, t_mshell *mshell, int exit_code);
-void			syntax_error(t_mshell *args, char *eof, char *line, int *i);
-char			**split_and_expand(char const *s, int *i, t_mshell mshell, char *token);
+void			syntax_error(t_mshell *args, char *line, int *i);
+char			**split_and_expand(char const *s, int *i, \
+					t_mshell mshell, char *token);
 
 /* PARSER/PARSE_UTILS2.C */
 void			cpy_lst(char **to, char **from, int start);

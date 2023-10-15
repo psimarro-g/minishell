@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/03 12:49:55 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:01:04 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,30 +49,6 @@ static void	show_ini_data(t_mshell *mshell, char *mshell_path)
 	}
 	mshell->mshell_dir = mshell_dir;
 	//printf(GREEN"  cwd: %s\n\n"RESET, mshell->cwd);
-}
-
-static void	show_cmds(t_cmdlist *cmds)
-{
-	t_cmdlist	*act;
-	int			i;
-
-	if (!cmds->cmd)
-		return ;
-	act = cmds;
-	while (act)
-	{
-		printf("cmd: %s ", act->cmd);
-		printf("path: %s ", act->path);
-		printf("args: ");
-		i = 0;
-		while (act->args[i] != NULL)
-		{
-			printf("%s ", act->args[i]);
-			i++;
-		}
-		printf("\n");
-		act = act->next;
-	}
 }
 
 static void	free_commands(t_mshell *mshell)
