@@ -2,7 +2,7 @@
 	minishell
 </h1>
 <h2 align="center">
-	<b><i>Creating a shell in C</i></b><br>
+	<i>Creating a shell in C</i><br>
 </h2>
 
 <p align="center">
@@ -19,37 +19,44 @@
 
 <br>
 
+## The shell
+This project comprises a simple yet functional shell that aims to replicate bash's basic functionality.
 
-PSEUDOCODIGO
-
-    Main:  
-            -Inicializar
-                cambiar las señales -> haciendo una global para saber si hay algun proceso en ejecucion
-                inicializacion de cosas (structs y eso)
-
-            -Bucle infinito:
-                -Leer linea -> char *
-                -parsear(char *) -> struct
-                -ejecutar(struct) -> int (codigo de ultimo programa ejecutado)
-
-
-    Caracteres especiales son : << >> < > | $ -
-
-    Parsear:   in: char *       out: struct
-
-            - Recorremos el comando
-            - Guardamos el string en su sitio activando las flags correspondientes en la estructura principal:
-                -Reconocer que es el string (<, << , $var) y coger sus datos correspondientes (si los tiene)
-                    -Hasta que no encuentras un caracter especial, sigue siendo el mismo comando
-                -Guardarlo en su sitio en la estructura con los datos necesarios (si te lllega <, guardar el siguiente string que será el archivo)
-            -Rellenar las estructura con cosas que no se pueden sacar del string directamente (el path por ejemplo)
-
-    
-    Ejectuar:   in: struc       out: int
-
-            -Diferenciaria ejecución simple o pipex
-            -Llama a pipex si hace falta -> funcion pipex()
-            -Single command
+It should:
+- Display a prompt when waiting for a new command.
+- Have a working history.
+- Search and launch the right executable (based on the PATH variable or using a
+relative or an absolute path).
+- Not use more than one global variable.
+- Not interpret unclosed quotes or special characters which are not required by the
+subject such as \ (backslash) or ; (semicolon).
+- Handle ’ (single quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence.
+- Handle " (double quote) which should prevent the shell from interpreting the metacharacters in the quoted sequence except for $ (dollar sign).
+- Implement redirections:
+  - < should redirect input.
+  - \> should redirect output.
+  - << should be given a delimiter, then read the input until a line containing the
+delimiter is seen. However, it doesn’t have to update the history!
+  - \>\> should redirect output in append mode.
+- Implement pipes ( | character). The output of each command in the pipeline is
+connected to the input of the next command via a pipe.
+- Handle environment variables ($ followed by a sequence of characters) which
+should expand to their values.
+- Handle $? which should expand to the exit status of the most recently executed
+foreground pipeline.
+- Handle ctrl-C, ctrl-D and ctrl-\ which should behave like in bash.
+- In interactive mode:
+  - ctrl-C displays a new prompt on a new line.
+  - ctrl-D exits the shell.
+  - ctrl-\ does nothing.
+- The shell also implements the following builtins:
+  - echo with option -n
+  - cd with only a relative or absolute path
+  - pwd with no options
+  - export with no options
+  - unset with no options
+  - env with no options or arguments
+  - exit with no options
 
 <h2 align="center">
 	<b><i>Contributors</i></b><br>
