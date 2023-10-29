@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 13:59:15 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/29 21:20:53 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **envp)
 		envp = NULL;
 	}
 	ini_shell(&mshell, envp);
-	//fancy_logo();
+	fancy_logo();
 	show_ini_data(&mshell, argv[0]);
 	rl_clear_history();
 	loop_mshell(&mshell);
