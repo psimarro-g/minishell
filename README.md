@@ -17,9 +17,13 @@
 	Mac OS X 10.15.7 (Darwin Kernel Version 19.6.0)<br>
 </p>
 
-<br>
 
 ## The shell
+
+<p align="center">
+<img src="https://github.com/psimarro-g/minishell/blob/main/image/Screen%20Shot%202023-10-29%20at%209.22.39%20PM.png">
+</p>
+
 This project comprises a simple yet functional shell that aims to replicate bash's basic functionality.
 
 It should:
