@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 09:42:15 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/26 18:10:06 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:47:35 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	probar_comandos(t_cmdlist *args, t_mshell *mshell)
 {
 	if (ft_strcmp(args->cmd, "cd") == 0)
-		exit(cd(args->args[1], &mshell->cwd, &mshell->envp));
+		exit(cd(&args->args[1], &mshell->cwd, &mshell->envp));
 	if (ft_strcmp(args->cmd, "env") == 0)
 		exit(env(mshell->envp));
 	if (ft_strcmp(args->cmd, "exit") == 0)
@@ -53,16 +53,20 @@ void	change_fds(t_cmdlist *act, int pipe_fd[2])
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 }
+
 //Hacemos el cambio de señales para que coja bien las señales
-int	get_status(int pid, int num_commands)
+int	get_status(int pid, int exit_status)
 {
 	int	status;
 
 	ignore_signals();
 	waitpid(pid, &status, 0);
-	while (waitpid(-1, NULL, 0) != -1) ;
+	while (waitpid(-1, NULL, 0) != -1)
+		;
 	change_signals();
 	g_executing = 0;
+	if (pid == -1)
+		return (exit_status);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	if (WIFSIGNALED(status))
@@ -72,8 +76,20 @@ int	get_status(int pid, int num_commands)
 
 int	is_simple(t_mshell *mshell)
 {
-	return (mshell->num_commands == 1 && (ft_strncmp(mshell->cmds->cmd, "cd", 2) == 0
-		|| ft_strncmp(mshell->cmds->cmd, "exit", 4) == 0
-		|| ft_strncmp(mshell->cmds->cmd, "export", 6) == 0
-		|| ft_strncmp(mshell->cmds->cmd, "unset", 5) == 0));
+	return (mshell->num_commands == 1 && (!ft_strcmp(mshell->cmds->cmd, "cd") \
+				|| ft_strcmp(mshell->cmds->cmd, "exit") == 0 \
+				|| ft_strcmp(mshell->cmds->cmd, "export") == 0 \
+				|| ft_strcmp(mshell->cmds->cmd, "unset") == 0));
+}
+
+int	built_in(char *cmd)
+{
+	return (ft_strcmp(cmd, "cd") == 0
+		|| ft_strcmp(cmd, "exit") == 0
+		|| ft_strcmp(cmd, "echo") == 0
+		|| ft_strcmp(cmd, "env") == 0
+		|| ft_strcmp(cmd, "minishell") == 0
+		|| ft_strcmp(cmd, "pwd") == 0
+		|| ft_strcmp(cmd, "export") == 0
+		|| ft_strcmp(cmd, "unset") == 0);
 }

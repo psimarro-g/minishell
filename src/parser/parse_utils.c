@@ -3,26 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
+/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 08:32:10 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/18 12:37:35 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/15 12:08:00 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-void	ft_error(char *s, t_mshell *mshell, int exit_code)
+void	syntax_error(t_mshell *args, char *line, int *i)
 {
-	mshell->error = 1;
-	if (mshell)
-		mshell->exit_status = exit_code;
-	if (s)
-		ft_putstr_fd(s, 1);
-}
+	char	*eof;
 
-void	syntax_error(t_mshell *args, char *eof, char *line, int *i)
-{
 	if (!line[*i])
 	{
 		printf("minishell: syntax error near unexpected token `newline'\n");
@@ -45,11 +38,22 @@ static int	skip_char(char const *s)
 	return (i);
 }
 
+static void	check_home_path(char **command, char ***envp)
+{
+	char	*tmp;
+	char	*ret;
+
+	tmp = expand_var("$HOME", *envp, 0);
+	ret = ft_strjoin(tmp, &command[0][1]);
+	free(*command);
+	*command = ret;
+}
+
 static int	copy_word(char **ret, const char *s, int *indexes, t_mshell *mshell)
 {
-	int	comillas;
-
 	ret[indexes[0]] = get_tranche(mshell, s, &indexes[1]);
+	if (ft_strncmp(ret[indexes[0]], "~/", 2) == 0)
+		check_home_path(&ret[indexes[0]], &mshell->envp);
 	if (!ret[indexes[0]])
 		return (0);
 	indexes[1] += skip_char(&s[indexes[1]]);

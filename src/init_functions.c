@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 11:25:05 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/16 10:43:32 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:25:15 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 char	*ft_getcwd(void)
 {
-	char *ret;
+	char	*ret;
 
 	ret = malloc(sizeof(char) * PATH_MAX);
-	if(getcwd(ret, PATH_MAX) != NULL)
+	if (getcwd(ret, PATH_MAX) != NULL)
 		return (ret);
 	free(ret);
 	return (NULL);
@@ -41,8 +41,6 @@ void	ini_shell(t_mshell *mshell, char **envp)
 	int		lvl;
 
 	ft_bzero(mshell, sizeof(t_mshell));
-	dup2(STDIN_FILENO, mshell->fd[0]);
-	dup2(STDOUT_FILENO, mshell->fd[1]);
 	mshell->envp = clone_envp(envp);
 	mshell->cwd = ft_getcwd();
 	mshell->exit_status = 0;

@@ -6,13 +6,13 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 18:58:08 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/26 17:59:20 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:42:06 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
 
-static char *trim_puntos(char *line)
+static char	*trim_puntos(char *line)
 {
 	int		i;
 	char	*aux;
@@ -23,7 +23,6 @@ static char *trim_puntos(char *line)
 		i--;
 	aux = ft_substr(line, 0, i + 1);
 	free(line);
-	printf ("debug: trimmed puntos '%s'\n", aux);
 	return (aux);
 }
 

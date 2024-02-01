@@ -6,7 +6,7 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 09:37:38 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/26 17:33:26 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 13:43:19 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/wait.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <string.h>
+# include <errno.h>
 # include "../libft/inc/libft.h"
 # include "ms_lst.h"
 
@@ -49,7 +51,6 @@ extern int	g_executing;
 typedef struct s_mshell
 {
 	t_cmdlist	*cmds;
-	int			fd[2];
 	char		**envp;
 	char		*cwd;
 	char		*mshell_dir;
@@ -63,6 +64,7 @@ typedef struct s_mshell
 
 /* MAIN.C */
 # ifdef __APPLE__
+
 void			rl_replace_line(char *s, int a);
 void			rl_redisplay(void);
 int				rl_on_new_line(void);
@@ -90,7 +92,7 @@ char			**clone_envp(char **envp);
 void			fancy_logo(void);
 
 /* BUILT_INS/CD.C */
-int				cd(char *path, char **cwd, char ***envp);
+int				cd(char **path, char **cwd, char ***envp);
 
 /* BUILT_INS/ECHO.C */
 int				echo(char **args);
@@ -120,8 +122,9 @@ int				execute(t_mshell *mshell);
 /* EXECUTE/EXECUTE_UTILS.C*/
 int				probar_comandos(t_cmdlist *args, t_mshell *mshell);
 void			change_fds(t_cmdlist *act, int pipe_fd[2]);
-int				get_status(int pid, int size);
+int				get_status(int pid, int exit_status);
 int				is_simple(t_mshell *mshell);
+int				built_in(char *cmd);
 
 /* PARSER/PARSER.C */
 void			parse_line(char *line, t_mshell *mshell);
@@ -135,6 +138,7 @@ int				parse_files(t_mshell *args, char *token, char *line, int *i);
 
 /* PARSER/PARSE_FUNCTIONS.C*/
 int				parse_command(t_mshell *args, char *token, char *line, int *i);
+int				check_access(char *path, char **ret);
 
 /* PARSER/PARSE_HEREDOC.C */
 int				parse_here_doc(t_mshell *args, char *token, char *line, int *i);
@@ -144,25 +148,35 @@ int				parse_pipe(t_mshell *args, char *token, char *line, int *i);
 
 /* PARSER/PARSE_QUOTES.C*/
 char			*get_tranche(t_mshell *mshell, const char *line, int *i);
-int				check_dquotes(const char *line, int i);
-char			*ft_strjoin_free(char *s1, char *s2);
 char			*get_var(const char *line, int *i);
 char			*get_single_quotes(const char *line, int *i);
 
 /* PARSER/PARSE_UTILS_HD.C*/
 int				get_eof(char **eof, char *line, int *i);
-void			expand_heredoc(t_mshell *mshell, int fd[2], char *line, int expand);
+void			expand_heredoc(t_mshell *mshell, \
+					int fd[2], char *line, int expand);
 
 /* PARSER/PARSE_UTILS.C*/
-void			ft_error(char *s, t_mshell *mshell, int exit_code);
-void			syntax_error(t_mshell *args, char *eof, char *line, int *i);
-char			**split_and_expand(char const *s, int *i, t_mshell mshell, char *token);
+void			syntax_error(t_mshell *args, char *line, int *i);
+char			**split_and_expand(char const *s, int *i, \
+					t_mshell mshell, char *token);
 
 /* PARSER/PARSE_UTILS2.C */
 void			cpy_lst(char **to, char **from, int start);
 int				is_token(const char *s, int i);
-int				check_comillas(char c, const char *s, int i);
 int				count_words(char const *s);
 void			check_path(t_cmdlist **act, char *path);
+int				is_directory(const char *path);
+
+/* PARSER/PARSE_UTILS3.C */
+void			free_split(char **split);
+void			ft_error(char *s, t_mshell *mshell, int exit_code);
+int				check_comillas(char c, const char *s, int i);
+char			*ft_strjoin_free(char *s1, char *s2);
+
+/* PARSER/PARSE_UTILS4.C */
+int				check_dquotes(const char *line, int i);
+void			handle_path_err(t_mshell *mshell, char **ret, char *path);
+char			*loop_paths(char **paths, char **path, char *command);
 
 #endif

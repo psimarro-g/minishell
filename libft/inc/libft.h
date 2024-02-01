@@ -6,7 +6,7 @@
 /*   By: dmontoro <dmontoro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/08 16:37:55 by psimarro          #+#    #+#             */
-/*   Updated: 2023/09/12 20:39:35 by dmontoro         ###   ########.fr       */
+/*   Updated: 2023/10/03 12:29:00 by dmontoro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #  define OPEN_MAX 1024
 # endif
 
+# define FUN_NMB 7
 # define BUFFER_SIZE	100
 # define FSPECS			"%cdisxXpu"
 # define STD_OUT		1
@@ -127,5 +128,20 @@ void			sign(t_tprint *tab, char **nn, char c);
 void			sign_draw(t_tprint *tab, int k, char *nn, char c);
 char			*get_next_line(int fd);
 void			ft_strdel(char **as);
+
+char			*ft_itoh(unsigned int num);
+void			ft_swap(char *a, char *b);
+void			ft_strrev(char *s);
+char			*ft_uitoh(unsigned long long int num);
+int				ft_printf_fd(int fd, char const *s, ...);
+int				parse_var(const char c, int fd, va_list list);
+int				parse_char(const char c, int fd, va_list list);
+int				parse_string(const char c, int fd, va_list list);
+int				parse_per(const char c, int fd, va_list list);
+int				parse_int(const char c, int fd, va_list list);
+int				parse_uint(const char c, int fd, va_list list);
+int				parse_hexa(const char c, int fd, va_list list);
+int				parse_pointer(const char c, int fd, va_list list);
+void			ft_putunbr_fd(unsigned int n, int fd);
 
 #endif

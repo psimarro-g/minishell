@@ -5,18 +5,46 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2023/09/26 18:27:10 by psimarro         ###   ########.fr       */
+/*   Created: 2023/10/15 11:50:27 by psimarro          #+#    #+#             */
+/*   Updated: 2023/10/15 13:26:11 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/minishell.h"
+
+static void	handle_file_err(t_mshell *args, int file, char *argv, int i)
+{
+	t_cmdlist	*last;
+
+	last = ms_lstlast(args->cmds);
+	if (file == -1)
+	{
+		ft_printf_fd(2, "minishell: %s: %s\n", argv, strerror(errno));
+		last->error = 1;
+		args->exit_status = 1;
+	}
+	if (i == 1)
+	{
+		if (last->input != -1)
+			close(last->input);
+		last->input = file;
+	}
+	else
+	{
+		if (last->output != -1)
+			close(last->output);
+		last->output = file;
+	}
+}
 
 static void	ms_open_file(t_mshell *args, char *argv, int i)
 {
 	int			file;
 	t_cmdlist	*last;
 
+	last = ms_lstlast(args->cmds);
+	if (last->error)
+		return ;
 	file = 0;
 	if (i == 1)
 		file = open(argv, O_RDONLY, 0777);
@@ -24,22 +52,13 @@ static void	ms_open_file(t_mshell *args, char *argv, int i)
 		file = open(argv, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else if (i == 2)
 		file = open(argv, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	last = ms_lstlast(args->cmds);
-	if (i == 1 && file == -1)
-	{
-		printf("minishell: %s: No such file or directory\n", argv);
-		last->error = 1;
-	}
-	if (i == 1)
-		last->input = file;
-	else
-		last->output = file;
+	handle_file_err(args, file, argv, i);
 }
 
 int	parse_files(t_mshell *args, char *token, char *line, int *i)
 {
-	char *file_name;
-	int file_option;
+	char	*file_name;
+	int		file_option;
 
 	file_option = 0;
 	if (!ft_strncmp(token, "<", 1))
@@ -55,11 +74,10 @@ int	parse_files(t_mshell *args, char *token, char *line, int *i)
 		(*i)++;
 	if (is_token(line, *i) || !line[*i])
 	{
-		syntax_error(args, file_name, line, i);
+		syntax_error(args, line, i);
 		return (0);
 	}
 	file_name = get_tranche(args, line, i);
-	printf("DEBUG: Function parse_files: file_name: \'%s\'\n", file_name);
 	ms_open_file(args, file_name, file_option);
 	free(file_name);
 	return (0);

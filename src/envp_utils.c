@@ -6,38 +6,39 @@
 /*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:16:22 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/09/07 17:49:57 by psimarro         ###   ########.fr       */
+/*   Updated: 2023/10/15 11:24:28 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/minishell.h"
 
-//Sets the variable env to value, if it doesnt exist it creates it at the end of envp
-//env is the variable name, value is the value
+/*
+Sets the variable env to value,
+if it doesnt exist it creates it at the end of envp
+env is the variable name, value is the value
+*/
 void	set_env(char *env, char *value, char ***envp)
 {
 	int		i;
-	char	*var_equals;
+	char	*var_eq;
 	char	*new_env;
 
 	i = 0;
-	var_equals = ft_strjoin(env, "=");
-	while ((*envp)[i] != NULL && ft_strncmp((*envp)[i], var_equals, ft_strlen(var_equals)) != 0)
+	var_eq = ft_strjoin(env, "=");
+	while ((*envp)[i] && ft_strncmp((*envp)[i], var_eq, ft_strlen(var_eq)))
 		i++;
 	if ((*envp)[i] == NULL)
 	{
-		//printf("DEBUG: %s doesnt exist, creating it\n", env);
-		new_env = ft_strjoin(var_equals, value);
+		new_env = ft_strjoin(var_eq, value);
 		(*envp) = add_new_var(*envp, new_env);
-		free(new_env); 
+		free(new_env);
 	}
 	else
 	{
-		//printf("DEBUG: Function set_env: %s exists, changing it\n", env);
 		free((*envp)[i]);
-		(*envp)[i] = ft_strjoin(var_equals, value);
+		(*envp)[i] = ft_strjoin(var_eq, value);
 	}
-	free(var_equals);
+	free(var_eq);
 }
 
 //This doesnt free envp because it puts the old envps in the new array
@@ -55,7 +56,7 @@ char	**add_new_var(char **envp, char *new_var)
 	i = 0;
 	while (envp[i] != NULL)
 	{
-		new_envp[i] =envp[i];
+		new_envp[i] = envp[i];
 		i++;
 	}
 	new_envp[i] = ft_strdup(new_var);
@@ -74,17 +75,15 @@ char	**delete_var(char **envp, char *key)
 	i = 0;
 	while (envp[i] != NULL && ft_strncmp(envp[i], key, ft_strlen(key)) != 0)
 		i++;
-
 	if (envp[i] == NULL)
 		return (envp);
-
 	free(envp[i]);
 	while (envp[i] != NULL)
 	{
 		envp[i] = envp[i + 1];
 		i++;
 	}
-	envp[i- 1] = NULL;
+	envp[i - 1] = NULL;
 	return (envp);
 }
 
@@ -94,6 +93,8 @@ char	**clone_envp(char **envp)
 	char	**new_envp;
 
 	i = 0;
+	if (!envp)
+		return (NULL);
 	while (envp[i] != NULL)
 		i++;
 	new_envp = malloc(sizeof(char *) * (i + 1));
