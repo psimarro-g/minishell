@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 06:57:42 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/29 21:20:53 by psimarro         ###   ########.fr       */
+/*   Updated: 2024/02/01 21:17:20 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ static void	show_ini_data(t_mshell *mshell, char *mshell_path)
 		set_env("MSHELLDIR", mshell_dir, &mshell->envp);
 	}
 	mshell->mshell_dir = mshell_dir;
-	//printf(GREEN"  cwd: %s\n\n"RESET, mshell->cwd);
 }
 
 static void	free_commands(t_mshell *mshell)
@@ -92,7 +91,6 @@ int	main(int argc, char **argv, char **envp)
 	t_mshell		mshell;
 	int				free_envp;
 
-	//atexit(show_leaks);
 	if (argc != 1 || argv[1] || !envp)
 		return (0);
 	if (!envp)

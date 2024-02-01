@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: psimarro <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: psimarro <psimarro@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 10:15:41 by dmontoro          #+#    #+#             */
-/*   Updated: 2023/10/15 11:30:41 by psimarro         ###   ########.fr       */
+/*   Updated: 2024/02/01 21:16:46 by psimarro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	interrupt_handler(int signo)
 	{
 		rl_on_new_line();
 		printf("\n");
+		rl_replace_line("", 0);
 		rl_redisplay();
 	}
 }
